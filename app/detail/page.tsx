@@ -5,18 +5,96 @@ const DetailPage = () => {
     <>
       <div className="w-full h-28 bg-yellow-200 mb-10"></div>
       <section className="flex gap-12 justify-center">
-        <div className="w-[600px]">
-          <div className="w-full h-[400px] bg-teal-900 mb-6"></div>
-          <p>댓글 3</p>
-          <div className="w-full h-[100px] bg-yellow-200 my-2 pt-2 pl-3">
+        <div className="w-[700px]">
+          <div className="w-full h-[440px] bg-slate-200 mb-6 rounded-md"></div>
+          <p>
+            댓글
+            <span className="text-rose-600 ml-2">3</span>
+          </p>
+          <div className="w-full h-[100px] bg-yellow-200 my-2 pt-2 pl-3 rounded-md">
             <p>닉네임 : </p>
             <p>댓글을 입력해주세요.</p>
           </div>
           <div className="flex justify-end">
-            <button className="bg-gray-500">등록하기</button>
+            <button className="bg-amber-500 w-14 h-6 text-sm rounded-md">
+              등록하기
+            </button>
+          </div>
+          <div>
+            <div className="w-full h-[100px] flex flex-col justify-between bg-yellow-200 my-2 py-2 pl-3 rounded-md">
+              <div>
+                <p>닉네임 : test</p>
+                <p>This comment is for the testing.</p>
+              </div>
+              <div className="flex justify-end gap-2 mr-4">
+                <button className="bg-rose-100 w-10 h-6 rounded-md text-sm">
+                  수정
+                </button>
+                <button className="bg-gray-100 w-10 h-6 rounded-md text-sm">
+                  삭제
+                </button>
+              </div>
+            </div>
+            <div className="w-full h-[100px] flex flex-col justify-between bg-yellow-200 my-2 py-2 pl-3 rounded-md">
+              <div>
+                <p>닉네임 : test</p>
+                <p>This comment is for the testing.</p>
+              </div>
+              <div className="flex justify-end gap-2 mr-4">
+                <button className="bg-rose-100 w-10 h-6 rounded-md text-sm">
+                  수정
+                </button>
+                <button className="bg-gray-100 w-10 h-6 rounded-md text-sm">
+                  삭제
+                </button>
+              </div>
+            </div>
+            <div className="w-full h-[100px] flex flex-col justify-between bg-yellow-200 my-2 py-2 pl-3 rounded-md">
+              <div>
+                <p>닉네임 : test</p>
+                <p>This comment is for the testing.</p>
+              </div>
+              <div className="flex justify-end gap-2 mr-4">
+                <button className="bg-rose-100 w-10 h-6 rounded-md text-sm">
+                  수정
+                </button>
+                <button className="bg-gray-100 w-10 h-6 rounded-md text-sm">
+                  삭제
+                </button>
+              </div>
+            </div>
           </div>
         </div>
-        <div className="w-[250px] h-[400px] bg-teal-900"></div>
+        <div className="w-[290px] h-[440px] flex flex-col justify-between bg-slate-200 p-4 rounded-md">
+          <div className=" flex gap-4 items-center">
+            <img
+              className="w-12 object-cover"
+              src="https://velog.velcdn.com/images/innes_kwak/post/24d0e46e-8dd7-4e59-becd-52447e2efeb6/image.png"
+              alt=""
+            />
+            <p className="text-lg font-semibold">닉네임</p>
+            <p>⭐️</p>
+          </div>
+          <div className="flex flex-col my-4 gap-2">
+            <p className="mb-7 text-sm">날짜 2024-03-18</p>
+            <p className="text-xl font-semibold">제목 : 그림 제목</p>
+            <p className="text-sm">
+              설명 : 이 그림은 완전 잘그렸고 어쩌고 저쩌고 우주여행
+            </p>
+            <p className="mt-7">
+              댓글 <span className="text-rose-600 mr-2">3</span>
+              좋아요 <span className="text-rose-600">20</span>
+            </p>
+          </div>
+          <div className="flex flex-col gap-2">
+            <p className="font-semibold">🏆 유저가 그린 그림 Top 3</p>
+            <div className="w-72 h-20  flex flex-wrap gap-2 items-center">
+              <div className="w-20 h-full bg-white"></div>
+              <div className="w-20 h-full bg-white"></div>
+              <div className="w-20 h-full bg-white"></div>
+            </div>
+          </div>
+        </div>
       </section>
     </>
   );
