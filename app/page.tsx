@@ -14,5 +14,5 @@ export default async function Index() {
 
   const isSupabaseConnected = canInitSupabaseClient();
 
-  return <div className=""></div>;
+  return <div className="">mainpage 입니다.</div>;
 }
