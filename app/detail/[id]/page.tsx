@@ -1,5 +1,6 @@
 "use client";
 
+import { useQuery } from "@tanstack/react-query";
 import React from "react";
 
 const DetailPage = ({ params }: { params: { id: string } }) => {
