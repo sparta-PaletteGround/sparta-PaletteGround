@@ -1,11 +1,12 @@
-// import { createClient } from "@/utils/supabase/server";
+import { createClient } from "@/app/_utils/supabase/server";
+import logo from "@/app/_assets/image/logo-line.png";
+import logoCurve from "@/app/_assets/image/logo-curve.png";
+import Image, { StaticImageData } from "next/image";
 
 export default async function Index() {
   const canInitSupabaseClient = () => {
-    // This function is just for the interactive tutorial.
-    // Feel free to remove it once you have Supabase connected.
     try {
-      // createClient();
+      createClient();
       return true;
     } catch (e) {
       return false;
@@ -14,5 +15,5 @@ export default async function Index() {
 
   const isSupabaseConnected = canInitSupabaseClient();
 
-  return <div className="">mainpage 입니다.</div>;
+  return <div>main</div>;
 }
