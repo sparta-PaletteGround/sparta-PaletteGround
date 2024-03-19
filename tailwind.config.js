@@ -6,6 +6,12 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontSize: {
+        small: "0.875rem",
+        medium: "1rem",
+        large: "1.25rem",
+        xLarge: "1.5rem",
+      },
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
@@ -18,7 +24,7 @@ module.exports = {
         PurpleLight: "#D1B7DB",
         PurplePale: "#EAD6F1",
         YellowDark: "#FDD037",
-        YellowPale: "#FFF2C8",
+        YellowPale: "#FFE796",
         Background: "#F9EFE7",
       },
     },
