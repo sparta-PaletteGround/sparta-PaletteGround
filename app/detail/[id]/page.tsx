@@ -1,19 +1,19 @@
 "use client";
 
-import { getPost } from "@/app/_components/detail/detail-api";
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+
+import { getSinglePost } from "@/app/_components/detail-api/detail-api";
 
 const DetailPage = ({ params }: { params: { id: string } }) => {
-  const id = params.id;
+  const id = +params.id;
 
   const {
     data: post,
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["post"],
-    queryFn: getPost,
+    queryKey: ["post", id],
+    queryFn: () => getSinglePost(id),
   });
 
   if (isLoading) {
@@ -23,7 +23,7 @@ const DetailPage = ({ params }: { params: { id: string } }) => {
     return <div>Error</div>;
   }
 
-  // const { id, pictureId, pictureURL, title, description, userNickname } = post;
+  console.log("post", post);
 
   return (
     <>
@@ -33,7 +33,13 @@ const DetailPage = ({ params }: { params: { id: string } }) => {
         {/* 좌측 박스 Wrapper */}
         <div className="w-[600px]">
           {/* 좌측 상단 박스 */}
-          <div className="w-full h-[370px] bg-PurplePale mb-4 rounded-md"></div>
+          <div className="w-full h-[370px] bg-PurplePale mb-4 p-4 rounded-md">
+            {/* <img
+              src={post[0].drawing_url}
+              alt=""
+              className="mx-auto max-w-full max-h-full object-cover rounded-md"
+            /> */}
+          </div>
           {/* 좌측 하단 댓글창 */}
           <p className="text-sm">
             댓글
