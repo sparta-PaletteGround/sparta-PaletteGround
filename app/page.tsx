@@ -1,7 +1,6 @@
 import { createClient } from "@/app/_utils/supabase/server";
-import logo from "@/app/_assets/image/logo-line.png";
-import logoCurve from "@/app/_assets/image/logo-curve.png";
-import Image, { StaticImageData } from "next/image";
+import Carousel from "./_components/main/Carousel";
+import MainContents from "./_components/main/MainContents";
 
 export default async function Index() {
   const canInitSupabaseClient = () => {
@@ -15,5 +14,10 @@ export default async function Index() {
 
   const isSupabaseConnected = canInitSupabaseClient();
 
-  return <div className="bg-PurpleLight h-[500px]">main</div>;
+  return (
+    <>
+      <Carousel />
+      <MainContents />
+    </>
+  );
 }

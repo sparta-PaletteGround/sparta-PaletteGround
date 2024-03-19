@@ -6,6 +6,12 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontSize: {
+        small: "0.875rem",
+        medium: "1rem",
+        large: "1.25rem",
+        xLarge: "1.5rem",
+      },
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
