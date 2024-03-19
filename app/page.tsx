@@ -3,6 +3,7 @@ import Carousel from "./_components/main/Carousel";
 import WeeklyTheme from "./_components/main/WeeklyTheme";
 import Latest from "./_components/main/Latest";
 import BestPainter from "./_components/main/BestPainter";
+import Home from "./_components/main/Home";
 
 export default async function Index() {
   const canInitSupabaseClient = () => {
@@ -16,12 +17,5 @@ export default async function Index() {
 
   const isSupabaseConnected = canInitSupabaseClient();
 
-  return (
-    <>
-      <Carousel />
-      <WeeklyTheme />
-      <Latest />
-      <BestPainter />
-    </>
-  );
+  return <Home />;
 }
