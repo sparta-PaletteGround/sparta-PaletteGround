@@ -15,5 +15,5 @@ export default async function Index() {
 
   const isSupabaseConnected = canInitSupabaseClient();
 
-  return <div>mainpage</div>;
+  return <div className="bg-PurpleLight h-[500px]">main</div>;
 }
