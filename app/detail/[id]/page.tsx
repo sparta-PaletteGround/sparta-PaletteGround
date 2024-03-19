@@ -7,11 +7,7 @@ import { getSinglePost } from "@/app/_components/detail-api/detail-api";
 const DetailPage = ({ params }: { params: { id: string } }) => {
   const id = +params.id;
 
-  const {
-    data: post,
-    isLoading,
-    isError,
-  } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ["post", id],
     queryFn: () => getSinglePost(id),
   });
@@ -19,26 +15,34 @@ const DetailPage = ({ params }: { params: { id: string } }) => {
   if (isLoading) {
     return <div>Loading...</div>;
   }
-  if (isError) {
+  if (isError || !Array.isArray(data)) {
     return <div>Error</div>;
   }
 
-  console.log("post", post);
+  console.log("data", data);
+  const post = data[0];
+
+  const inputDate = post.created_at;
+  const parsedDate = new Date(inputDate);
+
+  const year = parsedDate.getFullYear();
+  const month = parsedDate.getMonth() + 1;
+  const day = parsedDate.getDate();
+
+  const formattedDate = `${year}년 ${month}월 ${day}일`;
 
   return (
     <>
-      {/* 임시 헤더 */}
-      <div className="w-full h-28 bg-PurpleMedium mb-10"></div>
-      <section className="flex gap-8 justify-center">
+      <section className="flex gap-8 justify-center mt-6">
         {/* 좌측 박스 Wrapper */}
         <div className="w-[600px]">
           {/* 좌측 상단 박스 */}
-          <div className="w-full h-[370px] bg-PurplePale mb-4 p-4 rounded-md">
-            {/* <img
-              src={post[0].drawing_url}
+          <div className="w-full h-[370px] bg-PurplePale mb-4 p-4 rounded-md flex justify-center items-center">
+            <img
+              src={post.drawing_url}
               alt=""
               className="mx-auto max-w-full max-h-full object-cover rounded-md"
-            /> */}
+            />
           </div>
           {/* 좌측 하단 댓글창 */}
           <p className="text-sm">
@@ -123,7 +127,7 @@ const DetailPage = ({ params }: { params: { id: string } }) => {
           </div>
           {/* 날짜, 제목, 설명, 댓글, 좋아요 */}
           <div className="flex flex-col my-4 gap-2">
-            <p className="mb-3 text-sm">날짜 2024-03-18</p>
+            <p className="mb-3 text-sm">날짜 : {formattedDate}</p>
             <p className="text-md font-semibold">제목 : 그림 제목</p>
             <p className="text-sm">
               설명 : 이 그림은 완전 잘그렸고 어쩌고 저쩌고 우주여행
