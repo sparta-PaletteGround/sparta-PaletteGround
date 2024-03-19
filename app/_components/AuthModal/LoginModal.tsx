@@ -4,13 +4,13 @@ import React, { useState } from "react";
 import logo from "@/public/image/logo-line.png";
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
+
 import { createClient } from "@supabase/supabase-js";
 
 const LoginModal = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const router = useRouter();
+
   const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
@@ -24,19 +24,14 @@ const LoginModal = () => {
       password,
     });
     //   if (error) throw error;
-    //   router.push("/"); // 성공 시 홈페이지로 이동
+    // alert("로그인이 완료되었습니다.");
     // } catch (error) {
     //   console.error("로그인 에러:", error.message);
     // }
   };
 
-  // 로그아웃 기능
-  const handleSignOut = async () => {
-    const { error } = await supabase.auth.signOut();
-  };
-
   return (
-    <section className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
+    <section className="z-[100] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
       <div className="modal, flex flex-col justify-center items-center bg-Background w-96 h-[500px]">
         <Link href="/">
           <Image src={logo as StaticImageData} alt="로고이미지" />
@@ -67,7 +62,10 @@ const LoginModal = () => {
         </button>
         <br />
         <div>
-          아직 회원이 아니신가요? <button>회원가입</button>
+          아직 회원이 아니신가요?
+          <Link href="/signup">
+            <p>회원가입</p>
+          </Link>
         </div>
       </div>
     </section>
