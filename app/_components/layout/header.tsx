@@ -10,11 +10,10 @@ interface HeaderNavProps {
 import Image from "next/image";
 import React, { useState } from "react";
 import Logo from "@/public/image/logo-curve.png";
-
-import YellowLinkBtn from "../common/Button";
 import LoginModal from "../AuthModal/LoginModal";
 import SignupModal from "../AuthModal/SignupModal";
 import { supabase } from "@/app/_utils/supabase/supabase";
+import { YellowLinkBtn } from "../common/Button";
 
 const HeaderNav = () => {
   const [isLoginOpen, setIsLoginOpen] = useState<boolean>(false);
