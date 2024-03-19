@@ -1,7 +1,7 @@
 import React from "react";
 import { ThemeImageStyle } from "@/app/_styles/imageStyles";
 import theme from "@/app/_constant/theme";
-import { PurpleLinkBtn } from "../common/Button";
+import { YellowLinkBtn } from "../common/Button";
 
 const WeeklyTheme = () => {
   return (
@@ -13,8 +13,8 @@ const WeeklyTheme = () => {
           <p>{theme.description}</p>
         </div>
       </div>
-      <div>
-        <PurpleLinkBtn href="/" text="자세히 보기" />
+      <div className="w-[1000px] flex justify-end mt-2">
+        <YellowLinkBtn href="/" text="자세히 보기" />
       </div>
     </section>
   );

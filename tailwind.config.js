@@ -24,7 +24,7 @@ module.exports = {
         PurpleLight: "#D1B7DB",
         PurplePale: "#EAD6F1",
         YellowDark: "#FDD037",
-        YellowPale: "#FFF2C8",
+        YellowPale: "#FFE796",
         Background: "#F9EFE7",
       },
     },

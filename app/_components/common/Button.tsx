@@ -9,7 +9,10 @@ export const YellowLinkBtn = ({
   text: string;
 }) => {
   return (
-    <Link href={href} className="bg-YellowDark px-2.5 py-1 rounded-xl">
+    <Link
+      href={href}
+      className="bg-YellowDark px-2.5 py-1 rounded-xl hover:bg-YellowPale"
+    >
       {text}
     </Link>
   );
@@ -23,7 +26,7 @@ export const PurpleLinkBtn = ({
   text: string;
 }) => {
   return (
-    <Link href={href} className="bg-YellowDark px-2.5 py-1 rounded-xl">
+    <Link href={href} className="bg-PurpleMedium px-2.5 py-1 rounded-xl">
       {text}
     </Link>
   );
