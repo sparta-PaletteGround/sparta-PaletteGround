@@ -7,8 +7,11 @@ const DetailPage = () => {
     <>
       <div className="w-full h-28 bg-yellow-200 mb-10"></div>
       <section className="flex gap-12 justify-center">
+        {/* 좌측 박스 Wrapper */}
         <div className="w-[700px]">
+          {/* 좌측 상단 박스 */}
           <div className="w-full h-[440px] bg-slate-200 mb-6 rounded-md"></div>
+          {/* 좌측 하단 댓글창 */}
           <p>
             댓글
             <span className="text-rose-600 ml-2">3</span>
@@ -22,7 +25,10 @@ const DetailPage = () => {
               등록하기
             </button>
           </div>
+          {/* 댓글 리스트 Wrapper */}
           <div>
+            {/* 댓글 map 돌기 */}
+            {/* 댓글 item 1 */}
             <div className="w-full h-[100px] flex flex-col justify-between bg-yellow-200 my-2 py-2 pl-3 rounded-md">
               <div>
                 <p>닉네임 : test</p>
@@ -37,6 +43,7 @@ const DetailPage = () => {
                 </button>
               </div>
             </div>
+            {/* 댓글 item 2 */}
             <div className="w-full h-[100px] flex flex-col justify-between bg-yellow-200 my-2 py-2 pl-3 rounded-md">
               <div>
                 <p>닉네임 : test</p>
@@ -51,6 +58,7 @@ const DetailPage = () => {
                 </button>
               </div>
             </div>
+            {/* 댓글 item 3 */}
             <div className="w-full h-[100px] flex flex-col justify-between bg-yellow-200 my-2 py-2 pl-3 rounded-md">
               <div>
                 <p>닉네임 : test</p>
@@ -67,7 +75,9 @@ const DetailPage = () => {
             </div>
           </div>
         </div>
+        {/* 우측 박스 Wrapper */}
         <div className="w-[290px] h-[440px] flex flex-col justify-between bg-slate-200 p-4 rounded-md">
+          {/* 프로필 이미지, 닉네임, 별 */}
           <div className=" flex gap-4 items-center">
             <img
               className="w-12 object-cover"
@@ -77,6 +87,7 @@ const DetailPage = () => {
             <p className="text-lg font-semibold">닉네임</p>
             <p>⭐️</p>
           </div>
+          {/* 날짜, 제목, 설명, 댓글, 좋아요 */}
           <div className="flex flex-col my-4 gap-2">
             <p className="mb-7 text-sm">날짜 2024-03-18</p>
             <p className="text-xl font-semibold">제목 : 그림 제목</p>
@@ -88,6 +99,7 @@ const DetailPage = () => {
               좋아요 <span className="text-rose-600">20</span>
             </p>
           </div>
+          {/* 유저가 그린 그림 3 */}
           <div className="flex flex-col gap-2">
             <p className="font-semibold">🏆 유저가 그린 그림 Top 3</p>
             <div className="w-72 h-20  flex flex-wrap gap-2 items-center">
