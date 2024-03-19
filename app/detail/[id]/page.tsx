@@ -2,7 +2,10 @@
 
 import React from "react";
 
-const DetailPage = () => {
+const DetailPage = ({ params }: { params: { id: string } }) => {
+  const id = params.id;
+  console.log("id", id);
+
   return (
     <>
       <div className="w-full h-28 bg-yellow-200 mb-10"></div>
