@@ -2,6 +2,7 @@ import Image from "next/image";
 import React from "react";
 import Logo from "@/public/image/logo-curve.png";
 import Link from "next/link";
+import YellowLinkBtn from "../common/Button";
 
 const HeaderNav = () => {
   return (
@@ -9,12 +10,8 @@ const HeaderNav = () => {
       <div className="flex flex-col justify-center items-center p-5 gap-4">
         <Image src={Logo} alt="로고 이미지" width="200" />
         <nav className="flex flex-rows gap-5">
-          <Link href="/" className="bg-YellowDark px-2.5 py-1 rounded-xl">
-            🖌️그림그리기
-          </Link>
-          <Link href="/" className="bg-YellowDark px-2.5 py-1 rounded-xl">
-            🎮게임하기
-          </Link>
+          <YellowLinkBtn href="/" text="🖌️그림그리기" />
+          <YellowLinkBtn href="/" text="🎮게임하기" />
         </nav>
       </div>
       <div className="flex justify-center items-center">
