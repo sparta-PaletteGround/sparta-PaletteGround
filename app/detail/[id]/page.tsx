@@ -2,6 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 
+import Comments from "@/app/_components/detail-1/comments";
 import { getSinglePost } from "@/app/_components/detail-api/detail-api";
 
 const DetailPage = ({ params }: { params: { id: string } }) => {
@@ -19,9 +20,10 @@ const DetailPage = ({ params }: { params: { id: string } }) => {
     return <div>Error</div>;
   }
 
-  console.log("data", data);
+  // console.log("data", data);
   const post = data[0];
 
+  // 날짜 형식 변환
   const inputDate = post.created_at;
   const parsedDate = new Date(inputDate);
 
@@ -30,6 +32,8 @@ const DetailPage = ({ params }: { params: { id: string } }) => {
   const day = parsedDate.getDate();
 
   const formattedDate = `${year}년 ${month}월 ${day}일`;
+
+  // 그림 작성자 nickname, profile_img 가져오기
 
   return (
     <>
@@ -44,74 +48,7 @@ const DetailPage = ({ params }: { params: { id: string } }) => {
               className="mx-auto max-w-full max-h-full object-cover rounded-md"
             />
           </div>
-          {/* 좌측 하단 댓글창 */}
-          <p className="text-sm">
-            댓글
-            <span className="text-rose-600 ml-2">3</span>
-          </p>
-          <div className="w-full h-[100px] bg-YellowPale my-2 pt-2 pl-3 rounded-md">
-            <div className="flex">
-              <p className="text-sm">닉네임 : </p>
-            </div>
-            <textarea
-              className="text-sm w-[98%] h-[60%] p-2 resize-none"
-              placeholder="댓글을 입력해주세요."
-            />
-          </div>
-          <div className="flex justify-end">
-            <button className="bg-amber-500 w-14 h-6 text-sm rounded-md">
-              등록하기
-            </button>
-          </div>
-          {/* 댓글 리스트 Wrapper */}
-          <div>
-            {/* 댓글 map 돌기 */}
-            {/* 댓글 item 1 */}
-            <div className="w-full h-[100px] flex flex-col justify-between bg-YellowPale my-2 py-2 pl-3 rounded-md">
-              <div>
-                <p className="text-sm">닉네임 : test</p>
-                <p className="text-sm">This comment is for the testing.</p>
-              </div>
-              <div className="flex justify-end gap-2 mr-4">
-                <button className="bg-rose-100 w-10 h-6 rounded-md text-sm">
-                  수정
-                </button>
-                <button className="bg-gray-100 w-10 h-6 rounded-md text-sm">
-                  삭제
-                </button>
-              </div>
-            </div>
-            {/* 댓글 item 2 */}
-            <div className="w-full h-[100px] flex flex-col justify-between bg-YellowPale my-2 py-2 pl-3 rounded-md">
-              <div>
-                <p className="text-sm">닉네임 : test</p>
-                <p className="text-sm">This comment is for the testing.</p>
-              </div>
-              <div className="flex justify-end gap-2 mr-4">
-                <button className="bg-rose-100 w-10 h-6 rounded-md text-sm">
-                  수정
-                </button>
-                <button className="bg-gray-100 w-10 h-6 rounded-md text-sm">
-                  삭제
-                </button>
-              </div>
-            </div>
-            {/* 댓글 item 3 */}
-            <div className="w-full h-[100px] flex flex-col justify-between bg-YellowPale my-2 py-2 pl-3 rounded-md">
-              <div>
-                <p className="text-sm">닉네임 : test</p>
-                <p className="text-sm">This comment is for the testing.</p>
-              </div>
-              <div className="flex justify-end gap-2 mr-4">
-                <button className="bg-rose-100 w-10 h-6 rounded-md text-sm">
-                  수정
-                </button>
-                <button className="bg-gray-100 w-10 h-6 rounded-md text-sm">
-                  삭제
-                </button>
-              </div>
-            </div>
-          </div>
+          <Comments />
         </div>
         {/* 우측 박스 Wrapper */}
         <div className="w-[260px] h-[370px] flex flex-col justify-between bg-PurplePale p-4 rounded-md">
@@ -128,10 +65,8 @@ const DetailPage = ({ params }: { params: { id: string } }) => {
           {/* 날짜, 제목, 설명, 댓글, 좋아요 */}
           <div className="flex flex-col my-4 gap-2">
             <p className="mb-3 text-sm">날짜 : {formattedDate}</p>
-            <p className="text-md font-semibold">제목 : 그림 제목</p>
-            <p className="text-sm">
-              설명 : 이 그림은 완전 잘그렸고 어쩌고 저쩌고 우주여행
-            </p>
+            <p className="text-md font-semibold">제목 : {post.title}</p>
+            <p className="text-sm">설명 : {post.description}</p>
             <p className="text-sm mt-7">
               댓글 <span className="text-sm text-rose-600 mr-2">3</span>
               좋아요 <span className="text-sm text-rose-600">20</span>
