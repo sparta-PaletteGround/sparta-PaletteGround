@@ -1,7 +1,12 @@
 import React from "react";
+import LoginModal from "../_components/AuthModal/LoginModal";
 
-const page = () => {
-  return <div>page</div>;
+const LoginPage = () => {
+  return (
+    <div>
+      <LoginModal />
+    </div>
+  );
 };
 
-export default page;
+export default LoginPage;

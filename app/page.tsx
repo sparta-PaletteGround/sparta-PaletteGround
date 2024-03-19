@@ -15,5 +15,5 @@ export default async function Index() {
 
   const isSupabaseConnected = canInitSupabaseClient();
 
-  return <div>main</div>;
+  return <div>mainpage</div>;
 }
