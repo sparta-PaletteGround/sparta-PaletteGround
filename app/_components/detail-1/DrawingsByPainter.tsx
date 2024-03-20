@@ -21,8 +21,6 @@ const DrawingsByPainter = ({ drawingIds }: { drawingIds: number[] }) => {
     return <div>Error</div>;
   }
 
-  console.log("drawingUrls", drawingUrls);
-
   return (
     <>
       {/* 유저가 그린 그림 3 */}
