@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 import { useQuery } from '@tanstack/react-query';
 import { getUser } from './myPageSupabase';
@@ -7,6 +7,9 @@ import Modal from './modals/Modal';
 
 const MypageUser = () => {
   const [isOpenMidal, setIsOpenModal] = useState(false);
+
+  const fileInputRef: React.MutableRefObject<any> = useRef(null);
+  const [updateNickName, setUpdateNickName] = useState('');
 
   const { data, isLoading }: { data: any | null | undefined; isLoading: any } =
     useQuery({
@@ -19,6 +22,13 @@ const MypageUser = () => {
   }
   const userInfo = data[0];
   const { nickname, profile_img } = userInfo;
+
+  const handleNickName = (e: any) => {
+    setUpdateNickName(e.target.value);
+  };
+  const handleImageUpdate = () => {
+    fileInputRef.current.click();
+  };
 
   return (
     <section className="border-2 bg-PurpleLight rounded-lg w-96 h-96 ml-20 mt-4">
@@ -48,7 +58,40 @@ const MypageUser = () => {
           </div>
         </div>
       </div>
-      <Modal isVisible={isOpenMidal} onClose={() => setIsOpenModal(false)} />
+      {/* 모달 섹션 */}
+      <Modal isVisible={isOpenMidal} onClose={() => setIsOpenModal(false)}>
+        <div>
+          <div className=" m-8 flex justify-center">
+            <img
+              src={profile_img}
+              alt="프로필 이미지"
+              className="w-40 h-40 rounded-full cursor-pointer"
+              onClick={handleImageUpdate}
+            />
+          </div>
+          <div className="flex flex-col gap-5 items-center">
+            <input
+              className="text-xl font-bold text-PurpleMedium rounded-lg p-2"
+              defaultValue={nickname}
+              onChange={handleNickName}
+            />
+            <input
+              type="file"
+              accept="image/*"
+              ref={fileInputRef}
+              style={{ display: 'none' }}
+            />
+            <div>
+              <button
+                className="w-40 h-10 border-2 rounded-xl bg-PurpleDark text-PurplePale font-bold"
+                onClick={() => setIsOpenModal(true)}
+              >
+                수정
+              </button>
+            </div>
+          </div>
+        </div>
+      </Modal>
     </section>
   );
 };

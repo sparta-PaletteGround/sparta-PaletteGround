@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Modal = ({ isVisible, onClose }: any) => {
+const Modal = ({ isVisible, onClose, children }: any) => {
   if (!isVisible) return null;
   const handleClose = (e: any) => {
     if (e.target.id === 'wrapper') onClose();
@@ -15,7 +15,9 @@ const Modal = ({ isVisible, onClose }: any) => {
         <button className="text-white text-xl place-self-end" onClick={onClose}>
           X
         </button>
-        <div className="bg-white p-2 rounded">Modal</div>
+        <div className="bg-PurpleLight p-2 rounded rounded-lg border-2">
+          {children}
+        </div>
       </div>
     </div>
   );
