@@ -5,6 +5,10 @@ import DrawingsByPainter from "./DrawingsByPainter";
 
 import type { PostProps } from "@/app/_types/detail1/posts";
 
+import Image from "next/image";
+import starEmpty from "@/public/image/star-empty.png";
+import starFill from "@/public/image/star-fill.png";
+
 const Painter = ({ post, id }: PostProps) => {
   // 그림 작성자 nickname, profile_img, 그린 그림들 가져오기
   const {
@@ -39,19 +43,40 @@ const Painter = ({ post, id }: PostProps) => {
   const day = parsedDate.getDate();
 
   const formattedDate = `${year}년 ${month}월 ${day}일`;
+
+  const handleStarOnClick = () => {
+    alert("그림 작가가 즐겨찾기에 추가되었습니다!");
+    // 로그인한 유저 정보가 있으면
+    // -> users 테이블에서 '로그인한 유저의 email'과 일치하는 email 찾아서
+    // -> bookmark 배열에 drawing_id를 추가하기?? 아님 user_email을 추가하기??
+
+    // 로그인한 유저 정보가 없으면
+    // '로그인해주세요' alert 띄우기
+  };
+
   return (
     <>
       {/* 우측 박스 Wrapper */}
       <div className="w-[260px] h-[370px] flex flex-col justify-between bg-PurplePale p-4 rounded-md">
         {/* 프로필 이미지, 닉네임, 별 */}
-        <div className=" flex gap-4 items-center">
-          <img
-            className="w-10 object-cover"
-            src={painterInfo.profile_img}
-            alt=""
-          />
-          <p className="text-md font-semibold">{painterInfo.nickname}</p>
-          <p>⭐️</p>
+        <div className=" flex items-center justify-between">
+          <div className="flex gap-2 items-center">
+            <img
+              className="w-10 object-cover"
+              src={painterInfo.profile_img}
+              alt=""
+            />
+            <p className="text-md font-semibold">{painterInfo.nickname}</p>
+          </div>
+          <div>
+            <Image
+              src={starEmpty}
+              alt=""
+              className="w-9 hover:cursor-pointer"
+              onClick={handleStarOnClick}
+            />
+            {/* <Image src={starFill} alt="" className="w-9" /> */}
+          </div>
         </div>
         {/* 날짜, 제목, 설명, 댓글, 좋아요 */}
         <div className="flex flex-col my-4 gap-2">
