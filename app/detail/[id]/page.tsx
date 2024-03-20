@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import Comments from "@/app/_components/detail-1/comments";
+import Comments from "@/app/_components/detail-1/Comments";
 import { getSinglePost } from "@/app/_components/detail-api/detail-api";
 
 const DetailPage = ({ params }: { params: { id: string } }) => {
