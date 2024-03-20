@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import { getPainterInfo } from "../detail-api/detail-api";
 
 import DrawingsByPainter from "./DrawingsByPainter";
@@ -13,6 +14,8 @@ import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 
 const Painter = ({ post, id }: PostProps) => {
+  const [isLike, setIsLike] = useState(false);
+
   // 그림 작성자 nickname, profile_img, 그린 그림들 가져오기
   const {
     data: painterInfoArray,
@@ -57,6 +60,11 @@ const Painter = ({ post, id }: PostProps) => {
     // '로그인해주세요' alert 띄우기
   };
 
+  const handleLikeOnClick = () => {
+    setIsLike((prev) => !prev);
+    // 좋아요 누르면 -> 하트 색채우기
+  };
+
   return (
     <>
       {/* 우측 박스 Wrapper */}
@@ -87,8 +95,14 @@ const Painter = ({ post, id }: PostProps) => {
           <p className="text-md font-semibold">제목 : {post.title}</p>
           <p className="text-sm">설명 : {post.description}</p>
           <div className="flex gap-2 items-center mt-7 ">
-            <FaRegHeart className="hover:cursor-pointer text-rose-600" />
-            {/* <FaHeart className="text-rose-600" /> */}
+            {isLike ? (
+              <FaHeart onClick={handleLikeOnClick} className="text-rose-600" />
+            ) : (
+              <FaRegHeart
+                onClick={handleLikeOnClick}
+                className="hover:cursor-pointer text-rose-600"
+              />
+            )}
             <p className="text-sm ">
               좋아요 <span className="text-sm text-rose-600 mr-4">20</span>
               댓글 <span className="text-sm text-rose-600 ">3</span>
