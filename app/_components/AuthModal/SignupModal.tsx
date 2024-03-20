@@ -5,12 +5,26 @@ import React, { useState } from "react";
 import logo from "@/public/image/logo-line.png";
 import Link from "next/link";
 import { supabase } from "@/app/_utils/supabase/supabase";
+import { ModalBackground, ModalContainer } from "@/app/_styles/modalStyles";
 
-const SignupModal = () => {
+interface SignupModalProps {
+  isSignUpOpen: boolean;
+  setIsSignUpOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isLoginOpen: boolean;
+  setIsLoginOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const SignupModal = ({
+  isSignUpOpen,
+  setIsSignUpOpen,
+  isLoginOpen,
+  setIsLoginOpen,
+}: SignupModalProps) => {
   const [email, setEmail] = useState("");
   const [nickname, setNickname] = useState("");
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
+  const [error, setError] = useState("");
 
   const handleOnSubmitSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -26,45 +40,66 @@ const SignupModal = () => {
     }
 
     try {
-      const { user, error } = await supabase.auth.signUp({
+      // supabase에 회원정보 저장
+      const { error } = await supabase.auth.signUp({
         email,
         password,
-      });
-      if (error) {
-        throw error;
-      }
-
-      // 회원가입 성공 시 사용자 추가 정보를 Supabase 데이터베이스에 저장
-      const { data, error: profileError } = await supabase
-        .from("users")
-        .insert([
-          {
-            email,
+        options: {
+          data: {
             nickname,
-            profile_img:
+            profileImage:
               "https://cdn-icons-png.flaticon.com/512/848/848006.png",
           },
-        ]);
-      if (profileError) {
-        throw profileError;
-      }
+        },
+      });
 
-      // 회원가입 후 로그인 페이지로 이동 또는 추가 작업 수행
-      alert("회원가입이 완료되었습니다.");
+      if (error) {
+        console.log(error);
+        alert("회원가입에 실패했습니다.");
+      } else {
+        alert("회원가입 되었습니다.");
+        // setIsSignUpOpen(false); // 회원가입 여부 false(=로그인 페이지)로 설정
+
+        //   // 회원가입 성공 시 사용자 추가 정보를 Supabase 데이터베이스에 저장
+        //   const { data, error: profileError } = await supabase
+        //     .from("users")
+        //     .insert([
+        //       {
+        //         email,
+        //         nickname,
+        //         profileImage,
+
+        //       },
+        //     ]);
+        //   if (profileError) {
+        //     throw profileError;
+        //   }
+      }
+    } catch (error) {
+      console.log(error);
+      alert("오류가 발생했습니다.");
+    } finally {
+      // 입력 초기화
       setEmail("");
       setNickname("");
       setPassword("");
       setPasswordCheck("");
-    } catch (error) {
-      alert("회원가입 중 오류가 발생했습니다.");
     }
   };
 
-  const handleOnCloseBtn = () => {};
-
+  const handleOnCloseBtn = () => {
+    setIsSignUpOpen(false);
+  };
+  const handleOnClickToLogin = () => {
+    setIsSignUpOpen(false);
+    setIsLoginOpen(true);
+  };
   return (
-    <div className="z-10">
-      <section className="z-[100] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
+    // <div className="z-10">
+    //   <section className="z-[100] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
+
+    <div style={isSignUpOpen ? ModalBackground : "none"}>
+      <section style={ModalContainer}>
         <div className="modal, flex flex-col justify-center items-center bg-Background w-96 h-[500px]">
           <button className="text-black" onClick={handleOnCloseBtn}>
             X
@@ -112,9 +147,9 @@ const SignupModal = () => {
 
           <div>
             이미 회원이신가요?
-            <Link href="/login">
-              <p>로그인</p>
-            </Link>
+            <p className="cursor-pointer" onClick={handleOnClickToLogin}>
+              로그인
+            </p>
           </div>
         </div>
       </section>
