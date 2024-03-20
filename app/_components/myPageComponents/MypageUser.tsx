@@ -7,6 +7,7 @@ import Modal from './modals/Modal';
 
 const MypageUser = () => {
   const [isOpenMidal, setIsOpenModal] = useState(false);
+
   const { data, isLoading }: { data: any | null | undefined; isLoading: any } =
     useQuery({
       queryKey: ['data'],
@@ -18,10 +19,6 @@ const MypageUser = () => {
   }
   const userInfo = data[0];
   const { nickname, profile_img } = userInfo;
-
-  const handleModal = () => {
-    setIsOpenModal(true);
-  };
 
   return (
     <section className="border-2 bg-PurpleLight rounded-lg w-96 h-96 ml-20 mt-4">
@@ -40,7 +37,7 @@ const MypageUser = () => {
           <div>
             <button
               className="w-40 h-10 border-2 rounded-xl bg-PurpleDark text-PurplePale font-bold"
-              onClick={handleModal}
+              onClick={() => setIsOpenModal(true)}
             >
               정보 수정하기
             </button>
@@ -51,7 +48,7 @@ const MypageUser = () => {
           </div>
         </div>
       </div>
-      <Modal isVisible={isOpenMidal} />
+      <Modal isVisible={isOpenMidal} onClose={() => setIsOpenModal(false)} />
     </section>
   );
 };
