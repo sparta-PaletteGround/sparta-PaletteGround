@@ -1,21 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
 import { getPainterInfo } from "../detail-api/detail-api";
 
 import DrawingsByPainter from "./DrawingsByPainter";
 
 import type { PostProps } from "@/app/_types/detail1/posts";
 
-import Image from "next/image";
 import starEmpty from "@/public/image/star-empty.png";
-import starFill from "@/public/image/star-fill.png";
-
-import { FaRegHeart } from "react-icons/fa";
-import { FaHeart } from "react-icons/fa";
+import Image from "next/image";
+import Likes from "./Likes";
 
 const Painter = ({ post, id }: PostProps) => {
-  const [isLike, setIsLike] = useState(false);
-
   // 그림 작성자 nickname, profile_img, 그린 그림들 가져오기
   const {
     data: painterInfoArray,
@@ -60,16 +54,6 @@ const Painter = ({ post, id }: PostProps) => {
     // '로그인 해주세요' alert 띄우기
   };
 
-  const handleLikeOnClick = () => {
-    setIsLike((prev) => !prev);
-    // 로그인한 유저 없으면 -> alert '로그인 해주세요'
-    // 로그인한 유저 있으면
-    // 좋아요 누르면 -> 하트 색채우기
-    // current user에서 email 가져오기
-    // users 테이블에서 해당 email찾아 drawing_id insert하기
-    //
-  };
-
   return (
     <>
       {/* 우측 박스 Wrapper */}
@@ -94,20 +78,13 @@ const Painter = ({ post, id }: PostProps) => {
             {/* <Image src={starFill} alt="" className="w-9" /> */}
           </div>
         </div>
-        {/* 날짜, 제목, 설명, 댓글, 좋아요 */}
+        {/* 날짜, 제목, 설명, 댓글, 좋아요 수*/}
         <div className="flex flex-col my-4 gap-2">
           <p className="mb-3 text-sm">날짜 : {formattedDate}</p>
           <p className="text-md font-semibold">제목 : {post.title}</p>
           <p className="text-sm">설명 : {post.description}</p>
           <div className="flex gap-2 items-center mt-7 ">
-            {isLike ? (
-              <FaHeart onClick={handleLikeOnClick} className="text-rose-600" />
-            ) : (
-              <FaRegHeart
-                onClick={handleLikeOnClick}
-                className="hover:cursor-pointer text-rose-600"
-              />
-            )}
+            <Likes id={id} />
             <p className="text-sm ">
               좋아요 <span className="text-sm text-rose-600 mr-4">20</span>
               댓글 <span className="text-sm text-rose-600 ">3</span>
