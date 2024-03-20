@@ -1,11 +1,6 @@
-import { Posts } from "@/app/_types/detail1/posts";
-import React from "react";
+import { PostProps } from "@/app/_types/detail1/posts";
 
-interface PostType {
-  post: Posts;
-}
-
-const Drawing = ({ post }: PostType) => {
+const Drawing = ({ post }: PostProps) => {
   return (
     <>
       {/* 좌측 상단 박스 */}

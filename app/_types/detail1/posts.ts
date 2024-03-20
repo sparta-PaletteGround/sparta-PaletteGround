@@ -7,3 +7,7 @@ export interface Posts {
   description: string;
   created_at: string;
 }
+
+export interface PostProps {
+  post: Posts;
+}
