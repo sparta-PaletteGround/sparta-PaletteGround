@@ -1,9 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import { useQuery } from "@tanstack/react-query";
+
 import { getDrawingUrls } from "../detail-api/detail-api";
 
 const DrawingsByPainter = ({ drawingIds }: { drawingIds: number[] }) => {
-  // 유저가 그린 그림url 배열(지금 그림의 url은 제외해야함)
+  // 유저가 그린 그림url 배열
   const {
     data: drawingUrls,
     isLoading,

@@ -1,9 +1,11 @@
-import { PostProps } from "@/app/_types/detail1/posts";
 import { useQuery } from "@tanstack/react-query";
 import { getPainterInfo } from "../detail-api/detail-api";
+
 import DrawingsByPainter from "./DrawingsByPainter";
 
-const Painter = ({ post }: PostProps) => {
+import type { PostProps } from "@/app/_types/detail1/posts";
+
+const Painter = ({ post, id }: PostProps) => {
   // 그림 작성자 nickname, profile_img, 그린 그림들 가져오기
   const {
     data: painterInfoArray,
@@ -23,31 +25,10 @@ const Painter = ({ post }: PostProps) => {
 
   const painterInfo = painterInfoArray[0];
 
-  // 유저가 그린 그림id 배열
-  const drawingIds = painterInfo.drawings_array;
-
-  // 유저가 그린 그림url 배열(지금 그림의 url은 제외해야함)
-  // const {
-  //   data: drawingUrls,
-  //   isLoading: drawingUrlsIsLoading,
-  //   isError: drawingUrlsIsError,
-  // } = useQuery({
-  //   queryKey: ["drawingUrls"],
-  //   queryFn: () => getDrawingUrls(drawingIds),
-  // });
-
-  // if (painterInfoIsLoading || drawingUrlsIsLoading) {
-  //   return <div>Loading...</div>;
-  // }
-  // if (
-  //   painterInfoIsError ||
-  //   !Array.isArray(painterInfoArray) ||
-  //   drawingUrlsIsError
-  // ) {
-  //   return <div>Error</div>;
-  // }
-
-  // console.log("drawingUrls", drawingUrls);
+  // 유저가 그린 그림id 배열(현재 보고있는 그림의 id는 제외)
+  const drawingIds = painterInfo.drawings_array.filter(
+    (drawingId: number) => drawingId !== id
+  );
 
   // 날짜 형식 변환
   const inputDate = post.created_at;
@@ -82,17 +63,7 @@ const Painter = ({ post }: PostProps) => {
             좋아요 <span className="text-sm text-rose-600">20</span>
           </p>
         </div>
-        {/* 유저가 그린 그림 3 */}
-        {/* <div className="flex flex-col gap-2">
-          <p className="text-sm font-semibold">🏆 유저가 그린 그림 Top 3</p>
-          <div className="w-60 h-16  flex flex-wrap gap-2 items-center">
-            <div className="w-[70px] h-full bg-white"></div>
-            <div className="w-[70px] h-full bg-white"></div>
-            <div className="w-[70px] h-full bg-white"></div>
-            <div className="w-[70px] h-full bg-white"></div>
-            <div className="w-[70px] h-full bg-white"></div>
-          </div>
-        </div> */}
+        {/* 유저가 그린 그림 Best 3 */}
         <DrawingsByPainter drawingIds={drawingIds} />
       </div>
     </>

@@ -33,7 +33,7 @@ const DetailPage = ({ params }: { params: { id: string } }) => {
           <Drawing post={post} />
           <Comments />
         </div>
-        <Painter post={post} />
+        <Painter post={post} id={id} />
       </section>
     </>
   );

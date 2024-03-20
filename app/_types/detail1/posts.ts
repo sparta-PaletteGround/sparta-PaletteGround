@@ -11,6 +11,7 @@ export interface Posts {
 
 export interface PostProps {
   post: Posts;
+  id: number;
 }
 
 export interface PainterInfo {

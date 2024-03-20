@@ -1,6 +1,8 @@
 import { PostProps } from "@/app/_types/detail1/posts";
 
-const Drawing = ({ post }: PostProps) => {
+type OwnProp = Omit<PostProps, "id">;
+
+const Drawing = ({ post }: OwnProp) => {
   return (
     <>
       {/* 좌측 상단 박스 */}

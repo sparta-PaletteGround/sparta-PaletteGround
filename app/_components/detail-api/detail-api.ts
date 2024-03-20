@@ -1,14 +1,6 @@
 import { supabase } from "@/app/_utils/supabase/supabase";
 
-export const getPost = async () => {
-  const { data, error } = await supabase.from("posts").select();
-  if (error) {
-    console.error(error);
-    return error;
-  }
-  return data;
-};
-
+// drawing id에 해당하는 post 가져오기
 export const getSinglePost = async (id: number) => {
   const { data, error } = await supabase
     .from("posts")
@@ -35,7 +27,7 @@ export const getPainterInfo = async (email: string) => {
   return data;
 };
 
-// painter의 지난 그림들 가져오기
+// painter의 다른 그림들 url 가져오기
 export const getDrawingUrls = async (drawingIds: number[]) => {
   const response = await supabase
     .from("posts")
