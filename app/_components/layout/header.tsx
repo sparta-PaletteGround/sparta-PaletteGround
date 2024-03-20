@@ -1,27 +1,26 @@
 "use client";
 
-interface HeaderNavProps {
-  isLoginOpen: boolean;
-  setIsLoginOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  isSignUpOpen: boolean;
-  setIsSignUpOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
 import Image from "next/image";
 import React, { useState } from "react";
 import Logo from "@/public/image/logo-curve.png";
-import LoginModal from "../AuthModal/LoginModal";
-import SignupModal from "../AuthModal/SignupModal";
+import LoginModal from "../authComponents/modals/LoginModal";
+import SignupModal from "../authComponents/modals/SignupModal";
 import { supabase } from "@/app/_utils/supabase/supabase";
 import { YellowLinkBtn } from "../common/Button";
 import Link from "next/link";
+import { useAuthStore } from "@/app/_store/authStore";
+import { useLoggedIn } from "@/app/_hooks/useLoggedIn";
 
 const HeaderNav = () => {
-  const [isLoginOpen, setIsLoginOpen] = useState<boolean>(false);
-  const [isSignUpOpen, setIsSignUpOpen] = useState<boolean>(false);
+  const {
+    setIsLoggedIn,
+    isLoginOpen,
+    setIsLoginOpen,
+    isSignUpOpen,
+    setIsSignUpOpen,
+  } = useAuthStore();
 
-  // 로그인 상태 관리 (로그인이 안 된 상태 : false / 로그인이 된 상태 : true)
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const isLoggedIn = useLoggedIn();
 
   const handleOnClickToLogin = () => {
     setIsLoginOpen(true);
@@ -34,9 +33,10 @@ const HeaderNav = () => {
   };
 
   const handleOnClickLogout = async () => {
-    // alert("로그아웃 하러 갑니당");
     const { error } = await supabase.auth.signOut();
+
     if (!error) {
+      alert("로그아웃 되었습니다.");
       setIsLoggedIn(false);
     }
   };
@@ -88,22 +88,8 @@ const HeaderNav = () => {
           </div>
         )}
       </div>
-      {isLoginOpen && (
-        <LoginModal
-          isLoginOpen={isLoginOpen}
-          setIsLoginOpen={setIsLoginOpen}
-          isSignUpOpen={isSignUpOpen}
-          setIsSignUpOpen={setIsSignUpOpen}
-        />
-      )}
-      {isSignUpOpen && (
-        <SignupModal
-          isSignUpOpen={isSignUpOpen}
-          setIsSignUpOpen={setIsSignUpOpen}
-          isLoginOpen={isLoginOpen}
-          setIsLoginOpen={setIsLoginOpen}
-        />
-      )}
+      {isLoginOpen && <LoginModal />}
+      {isSignUpOpen && <SignupModal />}
     </section>
   );
 };
