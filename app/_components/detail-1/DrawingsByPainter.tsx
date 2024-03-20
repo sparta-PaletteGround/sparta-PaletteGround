@@ -28,12 +28,18 @@ const DrawingsByPainter = ({ drawingIds }: { drawingIds: number[] }) => {
       <div className="flex flex-col gap-2">
         <p className="text-sm font-semibold">🏆 유저가 그린 그림 Top 3</p>
         <div className="w-60 h-16  flex flex-wrap gap-2 items-center">
-          {/* 그림 url 배열을 map으로 돌리기 */}
-          <div className="w-[70px] h-full bg-white"></div>
-          <div className="w-[70px] h-full bg-white"></div>
-          <div className="w-[70px] h-full bg-white"></div>
-          <div className="w-[70px] h-full bg-white"></div>
-          <div className="w-[70px] h-full bg-white"></div>
+          <div className="w-[70px] h-full flex gap-2 ">
+            {/* 그림 url 배열을 map으로 돌리기 */}
+            {drawingUrls?.map((url: string): React.ReactNode => {
+              return (
+                <img
+                  src={url}
+                  alt=""
+                  className="max-w-full max-h-full rounded-md"
+                />
+              );
+            })}
+          </div>
         </div>
       </div>
     </>
