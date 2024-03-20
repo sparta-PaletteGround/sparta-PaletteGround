@@ -1,8 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import Logo from "@/public/image/logo-curve.png";
-import Link from "next/link";
-import YellowLinkBtn from "../common/Button";
+import { YellowLinkBtn } from "../common/Button";
 
 const HeaderNav = () => {
   return (
