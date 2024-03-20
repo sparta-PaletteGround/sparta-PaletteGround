@@ -57,12 +57,17 @@ const Painter = ({ post, id }: PostProps) => {
     // -> bookmark 배열에 drawing_id를 추가하기?? 아님 user_email을 추가하기??
 
     // 로그인한 유저 정보가 없으면
-    // '로그인해주세요' alert 띄우기
+    // '로그인 해주세요' alert 띄우기
   };
 
   const handleLikeOnClick = () => {
     setIsLike((prev) => !prev);
+    // 로그인한 유저 없으면 -> alert '로그인 해주세요'
+    // 로그인한 유저 있으면
     // 좋아요 누르면 -> 하트 색채우기
+    // current user에서 email 가져오기
+    // users 테이블에서 해당 email찾아 drawing_id insert하기
+    //
   };
 
   return (
