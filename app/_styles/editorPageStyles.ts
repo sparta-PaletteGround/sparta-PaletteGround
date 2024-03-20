@@ -9,18 +9,6 @@ export const HowToSaveBtn = {
   fontSize: "9pt",
 };
 
-export const AttachFileBtn = {
-  width: "100%",
-  height: "35px",
-  border: "1px solid #482057",
-  background: "#8B5E9C",
-  borderRadius: "10px",
-  paddingLeft: "10px",
-  paddingRight: "10px",
-  color: "#fff",
-  fontWeight: "bold",
-};
-
 export const InputStyle = {
   width: "100%",
   height: "35px",

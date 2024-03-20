@@ -1,12 +1,10 @@
 import React from "react";
 import PaintEditor from "../_components/paintEditor/PaintEditor";
-import WriteForm from "../_components/paintEditor/WriteForm";
 
 const PaintEditorPage = () => {
   return (
-    <section className="bg-gray-100 flex gap-5 p-5 justify-center items-start">
+    <section className="min-h-full bg-gray-100 flex p-10 justify-center items-start">
       <PaintEditor />
-      <WriteForm />
     </section>
   );
 };
