@@ -1,7 +1,54 @@
 import { PostProps } from "@/app/_types/detail1/posts";
-import React from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getPainterInfo } from "../detail-api/detail-api";
+import DrawingsByPainter from "./DrawingsByPainter";
 
 const Painter = ({ post }: PostProps) => {
+  // 그림 작성자 nickname, profile_img, 그린 그림들 가져오기
+  const {
+    data: painterInfoArray,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["painterInfo"],
+    queryFn: () => getPainterInfo(post.painter_email),
+  });
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  if (isError || !Array.isArray(painterInfoArray)) {
+    return <div>Error</div>;
+  }
+
+  const painterInfo = painterInfoArray[0];
+
+  // 유저가 그린 그림id 배열
+  const drawingIds = painterInfo.drawings_array;
+
+  // 유저가 그린 그림url 배열(지금 그림의 url은 제외해야함)
+  // const {
+  //   data: drawingUrls,
+  //   isLoading: drawingUrlsIsLoading,
+  //   isError: drawingUrlsIsError,
+  // } = useQuery({
+  //   queryKey: ["drawingUrls"],
+  //   queryFn: () => getDrawingUrls(drawingIds),
+  // });
+
+  // if (painterInfoIsLoading || drawingUrlsIsLoading) {
+  //   return <div>Loading...</div>;
+  // }
+  // if (
+  //   painterInfoIsError ||
+  //   !Array.isArray(painterInfoArray) ||
+  //   drawingUrlsIsError
+  // ) {
+  //   return <div>Error</div>;
+  // }
+
+  // console.log("drawingUrls", drawingUrls);
+
   // 날짜 형식 변환
   const inputDate = post.created_at;
   const parsedDate = new Date(inputDate);
@@ -19,10 +66,10 @@ const Painter = ({ post }: PostProps) => {
         <div className=" flex gap-4 items-center">
           <img
             className="w-10 object-cover"
-            src="https://velog.velcdn.com/images/innes_kwak/post/24d0e46e-8dd7-4e59-becd-52447e2efeb6/image.png"
+            src={painterInfo.profile_img}
             alt=""
           />
-          <p className="text-md font-semibold">닉네임</p>
+          <p className="text-md font-semibold">{painterInfo.nickname}</p>
           <p>⭐️</p>
         </div>
         {/* 날짜, 제목, 설명, 댓글, 좋아요 */}
@@ -36,7 +83,7 @@ const Painter = ({ post }: PostProps) => {
           </p>
         </div>
         {/* 유저가 그린 그림 3 */}
-        <div className="flex flex-col gap-2">
+        {/* <div className="flex flex-col gap-2">
           <p className="text-sm font-semibold">🏆 유저가 그린 그림 Top 3</p>
           <div className="w-60 h-16  flex flex-wrap gap-2 items-center">
             <div className="w-[70px] h-full bg-white"></div>
@@ -45,7 +92,8 @@ const Painter = ({ post }: PostProps) => {
             <div className="w-[70px] h-full bg-white"></div>
             <div className="w-[70px] h-full bg-white"></div>
           </div>
-        </div>
+        </div> */}
+        <DrawingsByPainter drawingIds={drawingIds} />
       </div>
     </>
   );

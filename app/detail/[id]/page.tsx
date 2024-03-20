@@ -2,8 +2,9 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import Comments from "@/app/_components/detail-1/Comments";
 import { getSinglePost } from "@/app/_components/detail-api/detail-api";
+
+import Comments from "@/app/_components/detail-1/Comments";
 import Drawing from "@/app/_components/detail-1/Drawing";
 import Painter from "@/app/_components/detail-1/Painter";
 
@@ -23,8 +24,6 @@ const DetailPage = ({ params }: { params: { id: string } }) => {
   }
 
   const post = data[0];
-
-  // 그림 작성자 nickname, profile_img 가져오기
 
   return (
     <>
