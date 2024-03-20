@@ -1,20 +1,28 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useQuery } from '@tanstack/react-query';
 import { getUser } from './myPageSupabase';
+import Modal from './modals/Modal';
 
 const MypageUser = () => {
-  const { data, isLoading } = useQuery({
-    queryKey: ['data'],
-    queryFn: getUser,
-  });
+  const [isOpenMidal, setIsOpenModal] = useState(false);
+  const { data, isLoading }: { data: any | null | undefined; isLoading: any } =
+    useQuery({
+      queryKey: ['data'],
+      queryFn: getUser,
+    });
 
   if (isLoading) {
     return <div>로딩중 ... </div>;
   }
   const userInfo = data[0];
   const { nickname, profile_img } = userInfo;
+
+  const handleModal = () => {
+    setIsOpenModal(true);
+  };
+
   return (
     <section className="border-2 bg-PurpleLight rounded-lg w-96 h-96 ml-20 mt-4">
       <div>
@@ -30,7 +38,10 @@ const MypageUser = () => {
             {nickname} 페인터
           </div>
           <div>
-            <button className="w-40 h-10 border-2 rounded-xl bg-PurpleDark text-PurplePale font-bold">
+            <button
+              className="w-40 h-10 border-2 rounded-xl bg-PurpleDark text-PurplePale font-bold"
+              onClick={handleModal}
+            >
               정보 수정하기
             </button>
           </div>
@@ -40,6 +51,7 @@ const MypageUser = () => {
           </div>
         </div>
       </div>
+      <Modal isVisible={isOpenMidal} />
     </section>
   );
 };
