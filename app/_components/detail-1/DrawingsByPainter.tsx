@@ -31,9 +31,10 @@ const DrawingsByPainter = ({ drawingIds }: { drawingIds: number[] }) => {
         <div className="w-60 h-16  flex flex-wrap gap-2 items-center">
           <div className="w-[70px] h-full flex gap-2 ">
             {/* 그림 url 배열을 map으로 돌리기 */}
-            {drawingUrls?.map((url: string): React.ReactNode => {
+            {drawingUrls?.map((url: string, index): React.ReactNode => {
               return (
                 <img
+                  key={index}
                   src={url}
                   alt=""
                   className="max-w-full max-h-full rounded-md"
