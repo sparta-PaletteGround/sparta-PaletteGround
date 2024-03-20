@@ -7,7 +7,6 @@ export const getUser = async (payload: any) => {
     .from('users')
     .select('*')
     .eq('email', email);
-  console.log(data);
   return data;
 };
 export const updateUser = async (payload: any) => {
