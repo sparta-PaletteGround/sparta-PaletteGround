@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import Comments from "@/app/_components/detail-1/Comments";
 import { getSinglePost } from "@/app/_components/detail-api/detail-api";
+import Drawing from "@/app/_components/detail-1/Drawing";
 
 const DetailPage = ({ params }: { params: { id: string } }) => {
   const id = +params.id;
@@ -40,14 +41,7 @@ const DetailPage = ({ params }: { params: { id: string } }) => {
       <section className="flex gap-8 justify-center mt-6">
         {/* 좌측 박스 Wrapper */}
         <div className="w-[600px]">
-          {/* 좌측 상단 박스 */}
-          <div className="w-full h-[370px] bg-PurplePale mb-4 p-4 rounded-md flex justify-center items-center">
-            <img
-              src={post.drawing_url}
-              alt=""
-              className="mx-auto max-w-full max-h-full object-cover rounded-md"
-            />
-          </div>
+          <Drawing post={post} />
           <Comments />
         </div>
         {/* 우측 박스 Wrapper */}
