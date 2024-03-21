@@ -19,7 +19,6 @@ const MypageUser = () => {
 
   const currentUserInfo = useUserInfoStore();
   const currentUserEmail = currentUserInfo.email;
-  console.log(currentUserEmail);
 
   const { data, isPending } = useQuery({
     queryKey: ['user'],
@@ -47,17 +46,22 @@ const MypageUser = () => {
   };
 
   const handleFileChange = (e: any) => {
-    const file = e.target.files;
+    const file = e.target.files[0];
     if (file.length === 0) {
       return;
     }
-    const reder = new FileReader();
-    reder.onload = () => {
-      if (reder.readyState === 2) {
-        setUpdateImage(reder.result);
-      }
-    };
-    reder.readAsDataURL(e.target.files[0]);
+
+    if (file) {
+      const imgUrl = URL.createObjectURL(file);
+      setUpdateImage(imgUrl);
+    }
+    // const reder = new FileReader();
+    // reder.onload = () => {
+    //   if (reder.readyState === 2) {
+    //     setUpdateImage(reder.result);
+    //   }
+    // };
+    // reder.readAsDataURL(e.target.files[0]);
   };
 
   const handleUpdateSubmit = () => {

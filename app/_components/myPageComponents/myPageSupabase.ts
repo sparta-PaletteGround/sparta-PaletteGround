@@ -35,4 +35,3 @@ export const updateUser = async (payload: any) => {
   }
   return;
 };
-// 둘다 변경시 supabase 반짝거림
