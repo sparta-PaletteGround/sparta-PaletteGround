@@ -21,11 +21,13 @@ const Likes = ({ id }: { id: number }) => {
       // 로그인한 유저 있을 경우
       // 1) 임시 useState로 하트 색 바꾸기
       // 2) 임시 email 전달 -> 해당 유저의 drawings_array에 id추가하기 성공
+      // ⭐️⭐️⭐️ drawings_array가 아니라, 새로운 열을 추가해야함!!!
       setIsLike((prev) => !prev);
       await insertDrawingId(email, id);
     } else if (!loggedInUserEmail) {
       // 로그인한 유저 없을 경우
-      alert("좋아요 기능은 로그인이 필요합니다.");
+      alert("로그인이 필요합니다.");
+      // 로그인 모달창 띄우기?
     }
 
     // 좋아요 취소 로직도 생각해야함
