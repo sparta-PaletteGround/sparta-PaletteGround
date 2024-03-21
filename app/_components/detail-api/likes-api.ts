@@ -66,7 +66,7 @@ export const isCheckLikeState = async (drawingId: number) => {
   return like.length > 0;
 };
 
-// likes테이블에 email, id, url 추가하기
+// 좋아요! - likes테이블에 email, id, url 추가하기
 export const insertLike = async (id: number, url: string) => {
   // current loggedIn user의 email 가져오기
   const { data: user, error: userError } = await supabase.auth.getUser();
@@ -86,6 +86,18 @@ export const insertLike = async (id: number, url: string) => {
   if (error) {
     throw error;
   }
-  console.log("data", data);
+  return data;
+};
+
+// 좋아요 취소 - likes 테이블에서 그림id가 같은 열 삭제
+export const deleteLike = async (id: number) => {
+  const { data, error } = await supabase
+    .from("likes")
+    .delete()
+    .eq("drawing_id", id)
+    .select();
+  if (error) {
+    throw error;
+  }
   return data;
 };
