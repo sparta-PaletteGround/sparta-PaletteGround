@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 
+import { useUserInfoStore } from "@/app/_store/authStore";
 import type { PostProps } from "@/app/_types/detail1/posts";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
@@ -13,6 +14,10 @@ import {
 
 const Likes = ({ id, post }: PostProps) => {
   const [isLike, setIsLike] = useState(false);
+  // 로그인, 로그아웃했을때 콘솔창이 바로 바뀌지 않고 새로고침해야 바뀌는데 이거 활용해도 되는건지?
+  // const email = useUserInfoStore((state) => state.email);
+  // console.log("email", email);
+
   // 현재 그림의 url
   const drawingUrl = post.drawing_url;
   const queryClient = useQueryClient();
@@ -63,10 +68,11 @@ const Likes = ({ id, post }: PostProps) => {
   // - 좋아요 : likes 테이블에 email, id, url 추가, 하트색 변경
   // - 좋아요 취소 : likes 테이블에서 id가 같은 열 삭제
   const handleLikeOnClick = async () => {
-    if (!checkLikeState) {
+    // if (!checkLikeState) {
+    if (!isLike) {
       insertLikeMutation({ id, drawingUrl });
       setIsLike((prev) => !prev);
-    } else if (checkLikeState) {
+    } else if (isLike) {
       deleteLikeMutation(id);
       setIsLike((prev) => !prev);
     }

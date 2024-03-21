@@ -48,10 +48,19 @@ export const insertLike = async (id: number, url: string) => {
 
 // 좋아요 취소 - likes 테이블에서 그림id가 같은 열 삭제
 export const deleteLike = async (id: number) => {
+  // current loggedIn user의 email 가져오기
+  const { data: user, error: userError } = await supabase.auth.getUser();
+  if (userError) {
+    throw userError;
+  }
+  const email = user.user.email;
+
+  // likes테이블에서 email, id 같은 열 삭제
   const { data, error } = await supabase
     .from("likes")
     .delete()
     .eq("drawing_id", id)
+    .eq("user_email", email)
     .select();
   if (error) {
     throw error;
@@ -59,6 +68,7 @@ export const deleteLike = async (id: number) => {
   return data;
 };
 
+// 좋아요 개수 가져오기
 export const countLikesNumber = async (id: number) => {
   const { data, error } = await supabase
     .from("likes")
