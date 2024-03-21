@@ -22,7 +22,7 @@ const DetailList = () => {
   if (isError || !Array.isArray(data)) {
     return <div>Error</div>;
   }
-  console.log(data);
+  // console.log(data);
   return (
     <div className="flex flex-col justify-center items-center">
       <div className="bg-white p-1 m-4 h-10 rounded-full gap-4 flex items-center">
@@ -30,7 +30,7 @@ const DetailList = () => {
         <span className="rounded-full bg-PurpleLight p-1">그림 모아보기</span>
       </div>
 
-      <ul className="w-[1280px] h-[960px] rounded-xl m-4 ">
+      <ul className="w-[1280px] rounded-xl m-4 flex flex-wrap justify-center ">
         {data.map((post) => (
           <DrawingPosts key={post.id} post={post} />
         ))}
