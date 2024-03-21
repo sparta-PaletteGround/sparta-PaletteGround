@@ -20,8 +20,6 @@ const LoginModal = () => {
   const [password, setPassword] = useState("");
 
   const handleSignIn = async () => {
-    // const loginUserInfo = await getLoginUserInfo();
-    // console.log("loginUserInfo", loginUserInfo);
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
         // 로그인 요청
@@ -36,6 +34,7 @@ const LoginModal = () => {
         // console.log("로그인 유저 data", data);
         setIsLoggedIn(true); // 로그인 상태 업데이트
         setIsLoginOpen(false); // 로그인 모달창 닫기
+
         alert("로그인이 완료되었습니다.");
         getLoginUserInfo();
       }
@@ -45,7 +44,7 @@ const LoginModal = () => {
     }
   };
 
-  //Google 로그인
+  //Google 로그인 (구글 로그인 보류)
   const handleGoogleLogin = async () => {
     try {
       const { data, error } = await supabase.auth.signInWithOAuth({
