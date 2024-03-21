@@ -28,3 +28,15 @@ export const insertDrawingId = async (email: string, drawingId: number) => {
     return;
   }
 };
+
+// 유저의 likes_array 가져오기
+export const getLikesArray = async (email: string) => {
+  const { data, error } = await supabase
+    .from("users")
+    .select("likes_array")
+    .eq("email", email);
+  if (error) {
+    console.error(error);
+  }
+  return data;
+};
