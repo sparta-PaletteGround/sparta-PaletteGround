@@ -33,7 +33,7 @@ const Latest = () => {
       new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
   );
   const latestPosts = sortedPosts.slice(0, 4);
-  console.log("끼엥", latestPosts);
+  // console.log("끼엥", latestPosts);
 
   const handleOnClickImg = () => {};
 
