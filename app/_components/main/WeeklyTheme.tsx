@@ -22,7 +22,12 @@ const WeeklyTheme = () => {
         </div>
       </div>
       <div className="w-[1000px] flex justify-end mt-2">
-        <button onClick={handleOnClick}>자세히 보기</button>
+        <button
+          onClick={handleOnClick}
+          className="bg-YellowDark px-2.5 py-1 rounded-xl hover:bg-YellowPale"
+        >
+          자세히 보기
+        </button>
       </div>
     </section>
   );

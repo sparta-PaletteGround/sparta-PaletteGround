@@ -32,7 +32,7 @@ const DetailList = () => {
       const paramCheck = queryParams.has("onlyWeeklyTopic");
       console.log("확인확인", paramCheck);
       if (paramCheck) {
-        setIsTopicSelected(true);
+        handleWeeklyTopicClick();
       }
     }
   }, [isDataLoaded]);
