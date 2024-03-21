@@ -11,6 +11,7 @@ import {
   authModalInput,
   socialAuthClickBtn,
 } from "@/app/_styles/authModalStyle";
+import KakaoLogin from "../KakaoLogin";
 
 const LoginModal = () => {
   const {
@@ -81,9 +82,9 @@ const LoginModal = () => {
         </button>
       </form>
       <GoogleLogin />
-      {/* <button style={socialAuthClickBtn}>Kakao Login</button> */}
+      <KakaoLogin />
       <br />
-      <div className="flex gap-2 absolute fixed bottom-4">
+      <div className="flex gap-2 absolute  bottom-4">
         <span className="text-zinc-400">아직 회원이 아니신가요?</span>
         <span
           className="cursor-pointer text-zinc-600"
