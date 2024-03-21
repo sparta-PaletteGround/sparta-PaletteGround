@@ -3,13 +3,13 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import Logo from "@/public/image/logo-curve.png";
-import LoginModal from "../authComponents/modals/LoginModal";
-import SignupModal from "../authComponents/modals/SignupModal";
+import LoginModal from "../auth/modals/LoginModal";
+import SignupModal from "../auth/modals/SignupModal";
 import { supabase } from "@/app/_utils/supabase/supabase";
 import { YellowLinkBtn } from "../common/Button";
 import Link from "next/link";
 import { useAuthStore } from "@/app/_store/authStore";
-import { useLoggedIn } from "@/app/_hooks/useLoggedIn";
+import { useLoggedIn } from "@/app/_hooks/login/useLoggedIn";
 
 const HeaderNav = () => {
   const {
@@ -49,7 +49,7 @@ const HeaderNav = () => {
 
         <nav className="flex flex-rows gap-5">
           <YellowLinkBtn href="/paint-editor" text="🖌️그림그리기" />
-          <YellowLinkBtn href="/" text="🖼️보러가기" />
+          <YellowLinkBtn href="/detail-list" text="🖼️보러가기" />
         </nav>
       </div>
       <div>
