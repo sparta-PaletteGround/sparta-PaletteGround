@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 import type { PostProps } from "@/app/_types/detail1/posts";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import {
   countLikesNumber,
@@ -16,6 +16,7 @@ const Likes = ({ id, post }: PostProps) => {
   const [isLike, setIsLike] = useState(false);
   // 현재 그림의 url
   const drawingUrl = post.drawing_url;
+  const queryClient = useQueryClient();
 
   // 화면 렌더링시 1. 현재 유저가 이 그림을 좋아요한 상태인지 확인하기 - 좋아요 상태이면 isLike -> true
   const {
@@ -28,6 +29,16 @@ const Likes = ({ id, post }: PostProps) => {
       const response = await isCheckLikeState(id);
       response && setIsLike(true);
       return response;
+    },
+  });
+
+  const { mutate: insertLikeMutation } = useMutation({
+    mutationFn: ({ id, drawingUrl }: { id: number; drawingUrl: string }) =>
+      insertLike(id, drawingUrl),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["countLikesNumber"],
+      });
     },
   });
 
@@ -45,7 +56,7 @@ const Likes = ({ id, post }: PostProps) => {
   // - 좋아요 취소 : likes 테이블에서 id가 같은 열 삭제
   const handleLikeOnClick = async () => {
     if (!checkLikeState) {
-      await insertLike(id, drawingUrl);
+      insertLikeMutation({ id, drawingUrl });
       setIsLike((prev) => !prev);
     } else if (checkLikeState) {
       await deleteLike(id);
