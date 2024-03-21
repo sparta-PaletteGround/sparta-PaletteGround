@@ -50,8 +50,27 @@ const SignupModal = () => {
       if (error) {
         console.log(error);
         alert("회원가입에 실패했습니다.");
+        return;
       } else {
-        alert("회원가입 되었습니다.");
+        alert("회원가입에 성공했습니다.");
+      }
+
+      // 회원가입 성공 시 추가 정보를 Supabase 데이터베이스에 저장
+      const { data, error: profileError } = await supabase
+        .from("users")
+        .insert([
+          {
+            email,
+            nickname,
+            profile_img:
+              "https://cdn-icons-png.flaticon.com/512/848/848006.png",
+          },
+        ]);
+
+      if (profileError) {
+        console.error("회원 추가 정보 저장에 실패했습니다.", profileError);
+        alert("회원가입에 실패했습니다.");
+        return;
       }
     } catch (error) {
       console.log(error);
@@ -62,14 +81,13 @@ const SignupModal = () => {
       setNickname("");
       setPassword("");
       setPasswordCheck("");
+
       setIsSignUpOpen(false); // 회원가입 모달창 닫기
       setIsLoginOpen(true); // 로그인 모달창 열기
     }
   };
 
-  const handleOnCloseBtn = () => {
-    setIsSignUpOpen(false);
-  };
+  // 회원이신가요? 로그인 페이지로 이동
   const handleOnClickToLogin = () => {
     setIsSignUpOpen(false);
     setIsLoginOpen(true);
