@@ -6,11 +6,11 @@ import { SmallSquareImageStyle } from "@/app/_styles/imageStyles";
 import { useQuery } from "@tanstack/react-query";
 import { getPosts } from "@/app/_api/getPosts";
 
-import type { Posts } from "@/app/_types/detail1/posts";
+import type { Newpost } from "@/app/_types/detail1/posts";
 
 const Latest = () => {
   /** posts 테이블의 모든 게시글을 불러옴 */
-  const { data, isLoading, isError } = useQuery<Posts[], Error>({
+  const { data, isLoading, isError } = useQuery<Newpost[], Error>({
     queryKey: ["posts"],
     queryFn: async () => {
       try {

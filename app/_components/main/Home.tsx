@@ -14,14 +14,13 @@ const Home = async () => {
     }
   );
   const postsData: Posts[] = await response.json();
-  console.log("---------데이터", postsData);
 
   return (
     <>
       <Carousel data={postsData} />
       <WeeklyTheme />
       <Latest />
-      <BestPainter />
+      <BestPainter data={postsData} />
     </>
   );
 };
