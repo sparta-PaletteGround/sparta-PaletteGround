@@ -5,6 +5,7 @@ import DrawingsByPainter from "./DrawingsByPainter";
 
 import type { PostProps } from "@/app/_types/detail1/posts";
 
+import { countLikesNumber } from "../detail-api/likes-api";
 import Likes from "./Likes";
 
 const Painter = ({ post, id }: PostProps) => {
@@ -18,19 +19,23 @@ const Painter = ({ post, id }: PostProps) => {
     queryFn: () => getPainterInfo(post.painter_email),
   });
 
-  if (isLoading) {
+  const {
+    data: likesNumber,
+    isLoading: countLikesLoading,
+    isError: countLikesError,
+  } = useQuery({
+    queryKey: ["countLikesNumber"],
+    queryFn: () => countLikesNumber(id),
+  });
+
+  if (isLoading || countLikesLoading) {
     return <div>Loading...</div>;
   }
-  if (isError || !Array.isArray(painterInfoArray)) {
+  if (isError || countLikesError || !Array.isArray(painterInfoArray)) {
     return <div>Error</div>;
   }
 
   const painterInfo = painterInfoArray[0];
-
-  // 유저가 그린 그림id 배열(현재 보고있는 그림의 id는 제외)
-  const drawingIds = painterInfo.drawings_array?.filter(
-    (drawingId: number) => drawingId !== id
-  );
 
   // 날짜 형식 변환
   const inputDate = post.created_at;
@@ -65,13 +70,14 @@ const Painter = ({ post, id }: PostProps) => {
           <div className="flex gap-2 items-center mt-7 ">
             <Likes id={id} post={post} />
             <p className="text-sm ">
-              좋아요 <span className="text-sm text-rose-600 mr-4">20</span>
+              좋아요{" "}
+              <span className="text-sm text-rose-600 mr-4">{likesNumber}</span>
               댓글 <span className="text-sm text-rose-600 ">3</span>
             </p>
           </div>
         </div>
         {/* 유저가 그린 그림 Best 3 */}
-        <DrawingsByPainter drawingIds={drawingIds} />
+        <DrawingsByPainter post={post} />
       </div>
     </>
   );
