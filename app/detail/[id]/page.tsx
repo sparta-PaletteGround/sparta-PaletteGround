@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { getSinglePost } from "@/app/_components/detail-api/detail-api";
+import { getSinglePost } from "@/app/_components/detail-api/post-api";
 
 import Comments from "@/app/_components/detail-1/Comments";
 import Drawing from "@/app/_components/detail-1/Drawing";

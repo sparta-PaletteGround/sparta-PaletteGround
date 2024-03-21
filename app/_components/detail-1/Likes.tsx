@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { FaHeart, FaRegHeart } from "react-icons/fa";
-import { insertDrawingId } from "../detail-api/detail-api";
+import { insertDrawingId } from "../detail-api/likes-api";
 import { getLoginUserInfo } from "../authComponents/authInfo-api";
 
 const Likes = ({ id }: { id: number }) => {

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getPainterInfo } from "../detail-api/detail-api";
+import { getPainterInfo } from "../detail-api/painter-api";
 
 import DrawingsByPainter from "./DrawingsByPainter";
 
