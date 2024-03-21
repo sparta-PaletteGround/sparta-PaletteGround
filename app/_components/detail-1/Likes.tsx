@@ -18,6 +18,7 @@ const Likes = ({ id, post }: PostProps) => {
   // const email = useUserInfoStore((state) => state.email);
   // console.log("email", email);
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
+  const setIsLoginOpen = useAuthStore((state) => state.setIsLoginOpen);
   const queryClient = useQueryClient();
 
   // 현재 그림의 url
@@ -35,6 +36,8 @@ const Likes = ({ id, post }: PostProps) => {
         }
       };
       fetchData();
+    } else if (!isLoggedIn) {
+      setIsLike(false);
     }
   }, [id, isLoggedIn]);
 
@@ -62,8 +65,13 @@ const Likes = ({ id, post }: PostProps) => {
   // - 좋아요 취소 : likes 테이블에서 email, id가 같은 열 삭제
   const handleLikeOnClick = async () => {
     if (!isLike) {
-      insertLikeMutation({ id, drawingUrl });
-      setIsLike((prev) => !prev);
+      if (isLoggedIn) {
+        insertLikeMutation({ id, drawingUrl });
+        setIsLike((prev) => !prev);
+      } else if (!isLoggedIn) {
+        alert("로그인이 필요한 기능입니다.");
+        setIsLoginOpen(true);
+      }
     } else if (isLike) {
       deleteLikeMutation(id);
       setIsLike((prev) => !prev);
