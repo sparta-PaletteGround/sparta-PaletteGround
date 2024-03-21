@@ -6,8 +6,10 @@ export interface Posts {
   created_at: string;
   likes: number;
   chooseTheme: string;
-  drawing_id: number;
+  drawing_id?: number;
 }
+
+// export type Newpost = Omit<Posts, "drawing_id">;
 
 export interface PostProps {
   post: Posts;

@@ -1,12 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-import Image from "next/image";
 import theme from "@/app/_constant/theme";
 
 import { Excalidraw, exportToBlob } from "@excalidraw/excalidraw";
 import initialData from "./initialData";
-import { uploadImageToStorage } from "@/app/_api/uploadImgToStorage";
+import { uploadImageToStorage } from "@/app/_api/uploadToStorage";
 import { ThemeImageStyle } from "@/app/_styles/imageStyles";
 
 import type { ExcalidrawImperativeAPI } from "@excalidraw/excalidraw/types/types";
