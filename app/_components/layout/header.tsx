@@ -20,16 +20,15 @@ const HeaderNav = () => {
     setIsSignUpOpen,
   } = useAuthStore();
 
+  // useLoggedIn 훅으로
   const isLoggedIn = useLoggedIn();
 
   const handleOnClickToLogin = () => {
     setIsLoginOpen(true);
-    // console.log("isLoginOpen", isLoginOpen);
   };
 
   const handleOnClickToSignUp = () => {
     setIsSignUpOpen(true);
-    // console.log("isSignUpOpen", isSignUpOpen);
   };
 
   const handleOnClickLogout = async () => {
