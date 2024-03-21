@@ -49,8 +49,8 @@ const HeaderNav = () => {
         </Link>
 
         <nav className="flex flex-rows gap-5">
-          <YellowLinkBtn href="/" text="🖌️그림그리기" />
-          <YellowLinkBtn href="/" text="🎮게임하기" />
+          <YellowLinkBtn href="/paint-editor" text="🖌️그림그리기" />
+          <YellowLinkBtn href="/" text="🖼️보러가기" />
         </nav>
       </div>
       <div>
