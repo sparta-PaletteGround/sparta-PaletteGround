@@ -141,7 +141,7 @@ const SignupModal = () => {
         </button>
       </form>
       <br />
-      <div className="flex gap-2 absolute fixed bottom-4">
+      <div className="flex gap-2 absolute bottom-4">
         <span className="text-zinc-400">이미 회원이신가요?</span>
         <span
           className="cursor-pointer text-zinc-600"
