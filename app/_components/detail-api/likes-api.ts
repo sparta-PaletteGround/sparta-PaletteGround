@@ -31,6 +31,7 @@ export const insertDrawingId = async (email: string, drawingId: number) => {
 
 // 유저의 likes_array 가져오기
 export const getLikesArray = async (email: string) => {
+  console.log("email", email);
   const { data, error } = await supabase
     .from("users")
     .select("likes_array")
@@ -38,5 +39,29 @@ export const getLikesArray = async (email: string) => {
   if (error) {
     console.error(error);
   }
+
   return data;
+};
+
+// likes에서 email, drawing_id 존재하는지 확인 - 유저가 좋아요 했는지 확인하기
+export const isCheckLikeState = async (drawingId: number) => {
+  // current loggedIn user의 email 가져오기
+  const { data: user, error: userError } = await supabase.auth.getUser();
+  if (userError) {
+    throw userError;
+  }
+  const email = user.user.email;
+
+  // likes테이블에서 email, drawingId 모두 일치하는값 있는지 확인하기
+  const { data: like, error } = await supabase
+    .from("likes")
+    .select()
+    .eq("user_email", email)
+    .eq("drawing_id", drawingId);
+
+  if (error) {
+    throw error;
+  }
+
+  return like.length > 0;
 };

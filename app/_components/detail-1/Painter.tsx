@@ -63,7 +63,7 @@ const Painter = ({ post, id }: PostProps) => {
           <p className="text-md font-semibold">제목 : {post.title}</p>
           <p className="text-sm">설명 : {post.description}</p>
           <div className="flex gap-2 items-center mt-7 ">
-            <Likes id={id} />
+            <Likes id={id} post={post} />
             <p className="text-sm ">
               좋아요 <span className="text-sm text-rose-600 mr-4">20</span>
               댓글 <span className="text-sm text-rose-600 ">3</span>
