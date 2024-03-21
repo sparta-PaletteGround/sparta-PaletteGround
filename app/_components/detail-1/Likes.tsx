@@ -5,7 +5,7 @@ import { useState } from "react";
 import type { PostProps } from "@/app/_types/detail1/posts";
 import { useQuery } from "@tanstack/react-query";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
-import { isCheckLikeState } from "../detail-api/likes-api";
+import { insertLike, isCheckLikeState } from "../detail-api/likes-api";
 
 const Likes = ({ id, post }: PostProps) => {
   const [isLike, setIsLike] = useState(false);
@@ -36,10 +36,18 @@ const Likes = ({ id, post }: PostProps) => {
 
   // 2. 이 그림의 좋아요 개수 가져오기
 
-  // (임시) 좋아요 클릭시 하트색 변경
-  const handleLikeOnClick = () => {
-    setIsLike((prev) => !prev);
+  // 좋아요 클릭시 - likes 테이블에 email, id, url 추가, 하트색 변경
+  const handleLikeOnClick = async () => {
+    if (!checkLikeState) {
+      await insertLike(id, drawingUrl);
+      setIsLike((prev) => !prev);
+    }
   };
+
+  // (임시) 좋아요 클릭시 하트색 변경
+  // const handleLikeOnClick = () => {
+  //   setIsLike((prev) => !prev);
+  // };
 
   return (
     <>

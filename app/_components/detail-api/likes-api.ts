@@ -65,3 +65,27 @@ export const isCheckLikeState = async (drawingId: number) => {
 
   return like.length > 0;
 };
+
+// likes테이블에 email, id, url 추가하기
+export const insertLike = async (id: number, url: string) => {
+  // current loggedIn user의 email 가져오기
+  const { data: user, error: userError } = await supabase.auth.getUser();
+  if (userError) {
+    throw userError;
+  }
+  const email = user.user.email;
+
+  // likes 테이블에 insert
+  const { data, error } = await supabase.from("likes").insert([
+    {
+      user_email: email,
+      drawing_id: id,
+      drawing_url: url,
+    },
+  ]);
+  if (error) {
+    throw error;
+  }
+  console.log("data", data);
+  return data;
+};
