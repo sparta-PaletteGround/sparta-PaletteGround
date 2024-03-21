@@ -5,8 +5,8 @@ import DrawingsByPainter from "./DrawingsByPainter";
 
 import type { PostProps } from "@/app/_types/detail1/posts";
 
-import Likes from "./Likes";
 import { countLikesNumber } from "../detail-api/likes-api";
+import Likes from "./Likes";
 
 const Painter = ({ post, id }: PostProps) => {
   // 그림 작성자 nickname, profile_img, 그린 그림들 가져오기

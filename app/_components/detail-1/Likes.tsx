@@ -6,7 +6,6 @@ import type { PostProps } from "@/app/_types/detail1/posts";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import {
-  countLikesNumber,
   deleteLike,
   insertLike,
   isCheckLikeState,
@@ -42,6 +41,15 @@ const Likes = ({ id, post }: PostProps) => {
     },
   });
 
+  const { mutate: deleteLikeMutation } = useMutation({
+    mutationFn: (id: number) => deleteLike(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["countLikesNumber"],
+      });
+    },
+  });
+
   if (checkLikeLoading) {
     return <div>Loading...</div>;
   }
@@ -59,7 +67,7 @@ const Likes = ({ id, post }: PostProps) => {
       insertLikeMutation({ id, drawingUrl });
       setIsLike((prev) => !prev);
     } else if (checkLikeState) {
-      await deleteLike(id);
+      deleteLikeMutation(id);
       setIsLike((prev) => !prev);
     }
   };
