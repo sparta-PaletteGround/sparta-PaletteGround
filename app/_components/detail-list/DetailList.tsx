@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DrawingPosts from "./DrawingPosts";
 import { getAllPost } from "./posts-all-api";
 import { useQuery } from "@tanstack/react-query";
@@ -9,15 +9,33 @@ import { Posts } from "@/app/_types/detail1/posts";
 const DetailList = () => {
   const [isTopicSelected, setIsTopicSelected] = useState(false);
   const [postData, setPostData] = useState<Posts[]>([]);
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
 
   const {
     data,
     isLoading,
     isError,
-  }: { data: any; isLoading: any; isError: any } = useQuery({
-    queryKey: ["post"],
-    queryFn: () => getAllPost(),
-  });
+  }: { data: Posts[] | undefined; isLoading: boolean; isError: any } = useQuery(
+    {
+      queryKey: ["post"],
+      queryFn: async () => {
+        const postData = await getAllPost();
+        setIsDataLoaded(true);
+        return postData;
+      },
+    }
+  );
+
+  useEffect(() => {
+    if (isDataLoaded) {
+      const queryParams = new URLSearchParams(window.location.search);
+      const paramCheck = queryParams.has("onlyWeeklyTopic");
+      console.log("확인확인", paramCheck);
+      if (paramCheck) {
+        setIsTopicSelected(true);
+      }
+    }
+  }, [isDataLoaded]);
 
   if (isLoading) {
     return <div>Loading...</div>;
