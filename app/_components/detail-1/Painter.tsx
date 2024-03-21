@@ -1,21 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
-import { getPainterInfo } from "../detail-api/detail-api";
+import { getPainterInfo } from "../detail-api/painter-api";
 
 import DrawingsByPainter from "./DrawingsByPainter";
 
 import type { PostProps } from "@/app/_types/detail1/posts";
 
-import Image from "next/image";
-import starEmpty from "@/public/image/star-empty.png";
-import starFill from "@/public/image/star-fill.png";
-
-import { FaRegHeart } from "react-icons/fa";
-import { FaHeart } from "react-icons/fa";
+import Likes from "./Likes";
 
 const Painter = ({ post, id }: PostProps) => {
-  const [isLike, setIsLike] = useState(false);
-
   // 그림 작성자 nickname, profile_img, 그린 그림들 가져오기
   const {
     data: painterInfoArray,
@@ -50,21 +42,6 @@ const Painter = ({ post, id }: PostProps) => {
 
   const formattedDate = `${year}년 ${month}월 ${day}일`;
 
-  const handleStarOnClick = () => {
-    alert("그림 작가가 즐겨찾기에 추가되었습니다!");
-    // 로그인한 유저 정보가 있으면
-    // -> users 테이블에서 '로그인한 유저의 email'과 일치하는 email 찾아서
-    // -> bookmark 배열에 drawing_id를 추가하기?? 아님 user_email을 추가하기??
-
-    // 로그인한 유저 정보가 없으면
-    // '로그인해주세요' alert 띄우기
-  };
-
-  const handleLikeOnClick = () => {
-    setIsLike((prev) => !prev);
-    // 좋아요 누르면 -> 하트 색채우기
-  };
-
   return (
     <>
       {/* 우측 박스 Wrapper */}
@@ -79,30 +56,14 @@ const Painter = ({ post, id }: PostProps) => {
             />
             <p className="text-md font-semibold">{painterInfo.nickname}</p>
           </div>
-          <div>
-            <Image
-              src={starEmpty}
-              alt=""
-              className="w-9 hover:cursor-pointer"
-              onClick={handleStarOnClick}
-            />
-            {/* <Image src={starFill} alt="" className="w-9" /> */}
-          </div>
         </div>
-        {/* 날짜, 제목, 설명, 댓글, 좋아요 */}
+        {/* 날짜, 제목, 설명, 댓글, 좋아요 수*/}
         <div className="flex flex-col my-4 gap-2">
           <p className="mb-3 text-sm">날짜 : {formattedDate}</p>
           <p className="text-md font-semibold">제목 : {post.title}</p>
           <p className="text-sm">설명 : {post.description}</p>
           <div className="flex gap-2 items-center mt-7 ">
-            {isLike ? (
-              <FaHeart onClick={handleLikeOnClick} className="text-rose-600" />
-            ) : (
-              <FaRegHeart
-                onClick={handleLikeOnClick}
-                className="hover:cursor-pointer text-rose-600"
-              />
-            )}
+            <Likes id={id} post={post} />
             <p className="text-sm ">
               좋아요 <span className="text-sm text-rose-600 mr-4">20</span>
               댓글 <span className="text-sm text-rose-600 ">3</span>
