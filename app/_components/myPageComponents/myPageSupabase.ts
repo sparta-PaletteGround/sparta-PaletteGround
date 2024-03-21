@@ -2,7 +2,8 @@ import { supabase } from '@/app/_utils/supabase/supabase';
 import { PostgrestSingleResponse } from '@supabase/supabase-js';
 
 export const getUser = async (payload: any) => {
-  const { email } = payload;
+  const { email } = await payload;
+  console.log(email);
   const { data }: PostgrestSingleResponse<any[]> = await supabase
     .from('users')
     .select('*')
