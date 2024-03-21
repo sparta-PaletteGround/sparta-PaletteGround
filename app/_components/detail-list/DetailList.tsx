@@ -30,7 +30,6 @@ const DetailList = () => {
     if (isDataLoaded) {
       const queryParams = new URLSearchParams(window.location.search);
       const paramCheck = queryParams.has("onlyWeeklyTopic");
-      console.log("확인확인", paramCheck);
       if (paramCheck) {
         handleWeeklyTopicClick();
       }
