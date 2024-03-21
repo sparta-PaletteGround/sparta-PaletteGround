@@ -6,6 +6,11 @@ import { useState } from "react";
 import { getLoginUserInfo } from "../authInfo-api";
 import ModalComponent from "./ModalComponent";
 import GoogleLogin from "../GoogleLogin";
+import {
+  authClickBtn,
+  authModalInput,
+  socialAuthClickBtn,
+} from "@/app/_styles/authModalStyle";
 
 const LoginModal = () => {
   const {
@@ -54,33 +59,38 @@ const LoginModal = () => {
 
   return (
     <ModalComponent>
-      <h2>로그인</h2>
+      <h2 className="text-PurpleLight text-xLarge font-extrabold">로그인</h2>
       <br />
       <form onSubmit={handleSignIn} className="flex flex-col justify-center">
         <input
           type="text"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="이메일(123@gmail.com)을 입력하세요."
+          placeholder="이메일 (123@gmail.com)"
+          style={authModalInput}
         />
         <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          placeholder="비밀번호를 입력하세요."
+          placeholder="비밀번호"
+          style={authModalInput}
         />
-        <br />
-        <button type="submit">로그인하기</button>
+        <button type="submit" style={authClickBtn}>
+          로그인하기
+        </button>
       </form>
-      <br />
       <GoogleLogin />
-      <button>Kakao Login</button>
+      {/* <button style={socialAuthClickBtn}>Kakao Login</button> */}
       <br />
-      <div className="flex gap-2">
-        <p>아직 회원이 아니신가요?</p>
-        <p className="cursor-pointer" onClick={handleOnClickToSignUP}>
+      <div className="flex gap-2 absolute fixed bottom-4">
+        <span className="text-zinc-400">아직 회원이 아니신가요?</span>
+        <span
+          className="cursor-pointer text-zinc-600"
+          onClick={handleOnClickToSignUP}
+        >
           회원가입
-        </p>
+        </span>
       </div>
     </ModalComponent>
   );

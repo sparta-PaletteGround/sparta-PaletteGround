@@ -2,6 +2,9 @@ import { supabase } from "@/app/_utils/supabase/supabase";
 import React from "react";
 import { getLoginUserInfo } from "./authInfo-api";
 import { useAuthStore } from "@/app/_store/authStore";
+import { socialAuthClickBtn } from "@/app/_styles/authModalStyle";
+import Image from "next/image";
+import googleLogo from "@/public/image/google.png";
 
 const GoogleLogin = () => {
   const { setIsLoggedIn, setIsLoginOpen } = useAuthStore();
@@ -34,7 +37,16 @@ const GoogleLogin = () => {
     }
   };
 
-  return <button onClick={handleGoogleLogin}>Google Login</button>;
+  return (
+    <button
+      onClick={handleGoogleLogin}
+      style={socialAuthClickBtn}
+      className="flex justify-center items-center gap-4"
+    >
+      <Image src={googleLogo} alt="google log" className="w-5 h-5" />
+      <span className="text-zinc-600">Google Login</span>
+    </button>
+  );
 };
 
 export default GoogleLogin;
