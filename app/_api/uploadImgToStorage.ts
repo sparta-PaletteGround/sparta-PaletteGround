@@ -10,16 +10,14 @@ export const uploadImageToStorage = async (blob: File, fileName: string) => {
         upsert: false,
         contentType: mimeType,
       });
-    console.log("연결됐나?");
     if (error) {
-      console.error("Error uploading image:", error.message);
+      alert(`일시적인 오류가 발생했습니다. 다시 시도하세요.`);
       return { error };
     }
-
-    console.log("Image uploaded successfully:", data.path);
+    alert(`드로잉이 등록되었습니다!`);
     return data.path;
   } catch (error) {
-    console.error("Error uploading image:", error);
+    alert(`일시적인 오류가 발생했습니다. 다시 시도하세요.`);
     return { error };
   }
 };

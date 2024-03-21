@@ -1,12 +1,11 @@
 export interface Posts {
-  id: number;
   painter_email: string;
-  drawing_id: number;
   drawing_url: string;
   title: string;
   description: string;
   created_at: string;
   likes: number;
+  chooseTheme: string;
 }
 
 export interface PostProps {

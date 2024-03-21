@@ -1,3 +1,8 @@
+export const WeeklyThemeBox = {
+  width: "100%",
+  height: "100px",
+  borderRadius: "10px",
+};
 export const InputStyle = {
   width: "100%",
   height: "35px",
