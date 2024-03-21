@@ -26,12 +26,12 @@ const Likes = ({ id }: { id: number }) => {
     queryFn: () => getLikesArray(email),
   });
   const likes_array = likes?.[0];
-  console.log("likes_array", likes_array);
 
   // 좋아요 클릭시 - 로그인한 유저정보 불러와서 email 뽑기 (로그인 유저정보가 zustand에 있다면 zustand에서 가져오기)
   const handleLikeOnClick = async () => {
     const data = await getLoginUserInfo();
-    const loggedInUserEmail = data?.user?.email;
+    // console.log("data", data);
+    const loggedInUserEmail = data?.email;
     if (loggedInUserEmail) {
       // 로그인한 유저 있을 경우
       // 1) 임시 useState로 하트 색 바꾸기
