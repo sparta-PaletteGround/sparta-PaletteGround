@@ -6,11 +6,12 @@ import { SmallSquareImageStyle } from "@/app/_styles/imageStyles";
 import { useQuery } from "@tanstack/react-query";
 import { getPosts } from "@/app/_api/getPosts";
 
-import type { Newpost } from "@/app/_types/detail1/posts";
+import type { Posts } from "@/app/_types/detail1/posts";
+import Link from "next/link";
 
 const Latest = () => {
   /** posts 테이블의 모든 게시글을 불러옴 */
-  const { data, isLoading, isError } = useQuery<Newpost[], Error>({
+  const { data, isLoading, isError } = useQuery<Posts[], Error>({
     queryKey: ["posts"],
     queryFn: async () => {
       try {
@@ -34,20 +35,24 @@ const Latest = () => {
   const latestPosts = sortedPosts.slice(0, 4);
   console.log("끼엥", latestPosts);
 
+  const handleOnClickImg = () => {};
+
   return (
     <section className="flex flex-col items-center">
       <div className="w-[1000px] mt-10 flex flex-col gap-2">
         <h1 className="text-large font-bold">✨최신 드로잉</h1>
         <div className="flex flex-wrap justify-center gap-5">
           {latestPosts.map((item) => (
-            <div key={item.drawing_url}>
-              <Image
-                src={`https://pmduqgivaolwydqssren.supabase.co/storage/v1/object/public/drawings/${item.drawing_url}`}
-                alt="유저의 그림"
-                width={230}
-                height={230}
-                style={SmallSquareImageStyle}
-              />
+            <div key={item.drawing_url} onClick={handleOnClickImg}>
+              <Link href={`/detail/${item.drawing_id}`}>
+                <Image
+                  src={`https://pmduqgivaolwydqssren.supabase.co/storage/v1/object/public/drawings/${item.drawing_url}`}
+                  alt="유저의 그림"
+                  width={230}
+                  height={230}
+                  style={SmallSquareImageStyle}
+                />
+              </Link>
             </div>
           ))}
         </div>

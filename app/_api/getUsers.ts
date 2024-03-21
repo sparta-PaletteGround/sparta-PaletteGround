@@ -10,5 +10,5 @@ export const getUsers = async (): Promise<User[]> => {
     return [];
   }
 
-  return data;
+  return data || [];
 };

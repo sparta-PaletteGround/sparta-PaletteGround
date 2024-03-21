@@ -2,9 +2,9 @@ import Image from "next/image";
 import React from "react";
 import ExampleImg from "@/public/image/example.jpg";
 import { SquareImageStyle } from "@/app/_styles/imageStyles";
-import { Newpost } from "@/app/_types/detail1/posts";
+import { Posts } from "@/app/_types/detail1/posts";
 
-const Carousel = ({ data }: { data: Newpost[] }) => {
+const Carousel = ({ data }: { data: Posts[] }) => {
   return (
     <section className="flex flex-col justify-center items-center bg-gray-100 h-[400px]">
       <div className="flex flex-col gap-2 w-[1000px]">
