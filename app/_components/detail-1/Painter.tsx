@@ -6,6 +6,7 @@ import DrawingsByPainter from "./DrawingsByPainter";
 import type { PostProps } from "@/app/_types/detail1/posts";
 
 import Likes from "./Likes";
+import { countLikesNumber } from "../detail-api/likes-api";
 
 const Painter = ({ post, id }: PostProps) => {
   // 그림 작성자 nickname, profile_img, 그린 그림들 가져오기
@@ -18,10 +19,19 @@ const Painter = ({ post, id }: PostProps) => {
     queryFn: () => getPainterInfo(post.painter_email),
   });
 
-  if (isLoading) {
+  const {
+    data: likesNumber,
+    isLoading: countLikesLoading,
+    isError: countLikesError,
+  } = useQuery({
+    queryKey: ["countLikesNumber"],
+    queryFn: () => countLikesNumber(id),
+  });
+
+  if (isLoading || countLikesLoading) {
     return <div>Loading...</div>;
   }
-  if (isError || !Array.isArray(painterInfoArray)) {
+  if (isError || countLikesError || !Array.isArray(painterInfoArray)) {
     return <div>Error</div>;
   }
 
@@ -60,7 +70,8 @@ const Painter = ({ post, id }: PostProps) => {
           <div className="flex gap-2 items-center mt-7 ">
             <Likes id={id} post={post} />
             <p className="text-sm ">
-              좋아요 <span className="text-sm text-rose-600 mr-4">20</span>
+              좋아요{" "}
+              <span className="text-sm text-rose-600 mr-4">{likesNumber}</span>
               댓글 <span className="text-sm text-rose-600 ">3</span>
             </p>
           </div>

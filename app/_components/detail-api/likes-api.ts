@@ -1,6 +1,6 @@
 import { supabase } from "@/app/_utils/supabase/supabase";
 
-// likes에서 email, drawing_id 존재하는지 확인 - 유저가 좋아요 했는지 확인하기
+// 유저가 좋아요 했는지 미리 확인하기 - likes에서 email, drawing_id 존재하는지 확인
 export const isCheckLikeState = async (drawingId: number) => {
   // current loggedIn user의 email 가져오기
   const { data: user, error: userError } = await supabase.auth.getUser();
@@ -57,4 +57,15 @@ export const deleteLike = async (id: number) => {
     throw error;
   }
   return data;
+};
+
+export const countLikesNumber = async (id: number) => {
+  const { data, error } = await supabase
+    .from("likes")
+    .select()
+    .eq("drawing_id", id);
+  if (error) {
+    throw error;
+  }
+  return data.length;
 };

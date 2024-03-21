@@ -6,6 +6,7 @@ import type { PostProps } from "@/app/_types/detail1/posts";
 import { useQuery } from "@tanstack/react-query";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import {
+  countLikesNumber,
   deleteLike,
   insertLike,
   isCheckLikeState,
