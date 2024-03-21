@@ -19,6 +19,7 @@ const Painter = ({ post, id }: PostProps) => {
     queryFn: () => getPainterInfo(post.painter_email),
   });
 
+  // 좋아요수 가져오기
   const {
     data: likesNumber,
     isLoading: countLikesLoading,
