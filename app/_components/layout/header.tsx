@@ -49,7 +49,7 @@ const HeaderNav = () => {
 
         <nav className="flex flex-rows gap-5">
           <YellowLinkBtn href="/paint-editor" text="🖌️그림그리기" />
-          <YellowLinkBtn href="/" text="🖼️보러가기" />
+          <YellowLinkBtn href="/detail-list" text="🖼️보러가기" />
         </nav>
       </div>
       <div>
