@@ -6,6 +6,7 @@ export interface Posts {
   created_at: string;
   likes: number;
   chooseTheme: string;
+  drawing_id: number;
 }
 
 export interface PostProps {

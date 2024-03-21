@@ -28,7 +28,7 @@ const Painter = ({ post, id }: PostProps) => {
   const painterInfo = painterInfoArray[0];
 
   // 유저가 그린 그림id 배열(현재 보고있는 그림의 id는 제외)
-  const drawingIds = painterInfo.drawings_array.filter(
+  const drawingIds = painterInfo.drawings_array?.filter(
     (drawingId: number) => drawingId !== id
   );
 
