@@ -1,17 +1,21 @@
 import React from "react";
-import { useQuery } from "@tanstack/react-query";
 
+import type { PostProps } from "@/app/_types/detail1/posts";
+import { useQuery } from "@tanstack/react-query";
 import { getDrawingUrls } from "../detail-api/painter-api";
 
-const DrawingsByPainter = ({ drawingIds }: { drawingIds: number[] }) => {
-  // 유저가 그린 그림url 배열
+type OwnProp = Omit<PostProps, "id">;
+
+const DrawingsByPainter = ({ post }: OwnProp) => {
+  // 변경후 - posts테이블에서 post.painter_email과 일치하는 그림 url들을 가져와서 배열로 저장, 아래에서 뿌려주기
+  const email = post.painter_email;
   const {
     data: drawingUrls,
     isLoading,
     isError,
   } = useQuery({
     queryKey: ["drawingUrls"],
-    queryFn: () => getDrawingUrls(drawingIds),
+    queryFn: () => getDrawingUrls(email),
   });
 
   if (isLoading) {
@@ -20,6 +24,8 @@ const DrawingsByPainter = ({ drawingIds }: { drawingIds: number[] }) => {
   if (isError) {
     return <div>Error</div>;
   }
+
+  console.log("drawingUrls", drawingUrls);
 
   return (
     <>
@@ -33,7 +39,7 @@ const DrawingsByPainter = ({ drawingIds }: { drawingIds: number[] }) => {
               return (
                 <img
                   key={index}
-                  src={url}
+                  src={`https://pmduqgivaolwydqssren.supabase.co/storage/v1/object/public/drawings/${url}`}
                   alt=""
                   className="max-w-full max-h-full rounded-md"
                 />

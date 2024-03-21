@@ -27,11 +27,6 @@ const Painter = ({ post, id }: PostProps) => {
 
   const painterInfo = painterInfoArray[0];
 
-  // 유저가 그린 그림id 배열(현재 보고있는 그림의 id는 제외)
-  const drawingIds = painterInfo.drawings_array.filter(
-    (drawingId: number) => drawingId !== id
-  );
-
   // 날짜 형식 변환
   const inputDate = post.created_at;
   const parsedDate = new Date(inputDate);
@@ -71,7 +66,7 @@ const Painter = ({ post, id }: PostProps) => {
           </div>
         </div>
         {/* 유저가 그린 그림 Best 3 */}
-        <DrawingsByPainter drawingIds={drawingIds} />
+        <DrawingsByPainter post={post} />
       </div>
     </>
   );
