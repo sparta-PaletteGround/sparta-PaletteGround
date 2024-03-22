@@ -1,88 +1,76 @@
-"use client";
-import React, { useEffect, useRef, useState } from "react";
+'use client';
+import React, { useRef, useState } from 'react';
 
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getUser, updateUser } from "./myPageSupabase";
-import Modal from "./modals/Modal";
-import { supabase } from "@/app/_utils/supabase/supabase";
-import MypageNonAuth from "./MypageNonAuth";
-import { useUserInfoStore } from "@/app/_store/authStore";
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { getUser, updateStorage, updateUser } from './myPageSupabase';
+import Modal from './modals/Modal';
+import MypageNonAuth from './MypageNonAuth';
+import { useAuthStore, useUserInfoStore } from '@/app/_store/authStore';
 
 const MypageUser = () => {
+  const randomUUID = self.crypto.randomUUID();
   const [isOpenMidal, setIsOpenModal] = useState(false);
 
   const [isLogin, setIsLogin] = useState(false);
-  const [loginUserEmail, setLoginUserEmail] = useState("dkdk@naver.com");
+  const [loginUserEmail, setLoginUserEmail] = useState('dkdk@naver.com');
 
   const currentUser = useUserInfoStore();
-  console.log("currentUser", currentUser);
+  console.log('currentUser', currentUser);
 
   const fileInputRef: React.MutableRefObject<any> = useRef(null);
 
-  const [updateNickName, setUpdateNickName] = useState<any>("");
-  const [updateImage, setUpdateImage] = useState<any>("");
+  const [updateNickName, setUpdateNickName] = useState<any>('');
+  const [updateImage, setUpdateImage] = useState<any>('');
 
-  const { data, isLoading }: { data: any | null | undefined; isLoading: any } =
-    useQuery({
-      queryKey: ["user"],
-      queryFn: () => getUser({ email: loginUserEmail }),
-    });
-  useEffect(() => {
-    const loginUser = async () => {
-      const { userInfo }: any = await supabase.auth.getUser();
-      if (userInfo) {
-        console.log("로그인한 유저의 정보", data.user);
-        //로그인한 유저email state에 전달
-        // setLoginUserEmail()
-        //전달 한 email queryFn에 매개변수로 전달
-        // loginUserEmail
-        return userInfo;
-      } else {
-        setIsLogin(true);
-      }
-    };
-    loginUser();
-  }, [data]);
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
+
+  const currentUserInfo = useUserInfoStore();
+  const currentUserEmail = currentUserInfo.email;
+
+  const { data, isPending } = useQuery({
+    queryKey: ['user'],
+    queryFn: () => getUser({ email: currentUserEmail }),
+    enabled: !!currentUserEmail,
+  });
 
   const queryClient = useQueryClient();
 
   const updateMutate = useMutation({
     mutationFn: updateUser,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["user"] });
+      queryClient.invalidateQueries({ queryKey: ['user'] });
     },
   });
 
-  if (isLoading) {
+  if (isPending) {
     return <div>로딩중 ... </div>;
   }
-  const userInfo = data[0];
+  const userInfo = data?.[0];
   const { nickname, profile_img, email } = userInfo;
+  console.log('profile_img', profile_img);
 
   const handleNickName = (e: any) => {
     setUpdateNickName(e.target.value);
   };
 
   const handleFileChange = (e: any) => {
-    const file = e.target.files;
+    const file = e.target.files[0];
     if (file.length === 0) {
       return;
     }
-    const reder = new FileReader();
-    reder.onload = () => {
-      if (reder.readyState === 2) {
-        setUpdateImage(reder.result);
-      }
-    };
-    reder.readAsDataURL(e.target.files[0]);
+
+    if (file) {
+      const imgUrl = URL.createObjectURL(file);
+      setUpdateImage(imgUrl);
+    }
   };
 
-  const handleUpdateSubmit = () => {
+  const handleUpdateSubmit = async () => {
     if (!updateNickName && !updateImage) {
-      return alert("변경 사항이 없습니다"), setIsOpenModal(false);
+      return alert('변경 사항이 없습니다'), setIsOpenModal(false);
     }
     if (!updateImage) {
-      console.log("닉네임만 바뀜");
+      console.log('닉네임만 바뀜');
       const updateData = {
         nickname: updateNickName,
         email,
@@ -90,15 +78,19 @@ const MypageUser = () => {
       updateMutate.mutate(updateData);
     }
     if (!updateNickName) {
-      console.log("이미지만 바뀜");
-      const updateData = {
-        profile_img: updateImage,
-        email,
-      };
-      updateMutate.mutate(updateData);
+      const img = fileInputRef.current.files[0];
+      let storagePath: any = '';
+      const newPath = email + randomUUID;
+      storagePath = await updateStorage(img, storagePath, newPath);
+      //     const updateData = {
+      //   profile_img: updateImage,
+      //   email,
+      // };
+      // updateMutate.mutate(updateData);
+      console.log('storagePath', storagePath);
     }
     if (updateNickName && updateImage) {
-      console.log("둘다 바뀜!");
+      console.log('둘다 바뀜!');
       const updateData = {
         nickname: updateNickName,
         profile_img: updateImage,
@@ -110,7 +102,7 @@ const MypageUser = () => {
 
   return (
     <>
-      {isLogin ? (
+      {isLoggedIn ? (
         <>
           <h1 className="mt-24 ml-20 text-2xl font-bold">💘 마이페이지</h1>
           <section className="border-2 bg-PurpleLight rounded-lg w-96 h-96 ml-20 mt-4">
@@ -163,7 +155,7 @@ const MypageUser = () => {
                   type="file"
                   accept="image/*"
                   ref={fileInputRef}
-                  style={{ display: "none" }}
+                  style={{ display: 'none' }}
                   onChange={handleFileChange}
                 />
                 <div>

@@ -2,7 +2,8 @@ import { supabase } from '@/app/_utils/supabase/supabase';
 import { PostgrestSingleResponse } from '@supabase/supabase-js';
 
 export const getUser = async (payload: any) => {
-  const { email } = payload;
+  const { email } = await payload;
+  console.log(email);
   const { data }: PostgrestSingleResponse<any[]> = await supabase
     .from('users')
     .select('*')
@@ -34,4 +35,18 @@ export const updateUser = async (payload: any) => {
   }
   return;
 };
-// 둘다 변경시 supabase 반짝거림
+
+export const updateStorage = async (img, storagePath, newPath) => {
+  const imgUpdate = await supabase.storage
+    .from('profileImage')
+    .upload(newPath, img, {
+      cacheControl: '3600',
+      upsert: true,
+    });
+  if (imgUpdate.error) {
+    console.log('이미지 수정 실패', imgUpdate.error);
+  } else {
+    console.log('이미지 수정 완료', imgUpdate);
+    return imgUpdate.data.path;
+  }
+};
