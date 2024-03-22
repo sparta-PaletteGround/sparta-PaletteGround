@@ -52,7 +52,6 @@ const DetailList = () => {
     );
 
     setPostData(weeklyPost);
-    // console.log(weeklyPost);
   };
 
   // 전체 그림 다 보여주기
