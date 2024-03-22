@@ -45,6 +45,9 @@ const MypageUser = () => {
   const handleNickName = (e: any) => {
     setUpdateNickName(e.target.value);
   };
+  const handleImageClick = () => {
+    fileInputRef.current.click();
+  };
 
   const handleFileChange = (e: any) => {
     const file = e.target.files[0];
@@ -157,7 +160,7 @@ const MypageUser = () => {
                   src={updateImage ? updateImage : profile_img}
                   alt="프로필 이미지"
                   className="w-40 h-40 rounded-full cursor-pointer"
-                  onClick={() => fileInputRef.current.click()}
+                  onClick={handleImageClick}
                 />
               </div>
               <div className="flex flex-col gap-5 items-center">
