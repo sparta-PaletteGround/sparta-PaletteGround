@@ -9,7 +9,7 @@ interface OwnProps {
 const CommentsList = ({ commentsList }: OwnProps) => {
   return (
     <>
-      <div>
+      <div className="mb-6">
         {commentsList?.map((comment) => {
           return <CommentItem key={comment.id} comment={comment} />;
         })}

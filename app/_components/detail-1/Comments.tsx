@@ -92,7 +92,9 @@ const Comments = ({ drawingId }: { drawingId: number }) => {
       </p>
       <div className="w-full h-[100px] bg-YellowPale my-2 pt-2 pl-3 rounded-md">
         <div className="flex">
-          <p className="text-sm">닉네임 : {isLoggedIn ? nickname : "guest"} </p>
+          <p className="text-sm mb-1">
+            닉네임 : {isLoggedIn ? nickname : "guest"}
+          </p>
         </div>
         <textarea
           readOnly={!isLoggedIn}

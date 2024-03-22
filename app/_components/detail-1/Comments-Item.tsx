@@ -101,9 +101,13 @@ const CommentItem = ({ comment }: { comment: Comment }) => {
         className="w-full min-h-[100px] flex flex-col justify-between bg-YellowPale my-2 py-2 pl-3 rounded-md"
       >
         <div>
-          <p className="text-sm">닉네임 : {comment.user_nickname}</p>
+          <p className="text-sm mb-1">닉네임 : {comment.user_nickname}</p>
           {/* 수정 전 댓글창 */}
-          {!isEdit && <p className="text-sm">{comment.comment}</p>}
+          {!isEdit && (
+            <div className="w-[98%] min-h-[53px] bg-Background mb-2">
+              <p className="text-sm p-2 h-auto">{comment.comment}</p>
+            </div>
+          )}
           {/* 수정 중 댓글창 textarea */}
           {isEdit && comment.user_email === email && (
             <textarea
