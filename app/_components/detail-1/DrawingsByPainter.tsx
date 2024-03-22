@@ -40,11 +40,11 @@ const DrawingsByPainter = ({ post }: OwnProp) => {
   return (
     <>
       {/* 유저가 그린 그림 3 */}
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 min-h-[100px]">
         <p className="text-sm font-semibold">
           🏆 {painterNickname}의 다른 그림
         </p>
-        <div className="w-60 h-16  flex  gap-2 items-center">
+        <div className="w-60 min-h-16 flex gap-2 items-center">
           <div className="w-full h-full flex flex-wrap gap-2 ">
             {/* 그림 url 배열을 map으로 돌리기 */}
             {drawingUrls?.map((url: string, index): React.ReactNode => {
@@ -53,7 +53,7 @@ const DrawingsByPainter = ({ post }: OwnProp) => {
                   key={index}
                   src={`https://pmduqgivaolwydqssren.supabase.co/storage/v1/object/public/drawings/${url}`}
                   alt=""
-                  className="max-w-[72px] max-h-full rounded-md"
+                  className="w-[72px] h-[72px] rounded-md"
                 />
               );
             })}
