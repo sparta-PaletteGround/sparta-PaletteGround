@@ -4,7 +4,6 @@ import Image from "next/image";
 import React from "react";
 import { SquareImageStyle } from "@/app/_styles/imageStyles";
 import { Posts } from "@/app/_types/detail1/posts";
-import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 import Slider from "react-slick";
 import "./slick/slick.css";
@@ -50,17 +49,15 @@ const Carousel = ({
     infinite: true,
     slidesToShow: 3,
     slidesToScroll: 1,
-    // nextArrow: <IoIosArrowForward />,
-    // prevArrow: <IoIosArrowBack />,
   };
 
   return (
-    <section className="flex flex-col justify-center items-center bg-gray-100 h-[400px]">
+    <section className="flex flex-col justify-center items-center bg-gray-100 h-[500px]">
       <div className="flex flex-col gap-2 w-[1000px]">
         <h1 className="text-large font-bold">👑베스트 드로잉</h1>
         <Slider {...settings}>
           {filteredData.map((item) => (
-            <div key={item.drawing_id}>
+            <div key={item.drawing_id} className="flex flex-col">
               <Image
                 src={`https://pmduqgivaolwydqssren.supabase.co/storage/v1/object/public/drawings/${item.drawing_url}`}
                 alt="유저의 그림"
@@ -68,6 +65,9 @@ const Carousel = ({
                 width={300}
                 height={300}
               />
+              <div className="flex justify-center pt-5 pb-5 mr-5 font-bold text-large">
+                {item.title}
+              </div>
             </div>
           ))}
         </Slider>
