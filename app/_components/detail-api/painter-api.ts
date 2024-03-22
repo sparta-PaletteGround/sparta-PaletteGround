@@ -15,11 +15,16 @@ export const getPainterInfo = async (email: string | null) => {
 };
 
 // posts테이블에서 일치하는 email의 그림 url들을 배열로 반환하기
-export const getDrawingUrls = async (email: string | null) => {
+export const getDrawingUrls = async (
+  email: string | null,
+  drawingId: number | undefined
+) => {
   const { data: urlArray, error } = await supabase
     .from("posts")
     .select("drawing_url")
-    .eq("painter_email", email);
+    .eq("painter_email", email)
+    .not("drawing_id", "eq", drawingId);
+
   if (error) {
     throw error;
   }
