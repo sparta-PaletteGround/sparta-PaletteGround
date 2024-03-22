@@ -6,7 +6,8 @@ import { getUsers } from "@/app/_api/getUsers";
 
 const BestPainter = async ({ data }: { data: Newpost[] }) => {
   const users = await getUsers();
-  console.log("깨앵", users);
+  // console.log("깨앵", users);
+
   /** 게시글을 가장 많이 작성한 유저 3명 뽑아내기 */
   const userCounts: { [email: string]: number } = {};
   data?.forEach((post) => {
