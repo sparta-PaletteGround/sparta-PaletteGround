@@ -22,7 +22,7 @@ const BestPainter = async ({ data }: { data: Newpost[] }) => {
     .sort((a, b) => b.postCount - a.postCount)
     .slice(0, 3);
 
-  console.log("끼잉", sortedUsers);
+  // console.log("끼잉", sortedUsers);
 
   return (
     <section className="flex flex-col items-center">
