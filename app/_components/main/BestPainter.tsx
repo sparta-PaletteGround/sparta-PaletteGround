@@ -16,6 +16,7 @@ const BestPainter = async ({ data }: { data: Posts[] }) => {
   const usersData: User[] = await response.json();
 
   /** posts로부터 가장 많이 작성한 유저 3명 뽑아내기 */
+
   const userCounts: { [email: string]: number } = {};
   data?.forEach((post) => {
     if (!post.painter_email) return;
@@ -53,6 +54,7 @@ const BestPainter = async ({ data }: { data: Posts[] }) => {
                 alt="사용자 이미지"
                 width="70"
                 height="70"
+                className="rounded-full"
               />
               <p>{item.nickname}</p>
             </div>

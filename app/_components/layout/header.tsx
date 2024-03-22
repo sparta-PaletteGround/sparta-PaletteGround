@@ -8,7 +8,7 @@ import SignupModal from "../auth/modals/SignupModal";
 import { supabase } from "@/app/_utils/supabase/supabase";
 import { YellowLinkBtn } from "../common/Button";
 import Link from "next/link";
-import { useAuthStore } from "@/app/_store/authStore";
+import { useAuthStore, useUserInfoStore } from "@/app/_store/authStore";
 import { useLoggedIn } from "@/app/_hooks/login/useLoggedIn";
 
 const HeaderNav = () => {
@@ -19,6 +19,8 @@ const HeaderNav = () => {
     isSignUpOpen,
     setIsSignUpOpen,
   } = useAuthStore();
+
+  const { setUser } = useUserInfoStore();
 
   // useLoggedIn 훅으로
   const isLoggedIn = useLoggedIn();
@@ -37,6 +39,13 @@ const HeaderNav = () => {
     if (!error) {
       alert("로그아웃 되었습니다.");
       setIsLoggedIn(false);
+      setUser({
+        email: null,
+        nickname: null,
+        profileImage: null,
+        googleName: null,
+        googleProfileImg: null,
+      });
     }
   };
 
