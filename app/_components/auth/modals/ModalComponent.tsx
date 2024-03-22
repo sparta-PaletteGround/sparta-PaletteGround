@@ -23,7 +23,7 @@ const ModalComponent = ({ children }: any) => {
           >
             X
           </button>
-          <Image src={logo} alt="로고이미지" className="absoulte top-12" />
+          <Image src={logo} alt="로고이미지" className="absoulte top-12 p-6" />
           {children}
         </div>
       </section>
