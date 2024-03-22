@@ -30,7 +30,7 @@ const CommentItem = ({ comment }: { comment: Comment }) => {
     mutationFn: ({ email, id }: DeleteCommentType) => deleteComment(email, id),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["commentsList"],
+        queryKey: ["comments"],
       });
     },
   });
@@ -41,7 +41,7 @@ const CommentItem = ({ comment }: { comment: Comment }) => {
       updateComment({ nextComment, email, id }),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["commentsList"],
+        queryKey: ["comments"],
       });
     },
   });

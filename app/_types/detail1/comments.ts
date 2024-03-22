@@ -2,7 +2,7 @@ export interface InsertingComment {
   email: string | null;
   nickname: string | null;
   comment: string;
-  id: number;
+  drawingId: number;
 }
 
 export interface Comment {
