@@ -1,6 +1,6 @@
 export const SquareImageStyle = {
-  width: "300px",
-  height: "300px",
+  width: "280px",
+  height: "280px",
   borderRadius: "12px",
   boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
 };
