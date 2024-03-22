@@ -73,7 +73,6 @@ const Painter = ({ post, id }: PostProps) => {
             <p className="text-sm ">
               좋아요{" "}
               <span className="text-sm text-rose-600 mr-4">{likesNumber}</span>
-              댓글 <span className="text-sm text-rose-600 ">3</span>
             </p>
           </div>
         </div>
