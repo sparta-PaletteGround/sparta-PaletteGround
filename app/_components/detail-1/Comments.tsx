@@ -97,8 +97,11 @@ const Comments = ({ id }: { id: number }) => {
           <p className="text-sm">닉네임 : {isLoggedIn ? nickname : "guest"} </p>
         </div>
         <textarea
+          readOnly={!isLoggedIn}
           className="text-sm w-[98%] h-[60%] p-2 resize-none"
-          placeholder="댓글을 입력해주세요."
+          placeholder={
+            isLoggedIn ? "댓글을 입력해주세요." : "로그인이 필요합니다."
+          }
           value={comment}
           onChange={handleInputComment}
         />
