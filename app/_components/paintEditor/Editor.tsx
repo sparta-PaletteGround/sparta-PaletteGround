@@ -17,6 +17,7 @@ import {
 } from "@/app/_styles/editorPageStyles";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/app/_utils/supabase/supabase";
+import { useUserInfoStore } from "@/app/_store/authStore";
 
 const Editor = () => {
   const [title, setTitle] = useState("");
@@ -28,6 +29,9 @@ const Editor = () => {
   const [blobUrl, setBlobUrl] = useState("");
 
   const queryClient = useQueryClient();
+
+  const currentUserInfo = useUserInfoStore();
+  const currentUserEmail = currentUserInfo.email;
 
   /** 게시글 등록 mutation */
   const insertMutation = useMutation({
@@ -88,7 +92,7 @@ const Editor = () => {
         description,
         created_at,
         drawing_url: imgUrl,
-        painter_email: "testing@naver.com",
+        painter_email: currentUserEmail,
         likes: 0,
         chooseTheme,
       };
@@ -115,7 +119,6 @@ const Editor = () => {
           className="flex flex-col items-center justify-center"
           style={ThemeImageStyle}
         >
-          {" "}
           <span>이번주 주제</span>
           <span className="text-large font-bold">{theme.theme}</span>
         </div>
