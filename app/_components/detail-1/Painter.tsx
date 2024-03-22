@@ -51,34 +51,37 @@ const Painter = ({ post, id }: PostProps) => {
   return (
     <>
       {/* 우측 박스 Wrapper */}
-      <div className="w-[260px] h-[370px] flex flex-col justify-between bg-PurplePale p-4 rounded-md">
-        {/* 프로필 이미지, 닉네임, 별 */}
-        <div className=" flex items-center justify-between">
-          <div className="flex gap-2 items-center">
-            <img
-              className="w-10 object-cover rounded-full"
-              src={painterInfo?.profile_img}
-              alt=""
-            />
-            <p className="text-md font-semibold">{painterInfo?.nickname}</p>
+      <div>
+        <div className="w-[260px] min-h-[370px] flex flex-col justify-between bg-PurplePale p-4 rounded-md">
+          {/* 프로필 이미지, 닉네임, 별 */}
+          <div className=" flex items-center justify-between">
+            <div className="flex gap-2 items-center">
+              <img
+                className="w-10 object-cover rounded-full"
+                src={painterInfo?.profile_img}
+                alt=""
+              />
+              <p className="text-md font-semibold">{painterInfo?.nickname}</p>
+            </div>
           </div>
-        </div>
-        {/* 날짜, 제목, 설명, 댓글, 좋아요 수*/}
-        <div className="flex flex-col my-4 gap-2">
-          <p className="mb-3 text-sm">날짜 : {formattedDate}</p>
-          <p className="text-md font-semibold">제목 : {post.title}</p>
-          <p className="text-sm">설명 : {post.description}</p>
-          <div className="flex gap-2 items-center mt-7 ">
-            <Likes id={id} post={post} />
-            <p className="text-sm ">
-              좋아요{" "}
-              <span className="text-sm text-rose-600 mr-4">{likesNumber}</span>
-              댓글 <span className="text-sm text-rose-600 ">3</span>
-            </p>
+          {/* 날짜, 제목, 설명, 댓글, 좋아요 수*/}
+          <div className="flex flex-col my-4 gap-2">
+            <p className="mb-3 text-sm">날짜 : {formattedDate}</p>
+            <p className="text-md font-semibold">제목 : {post.title}</p>
+            <p className="text-sm">설명 : {post.description}</p>
+            <div className="flex gap-2 items-center mt-7 ">
+              <Likes id={id} post={post} />
+              <p className="text-sm ">
+                좋아요{" "}
+                <span className="text-sm text-rose-600 mr-4">
+                  {likesNumber}
+                </span>
+              </p>
+            </div>
           </div>
+          {/* 유저가 그린 그림 Best 3 */}
+          <DrawingsByPainter post={post} />
         </div>
-        {/* 유저가 그린 그림 Best 3 */}
-        <DrawingsByPainter post={post} />
       </div>
     </>
   );
