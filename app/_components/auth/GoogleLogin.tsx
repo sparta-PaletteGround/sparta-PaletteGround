@@ -20,7 +20,7 @@ const GoogleLogin = () => {
             access_type: "offline",
             prompt: "consent",
           },
-          redirectTo: `http://localhost:3000/auth/confirm/google?email=${email}`,
+          // redirectTo: `http://localhost:3000/auth/confirm/google?email=${email}`,
         },
       });
 

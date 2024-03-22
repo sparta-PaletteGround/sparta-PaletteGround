@@ -1,5 +1,3 @@
-import { supabase } from "@/app/_utils/supabase/supabase";
-
 export async function GET() {
   //   // 이미 supabase에 등록한 로그인 정보 확인
   //   const { data: existingUser, error: userError } = await supabase
