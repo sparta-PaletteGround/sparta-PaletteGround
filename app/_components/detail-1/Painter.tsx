@@ -37,6 +37,7 @@ const Painter = ({ post, id }: PostProps) => {
   }
 
   const painterInfo = painterInfoArray[0];
+  console.log("painterInfo", painterInfo);
 
   // 날짜 형식 변환
   const inputDate = post.created_at;
@@ -57,10 +58,10 @@ const Painter = ({ post, id }: PostProps) => {
           <div className="flex gap-2 items-center">
             <img
               className="w-10 object-cover"
-              src={painterInfo.profile_img}
+              src={painterInfo?.profile_img}
               alt=""
             />
-            <p className="text-md font-semibold">{painterInfo.nickname}</p>
+            <p className="text-md font-semibold">{painterInfo?.nickname}</p>
           </div>
         </div>
         {/* 날짜, 제목, 설명, 댓글, 좋아요 수*/}

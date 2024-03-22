@@ -6,12 +6,16 @@ import { getUser, updateUser } from "./myPageSupabase";
 import Modal from "./modals/Modal";
 import { supabase } from "@/app/_utils/supabase/supabase";
 import MypageNonAuth from "./MypageNonAuth";
+import { useUserInfoStore } from "@/app/_store/authStore";
 
 const MypageUser = () => {
   const [isOpenMidal, setIsOpenModal] = useState(false);
 
   const [isLogin, setIsLogin] = useState(false);
   const [loginUserEmail, setLoginUserEmail] = useState("dkdk@naver.com");
+
+  const currentUser = useUserInfoStore();
+  console.log("currentUser", currentUser);
 
   const fileInputRef: React.MutableRefObject<any> = useRef(null);
 
