@@ -102,7 +102,9 @@ const CommentItem = ({ comment }: { comment: Comment }) => {
       >
         <div>
           <p className="text-sm">닉네임 : {comment.user_nickname}</p>
+          {/* 수정 전 댓글창 */}
           {!isEdit && <p className="text-sm">{comment.comment}</p>}
+          {/* 수정 중 댓글창 textarea */}
           {isEdit && comment.user_email === email && (
             <textarea
               ref={textarea}
@@ -113,6 +115,7 @@ const CommentItem = ({ comment }: { comment: Comment }) => {
           )}
         </div>
         <div className="flex justify-end gap-2 mr-4">
+          {/* 수정 전 버튼*/}
           {!isEdit && comment.user_email === email && isLoggedIn && (
             <>
               <button
@@ -129,6 +132,7 @@ const CommentItem = ({ comment }: { comment: Comment }) => {
               </button>
             </>
           )}
+          {/* 수정 중 버튼*/}
           {isEdit && (
             <>
               <button
