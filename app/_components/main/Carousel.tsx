@@ -4,10 +4,11 @@ import Image from "next/image";
 import React from "react";
 import { SquareImageStyle } from "@/app/_styles/imageStyles";
 import { Posts } from "@/app/_types/detail1/posts";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import "./slick/slick.css";
+import "./slick/slick-theme.css";
 
 import type { Likes } from "@/app/_types/likes";
 
@@ -43,8 +44,10 @@ const Carousel = ({
   /** 캐러셀 설정 */
   const settings = {
     dots: true,
+    autoplay: true,
+    autoplaySpeed: 5000,
+    speed: 2000,
     infinite: true,
-    speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
   };
