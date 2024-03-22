@@ -2,8 +2,11 @@ import { InsertingComment } from "@/app/_types/detail1/comments";
 import { supabase } from "@/app/_utils/supabase/supabase";
 
 // 댓글 리스트 가져오기
-export const getCommentsList = async () => {
-  const { data: comments, error } = await supabase.from("comments").select();
+export const getCommentsList = async (id: number) => {
+  const { data: comments, error } = await supabase
+    .from("comments")
+    .select()
+    .eq("drawing_id", id);
   if (error) {
     throw error;
   }
@@ -15,6 +18,7 @@ export const insertComment = async ({
   nickname,
   email,
   comment,
+  id,
 }: InsertingComment) => {
   const { data, error } = await supabase
     .from("comments")
@@ -23,6 +27,7 @@ export const insertComment = async ({
         comment,
         user_nickname: nickname,
         user_email: email,
+        drawing_id: id,
       },
     ])
     .select("*");

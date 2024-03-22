@@ -31,7 +31,7 @@ const DetailPage = ({ params }: { params: { id: string } }) => {
         {/* 좌측 박스 Wrapper */}
         <div className="w-[600px]">
           <Drawing post={post} />
-          <Comments />
+          <Comments id={id} />
         </div>
         <Painter post={post} id={id} />
       </section>

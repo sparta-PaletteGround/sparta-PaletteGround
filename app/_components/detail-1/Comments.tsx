@@ -10,7 +10,7 @@ import {
 import { useAuthStore, useUserInfoStore } from "@/app/_store/authStore";
 import { InsertingComment } from "@/app/_types/detail1/comments";
 
-const Comments = () => {
+const Comments = ({ id }: { id: number }) => {
   // 현재 로그인한 유저의 닉네임, email
   const { nickname, email } = useUserInfoStore();
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
@@ -26,14 +26,14 @@ const Comments = () => {
     isError,
   } = useQuery({
     queryKey: ["commentsList"],
-    queryFn: getCommentsList,
+    queryFn: () => getCommentsList(id),
   });
 
   // 댓글 등록
   const { mutate: insertCommentMutation } = useMutation({
     mutationFn: async (data: InsertingComment) => {
       const { email, nickname, comment } = data;
-      await insertComment({ email, nickname, comment });
+      await insertComment({ email, nickname, comment, id });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
@@ -67,7 +67,7 @@ const Comments = () => {
   // 댓글 등록 핸들러
   const handleInsertComment = (comment: string) => {
     if (isLoggedIn) {
-      insertCommentMutation({ email, nickname, comment });
+      insertCommentMutation({ email, nickname, comment, id });
       setComment("");
       alert("댓글이 등록되었습니다.");
     } else if (!isLoggedIn) {
