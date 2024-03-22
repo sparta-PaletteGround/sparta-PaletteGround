@@ -15,5 +15,7 @@ export const useUserInfoStore = create<UserInfo>()((set) => ({
   email: null,
   nickname: null,
   profileImage: null,
+  googleName: null,
+  googleProfileImg: null,
   setUser: (userInfo) => set(userInfo),
 }));
