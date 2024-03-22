@@ -1,10 +1,14 @@
-import { ChangeEvent, useEffect, useRef, useState } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuthStore, useUserInfoStore } from "@/app/_store/authStore";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 
-import { deleteComment } from "../detail-api/comments-api";
+import { deleteComment, updateComment } from "../detail-api/comments-api";
 
-import type { Comment } from "@/app/_types/detail1/comments";
+import type {
+  Comment,
+  DeleteCommentType,
+  UpdateCommentType,
+} from "@/app/_types/detail1/comments";
 
 const CommentItem = ({ comment }: { comment: Comment }) => {
   const [isEdit, setIsEdit] = useState(false);
@@ -23,8 +27,7 @@ const CommentItem = ({ comment }: { comment: Comment }) => {
 
   // 댓글 삭제 mutation
   const { mutate: deleteCommentMutation } = useMutation({
-    mutationFn: ({ email, id }: { email: string | null; id: number }) =>
-      deleteComment(email, id),
+    mutationFn: ({ email, id }: DeleteCommentType) => deleteComment(email, id),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["commentsList"],
@@ -32,24 +35,63 @@ const CommentItem = ({ comment }: { comment: Comment }) => {
     },
   });
 
-  // 댓글 삭제 핸들러
-  const handleDeleteComment = (id: number) => {
-    const check = window.confirm("삭제하시겠습니까?");
-    if (check) {
-      alert("삭제되었습니다.");
-      deleteCommentMutation({ email, id });
-    }
-    return;
-  };
-
-  // 댓글 수정 핸들러
-  const handleEditOnClick = () => {
-    setIsEdit((prev) => !prev);
-  };
+  // 댓글 수정 mutation
+  const { mutate: updateCommentMutation } = useMutation({
+    mutationFn: ({ email, id, nextComment }: UpdateCommentType) =>
+      updateComment({ nextComment, email, id }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["commentsList"],
+      });
+    },
+  });
 
   // nextComment onChange
   const handleNextComment = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setNextComment(e.target.value);
+  };
+
+  // 수정, 수정완료 버튼 핸들러
+  const handleEditHandler = (id: number) => {
+    // 수정완료버튼
+    if (isEdit) {
+      if (nextComment !== comment.comment) {
+        const confirm = window.confirm("수정하시겠습니까?");
+        if (confirm) {
+          // insert하는 api mutation 호출
+          updateCommentMutation({ nextComment, email, id });
+          setIsEdit((prev) => !prev);
+        }
+        return;
+      } else if (nextComment === comment.comment) {
+        alert("수정사항이 없습니다.");
+      }
+
+      // 수정 버튼
+    } else if (!isEdit) {
+      setIsEdit((prev) => !prev);
+    }
+  };
+
+  // 삭제, (수정)취소 버튼
+  const handleDeleteCancelHandler = (id: number) => {
+    // (수정)취소 버튼
+    if (isEdit) {
+      const confirm = window.confirm("취소하시겠습니까?");
+      if (confirm) {
+        setNextComment(comment.comment);
+        setIsEdit((prev) => !prev);
+      }
+      return;
+
+      // 삭제 버튼
+    } else if (!isEdit) {
+      const confirm = window.confirm("삭제하시겠습니까?");
+      if (confirm) {
+        deleteCommentMutation({ email, id });
+      }
+      return;
+    }
   };
 
   return (
@@ -71,31 +113,34 @@ const CommentItem = ({ comment }: { comment: Comment }) => {
           )}
         </div>
         <div className="flex justify-end gap-2 mr-4">
-          {comment.user_email === email && isLoggedIn && !isEdit && (
+          {!isEdit && comment.user_email === email && isLoggedIn && (
             <>
               <button
-                onClick={handleEditOnClick}
+                onClick={() => handleEditHandler(comment.id)}
                 className="bg-rose-100 w-10 h-6 rounded-md text-sm"
               >
                 수정
               </button>
               <button
-                onClick={() => handleDeleteComment(comment.id)}
+                onClick={() => handleDeleteCancelHandler(comment.id)}
                 className="bg-gray-100 w-10 h-6 rounded-md text-sm"
               >
                 삭제
               </button>
             </>
           )}
-          {comment.user_email === email && isLoggedIn && isEdit && (
+          {isEdit && (
             <>
               <button
-                onClick={handleEditOnClick}
+                onClick={() => handleEditHandler(comment.id)}
                 className="bg-rose-100 w-16 h-6 rounded-md text-sm"
               >
                 수정완료
               </button>
-              <button className="bg-gray-100 w-10 h-6 rounded-md text-sm">
+              <button
+                onClick={() => handleDeleteCancelHandler(comment.id)}
+                className="bg-gray-100 w-10 h-6 rounded-md text-sm"
+              >
                 취소
               </button>
             </>

@@ -13,3 +13,11 @@ export interface Comment {
   user_email: string;
   user_nickname: string;
 }
+
+export interface UpdateCommentType {
+  email: string | null;
+  id: number;
+  nextComment: string;
+}
+
+export type DeleteCommentType = Omit<UpdateCommentType, "nextComment">;
