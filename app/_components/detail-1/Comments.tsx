@@ -47,7 +47,6 @@ const Comments = () => {
       {/* 댓글 리스트 Wrapper */}
       <div>
         {/* 댓글 map 돌기 */}
-        {/* 댓글 item 1 */}
         {commentsList?.map((comment) => {
           return (
             <>
