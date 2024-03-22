@@ -11,12 +11,6 @@ import { supabase } from '@/app/_utils/supabase/supabase';
 const MypageUser = () => {
   const [isOpenMidal, setIsOpenModal] = useState(false);
 
-  const [isLogin, setIsLogin] = useState(false);
-  const [loginUserEmail, setLoginUserEmail] = useState('dkdk@naver.com');
-
-  // const currentUser = useUserInfoStore();
-  // console.log('currentUser', currentUser);
-
   const fileInputRef: React.MutableRefObject<any> = useRef(null);
 
   const [updateNickName, setUpdateNickName] = useState<any>('');
@@ -70,27 +64,7 @@ const MypageUser = () => {
     if (!updateNickName && !updateImage) {
       return alert('변경 사항이 없습니다'), setIsOpenModal(false);
     }
-    if (!updateImage) {
-      console.log('닉네임만 바뀜');
-      const updateData = {
-        nickname: updateNickName,
-        email,
-      };
-      updateMutate.mutate(updateData);
-    }
-    if (!updateNickName) {
-      const img = fileInputRef.current.files[0];
-      const data: any = await uploadImage(img, filePath);
-      const { data: createPublicUrl } = supabase.storage
-        .from('profileImage')
-        .getPublicUrl(data.path);
-      const imageUrl = createPublicUrl.publicUrl;
-      const updateData = {
-        email,
-        profile_img: imageUrl,
-      };
-      updateMutate.mutate(updateData);
-    }
+    //둘다 변경했을때
     if (updateNickName && updateImage) {
       const img = fileInputRef.current.files[0];
       const data: any = await uploadImage(img, filePath);
@@ -104,6 +78,41 @@ const MypageUser = () => {
         email,
       };
       updateMutate.mutate(updateData);
+      alert('프로필 수정 완료!');
+      setUpdateImage('');
+      setUpdateNickName('');
+      setIsOpenModal(false);
+    }
+    //닉네임만 변경했을때
+    if (!updateImage) {
+      console.log('닉네임만 바뀜');
+      const updateData = {
+        nickname: updateNickName,
+        email,
+      };
+      updateMutate.mutate(updateData);
+      alert('프로필 수정 완료!');
+      setUpdateImage('');
+      setUpdateNickName('');
+      setIsOpenModal(false);
+    }
+    //이미지만 변경했을때
+    if (!updateNickName) {
+      const img = fileInputRef.current.files[0];
+      const data: any = await uploadImage(img, filePath);
+      const { data: createPublicUrl } = supabase.storage
+        .from('profileImage')
+        .getPublicUrl(data.path);
+      const imageUrl = createPublicUrl.publicUrl;
+      const updateData = {
+        email,
+        profile_img: imageUrl,
+      };
+      updateMutate.mutate(updateData);
+      alert('프로필 수정 완료!');
+      setUpdateImage('');
+      setUpdateNickName('');
+      setIsOpenModal(false);
     }
   };
 
