@@ -50,6 +50,8 @@ const Carousel = ({
     infinite: true,
     slidesToShow: 3,
     slidesToScroll: 1,
+    // nextArrow: <IoIosArrowForward />,
+    // prevArrow: <IoIosArrowBack />,
   };
 
   return (

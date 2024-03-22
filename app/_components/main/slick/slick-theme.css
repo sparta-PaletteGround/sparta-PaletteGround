@@ -15,7 +15,7 @@
 /* Arrows */
 .slick-prev,
 .slick-next {
-  font-size: 1;
+  font-size: 0;
   line-height: 0;
 
   position: absolute;
@@ -63,7 +63,7 @@
   line-height: 1;
 
   opacity: 0.75;
-  color: white;
+  color: #000000;
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
