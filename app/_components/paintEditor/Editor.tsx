@@ -1,12 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-import Image from "next/image";
 import theme from "@/app/_constant/theme";
 
 import { Excalidraw, exportToBlob } from "@excalidraw/excalidraw";
 import initialData from "./initialData";
-import { uploadImageToStorage } from "@/app/_api/uploadImgToStorage";
+import { uploadImageToStorage } from "@/app/_api/uploadToStorage";
 import { ThemeImageStyle } from "@/app/_styles/imageStyles";
 
 import type { ExcalidrawImperativeAPI } from "@excalidraw/excalidraw/types/types";
@@ -18,6 +17,7 @@ import {
 } from "@/app/_styles/editorPageStyles";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/app/_utils/supabase/supabase";
+import { useUserInfoStore } from "@/app/_store/authStore";
 
 const Editor = () => {
   const [title, setTitle] = useState("");
@@ -29,6 +29,9 @@ const Editor = () => {
   const [blobUrl, setBlobUrl] = useState("");
 
   const queryClient = useQueryClient();
+
+  const currentUserInfo = useUserInfoStore();
+  const currentUserEmail = currentUserInfo.email;
 
   /** 게시글 등록 mutation */
   const insertMutation = useMutation({
@@ -89,7 +92,7 @@ const Editor = () => {
         description,
         created_at,
         drawing_url: imgUrl,
-        painter_email: "testing@naver.com",
+        painter_email: currentUserEmail,
         likes: 0,
         chooseTheme,
       };
@@ -116,7 +119,6 @@ const Editor = () => {
           className="flex flex-col items-center justify-center"
           style={ThemeImageStyle}
         >
-          {" "}
           <span>이번주 주제</span>
           <span className="text-large font-bold">{theme.theme}</span>
         </div>

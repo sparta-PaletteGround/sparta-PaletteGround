@@ -4,6 +4,7 @@ import { useAuthStore } from "@/app/_store/authStore";
 import { supabase } from "@/app/_utils/supabase/supabase";
 import React, { useState } from "react";
 import ModalComponent from "./ModalComponent";
+import { authClickBtn, authModalInput } from "@/app/_styles/authModalStyle";
 
 const SignupModal = () => {
   const {
@@ -94,7 +95,8 @@ const SignupModal = () => {
   };
   return (
     <ModalComponent>
-      <h2>회원가입</h2>
+      <h2 className="text-PurpleLight text-xLarge font-extrabold">회원가입</h2>
+      <br />
       <form
         onSubmit={handleOnSubmitSignUp}
         className="flex flex-col justify-center "
@@ -102,9 +104,10 @@ const SignupModal = () => {
         <input
           type="email"
           name="email"
-          placeholder="이메일(123@gmail.com)"
+          placeholder="이메일 (123@gmail.com)"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          style={authModalInput}
         />
 
         <input
@@ -113,6 +116,7 @@ const SignupModal = () => {
           placeholder="닉네임"
           value={nickname}
           onChange={(e) => setNickname(e.target.value)}
+          style={authModalInput}
         />
 
         <input
@@ -121,6 +125,7 @@ const SignupModal = () => {
           placeholder="비밀번호 (최소 6자리 이상)"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          style={authModalInput}
         />
 
         <input
@@ -128,18 +133,22 @@ const SignupModal = () => {
           placeholder="비밀번호 확인"
           value={passwordCheck}
           onChange={(e) => setPasswordCheck(e.target.value)}
+          style={authModalInput}
         />
-        <br />
-        <button className="border-solid border-2" type="submit">
-          회원가입 하기
+
+        <button type="submit" style={authClickBtn}>
+          회원가입
         </button>
       </form>
       <br />
-      <div className="flex gap-2">
-        <p>이미 회원이신가요?</p>
-        <p className="cursor-pointer" onClick={handleOnClickToLogin}>
-          로그인
-        </p>
+      <div className="flex gap-2 absolute bottom-4">
+        <span className="text-zinc-400">이미 회원이신가요?</span>
+        <span
+          className="cursor-pointer text-zinc-600"
+          onClick={handleOnClickToLogin}
+        >
+          로그인하기
+        </span>
       </div>
     </ModalComponent>
   );

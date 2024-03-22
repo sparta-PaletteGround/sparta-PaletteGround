@@ -1,7 +1,7 @@
 import { supabase } from "@/app/_utils/supabase/supabase";
 
 // 그림 그린 painter 정보 가져오기
-export const getPainterInfo = async (email: string) => {
+export const getPainterInfo = async (email: string | null) => {
   const { data, error } = await supabase
     .from("users")
     .select()
@@ -14,16 +14,15 @@ export const getPainterInfo = async (email: string) => {
   return data;
 };
 
-// painter의 다른 그림들 url 가져오기
-export const getDrawingUrls = async (drawingIds: number[]) => {
-  const response = await supabase
+// posts테이블에서 일치하는 email의 그림 url들을 배열로 반환하기
+export const getDrawingUrls = async (email: string) => {
+  const { data: urlArray, error } = await supabase
     .from("posts")
     .select("drawing_url")
-    .in("drawing_id", drawingIds)
-    .then(({ data: postsData, error }) => {
-      if (error) throw error;
-      const drawingUrls = postsData.map((post) => post.drawing_url);
-      return drawingUrls;
-    });
-  return response;
+    .eq("painter_email", email);
+  if (error) {
+    throw error;
+  }
+  const urls = urlArray.map((urlObj) => urlObj.drawing_url);
+  return urls;
 };

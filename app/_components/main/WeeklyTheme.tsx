@@ -1,9 +1,17 @@
+"use client";
+
 import React from "react";
 import { ThemeImageStyle } from "@/app/_styles/imageStyles";
 import theme from "@/app/_constant/theme";
-import { YellowLinkBtn } from "../common/Button";
+import { useRouter } from "next/navigation";
 
 const WeeklyTheme = () => {
+  const router = useRouter();
+
+  const handleOnClick = () => {
+    router.push("/detail-list?onlyWeeklyTopic");
+  };
+
   return (
     <section className="flex flex-col items-center">
       <div className="w-[1000px] mt-10 flex flex-col gap-2">
@@ -14,7 +22,12 @@ const WeeklyTheme = () => {
         </div>
       </div>
       <div className="w-[1000px] flex justify-end mt-2">
-        <YellowLinkBtn href="/" text="자세히 보기" />
+        <button
+          onClick={handleOnClick}
+          className="bg-YellowDark px-2.5 py-1 rounded-xl hover:bg-YellowPale"
+        >
+          자세히 보기
+        </button>
       </div>
     </section>
   );
