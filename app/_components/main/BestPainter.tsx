@@ -54,6 +54,7 @@ const BestPainter = async ({ data }: { data: Posts[] }) => {
                 alt="사용자 이미지"
                 width="70"
                 height="70"
+                className="rounded-full"
               />
               <p>{item.nickname}</p>
             </div>
