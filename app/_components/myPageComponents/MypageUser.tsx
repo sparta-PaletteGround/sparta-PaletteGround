@@ -2,12 +2,13 @@
 import React, { useRef, useState } from 'react';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { getUser, updateUser } from './myPageSupabase';
+import { getUser, updateStorage, updateUser } from './myPageSupabase';
 import Modal from './modals/Modal';
 import MypageNonAuth from './MypageNonAuth';
 import { useAuthStore, useUserInfoStore } from '@/app/_store/authStore';
 
 const MypageUser = () => {
+  const randomUUID = self.crypto.randomUUID();
   const [isOpenMidal, setIsOpenModal] = useState(false);
 
   const fileInputRef: React.MutableRefObject<any> = useRef(null);
@@ -40,6 +41,7 @@ const MypageUser = () => {
   }
   const userInfo = data?.[0];
   const { nickname, profile_img, email } = userInfo;
+  console.log('profile_img', profile_img);
 
   const handleNickName = (e: any) => {
     setUpdateNickName(e.target.value);
@@ -55,16 +57,9 @@ const MypageUser = () => {
       const imgUrl = URL.createObjectURL(file);
       setUpdateImage(imgUrl);
     }
-    // const reder = new FileReader();
-    // reder.onload = () => {
-    //   if (reder.readyState === 2) {
-    //     setUpdateImage(reder.result);
-    //   }
-    // };
-    // reder.readAsDataURL(e.target.files[0]);
   };
 
-  const handleUpdateSubmit = () => {
+  const handleUpdateSubmit = async () => {
     if (!updateNickName && !updateImage) {
       return alert('변경 사항이 없습니다'), setIsOpenModal(false);
     }
@@ -77,12 +72,16 @@ const MypageUser = () => {
       updateMutate.mutate(updateData);
     }
     if (!updateNickName) {
-      console.log('이미지만 바뀜');
-      const updateData = {
-        profile_img: updateImage,
-        email,
-      };
-      updateMutate.mutate(updateData);
+      const img = fileInputRef.current.files[0];
+      let storagePath: any = '';
+      const newPath = email + randomUUID;
+      storagePath = await updateStorage(img, storagePath, newPath);
+      //     const updateData = {
+      //   profile_img: updateImage,
+      //   email,
+      // };
+      // updateMutate.mutate(updateData);
+      console.log('storagePath', storagePath);
     }
     if (updateNickName && updateImage) {
       console.log('둘다 바뀜!');
