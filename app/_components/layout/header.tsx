@@ -3,6 +3,7 @@
 import Image from "next/image";
 import React from "react";
 import Logo from "@/public/image/logo-curve.png";
+import defaultUser from "@/public/image/defaultUser.png";
 import LoginModal from "../auth/modals/LoginModal";
 import SignupModal from "../auth/modals/SignupModal";
 import { supabase } from "@/app/_utils/supabase/supabase";
@@ -104,12 +105,14 @@ const HeaderNav = () => {
             >
               로그아웃
             </p>
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/848/848006.png"
-              alt="사용자 이미지"
-              width="50"
-              height="50"
-            />
+            <Link href="/mypage">
+              <Image
+                src={defaultUser}
+                alt="사용자 이미지"
+                width="50"
+                height="50"
+              />
+            </Link>
           </div>
         )}
       </div>
