@@ -57,7 +57,7 @@ const Painter = ({ post, id }: PostProps) => {
         <div className=" flex items-center justify-between">
           <div className="flex gap-2 items-center">
             <img
-              className="w-10 object-cover"
+              className="w-10 object-cover rounded-full"
               src={painterInfo?.profile_img}
               alt=""
             />
