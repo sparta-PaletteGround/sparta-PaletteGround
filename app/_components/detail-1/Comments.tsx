@@ -28,7 +28,10 @@ const Comments = ({ drawingId }: { drawingId: number }) => {
     isLoading: listIsLoading,
     isError: listIsError,
   } = useQuery({
-    queryKey: ["commentsList"],
+    // queryKey: ["commentsList"],
+    // queryKey: ["comments", { page: 1 }],
+    queryKey: ["comments", { type: "list" }],
+
     queryFn: () => getCommentsList(drawingId),
   });
 
@@ -38,7 +41,10 @@ const Comments = ({ drawingId }: { drawingId: number }) => {
     isLoading: countingIsLoading,
     isError: countingIsError,
   } = useQuery({
-    queryKey: ["commentsCounting"],
+    // queryKey: ["commentsCounting"],
+    // queryKey: ["comments", { page: 2 }],
+    queryKey: ["comments", { type: "count" }],
+
     queryFn: () => getCommentsCount(drawingId),
   });
 
@@ -50,7 +56,8 @@ const Comments = ({ drawingId }: { drawingId: number }) => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["commentsList"],
+        // queryKey: ["commentsList"],
+        queryKey: ["comments"],
       });
     },
   });
