@@ -15,9 +15,17 @@ export const useLoggedIn = () => {
         const email = userInfo?.user_metadata?.email;
         const nickname = userInfo?.user_metadata?.nickname;
         const profileImage = userInfo?.user_metadata?.profileImage;
+        const googleName = userInfo?.user_metadata?.name;
+        const googleProfileImg = userInfo?.user_metadata?.picture;
 
         // Zustand useUserInfoStore에 저장
-        setUser({ email, nickname, profileImage });
+        setUser({
+          email,
+          nickname,
+          profileImage,
+          googleName,
+          googleProfileImg,
+        });
 
         // data가 존재 시, 로그인 상태로 설정
         console.log(
