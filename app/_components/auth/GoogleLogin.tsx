@@ -1,15 +1,16 @@
 import { supabase } from "@/app/_utils/supabase/supabase";
 import React from "react";
 import { getLoginUserInfo } from "./authInfo-api";
-import { useAuthStore } from "@/app/_store/authStore";
+import { useAuthStore, useUserInfoStore } from "@/app/_store/authStore";
 import { socialAuthClickBtn } from "@/app/_styles/authModalStyle";
 import Image from "next/image";
 import googleLogo from "@/public/image/google.png";
 
 const GoogleLogin = () => {
   const { setIsLoggedIn, setIsLoginOpen } = useAuthStore();
+  const { email } = useUserInfoStore();
 
-  //Google 로그인 (구글 로그인 보류)
+  //Google 로그인
   const handleGoogleLogin = async () => {
     try {
       const { data, error } = await supabase.auth.signInWithOAuth({
@@ -19,6 +20,7 @@ const GoogleLogin = () => {
             access_type: "offline",
             prompt: "consent",
           },
+          // redirectTo: `http://localhost:3000/auth/confirm/google?email=${email}`,
         },
       });
 

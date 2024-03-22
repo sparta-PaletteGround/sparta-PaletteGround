@@ -92,7 +92,6 @@ const MypageUser = () => {
       updateMutate.mutate(updateData);
     }
     if (updateNickName && updateImage) {
-      console.log('둘다 바뀜!');
       const img = fileInputRef.current.files[0];
       const data: any = await uploadImage(img, filePath);
       const { data: createPublicUrl } = supabase.storage

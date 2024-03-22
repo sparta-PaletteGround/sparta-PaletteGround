@@ -69,7 +69,6 @@ const Likes = ({ id, post }: PostProps) => {
         insertLikeMutation({ id, drawingUrl });
         setIsLike((prev) => !prev);
       } else if (!isLoggedIn) {
-        alert("로그인이 필요한 기능입니다.");
         setIsLoginOpen(true);
       }
     } else if (isLike) {
