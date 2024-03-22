@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import React from 'react';
-
+//맥북 클론 테스트
 const MypageNonAuth = () => {
   return (
     <div className="border bg-PurpleLight h-screen flex flex-col items-center justify-center gap-20">
