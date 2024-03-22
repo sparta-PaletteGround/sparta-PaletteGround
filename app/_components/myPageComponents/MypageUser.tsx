@@ -14,9 +14,6 @@ const MypageUser = () => {
   const [isLogin, setIsLogin] = useState(false);
   const [loginUserEmail, setLoginUserEmail] = useState("dkdk@naver.com");
 
-  const currentUser = useUserInfoStore();
-  console.log("currentUser", currentUser);
-
   const fileInputRef: React.MutableRefObject<any> = useRef(null);
 
   const [updateNickName, setUpdateNickName] = useState<any>("");

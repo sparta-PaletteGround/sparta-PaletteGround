@@ -8,7 +8,6 @@ import googleLogo from "@/public/image/google.png";
 
 const GoogleLogin = () => {
   const { setIsLoggedIn, setIsLoginOpen } = useAuthStore();
-  const { email } = useUserInfoStore();
 
   //Google 로그인
   const handleGoogleLogin = async () => {
@@ -20,7 +19,7 @@ const GoogleLogin = () => {
             access_type: "offline",
             prompt: "consent",
           },
-          // redirectTo: `http://localhost:3000/auth/confirm/google?email=${email}`,
+          redirectTo: `http://localhost:3000/auth/confirm/google`,
         },
       });
 
@@ -30,6 +29,11 @@ const GoogleLogin = () => {
         // 구글 로그인 성공 시에만 로그인 상태를 변경하고 모달을 닫음
         setIsLoggedIn(true); // 로그인 상태 업데이트
         setIsLoginOpen(false); // 로그인 모달창 닫기
+
+        const url = new URL(window.location.href);
+        const accessToken = url.searchParams.get("access_token");
+        console.log("Access Token:", accessToken);
+
         // alert("로그인 되었습니다.");
         getLoginUserInfo();
       }
