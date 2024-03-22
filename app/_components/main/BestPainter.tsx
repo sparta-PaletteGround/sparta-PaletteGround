@@ -44,7 +44,8 @@ const BestPainter = async ({ data }: { data: Posts[] }) => {
       <div className="w-[1000px] mt-10 flex flex-col gap-2 mb-10">
         <h1 className="text-large font-bold">👍🏼명예의 전당</h1>
         <p className="pl-6">
-          Palette Ground에 가장 많은 그림을 남겨주신 우수회원 Top 3👏🏼👏🏼👏🏼
+          Palette Ground에 가장 많은 그림을 남겨주신 우수회원 Top 3
+          소개합니다👏🏼👏🏼👏🏼
         </p>
         <div className="bg-PurplePale flex gap-2 rounded-xl p-1 justify-center">
           {bestUsersInfo.map((item) => (
