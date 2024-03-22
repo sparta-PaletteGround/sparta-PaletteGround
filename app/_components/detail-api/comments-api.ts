@@ -33,3 +33,16 @@ export const insertComment = async ({
 };
 
 // 댓글 삭제하기
+export const deleteComment = async (email: string | null, id: number) => {
+  const { data, error } = await supabase
+    .from("comments")
+    .delete()
+    .eq("user_email", email)
+    .eq("id", id)
+    .select();
+
+  if (error) {
+    throw error;
+  }
+  return data;
+};
