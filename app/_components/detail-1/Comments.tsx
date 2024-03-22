@@ -1,6 +1,28 @@
+"use client";
+
+import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import { getCommentsList } from "../detail-api/comments-api";
 
 const Comments = () => {
+  const {
+    data: commentsList,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["commentsList"],
+    queryFn: getCommentsList,
+  });
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  if (isError) {
+    return <div>Error</div>;
+  }
+
+  console.log("commentsList", commentsList);
+
   return (
     <>
       {/* 좌측 하단 댓글창 */}
@@ -26,50 +48,26 @@ const Comments = () => {
       <div>
         {/* 댓글 map 돌기 */}
         {/* 댓글 item 1 */}
-        <div className="w-full h-[100px] flex flex-col justify-between bg-YellowPale my-2 py-2 pl-3 rounded-md">
-          <div>
-            <p className="text-sm">닉네임 : test</p>
-            <p className="text-sm">This comment is for the testing.</p>
-          </div>
-          <div className="flex justify-end gap-2 mr-4">
-            <button className="bg-rose-100 w-10 h-6 rounded-md text-sm">
-              수정
-            </button>
-            <button className="bg-gray-100 w-10 h-6 rounded-md text-sm">
-              삭제
-            </button>
-          </div>
-        </div>
-        {/* 댓글 item 2 */}
-        <div className="w-full h-[100px] flex flex-col justify-between bg-YellowPale my-2 py-2 pl-3 rounded-md">
-          <div>
-            <p className="text-sm">닉네임 : test</p>
-            <p className="text-sm">This comment is for the testing.</p>
-          </div>
-          <div className="flex justify-end gap-2 mr-4">
-            <button className="bg-rose-100 w-10 h-6 rounded-md text-sm">
-              수정
-            </button>
-            <button className="bg-gray-100 w-10 h-6 rounded-md text-sm">
-              삭제
-            </button>
-          </div>
-        </div>
-        {/* 댓글 item 3 */}
-        <div className="w-full h-[100px] flex flex-col justify-between bg-YellowPale my-2 py-2 pl-3 rounded-md">
-          <div>
-            <p className="text-sm">닉네임 : test</p>
-            <p className="text-sm">This comment is for the testing.</p>
-          </div>
-          <div className="flex justify-end gap-2 mr-4">
-            <button className="bg-rose-100 w-10 h-6 rounded-md text-sm">
-              수정
-            </button>
-            <button className="bg-gray-100 w-10 h-6 rounded-md text-sm">
-              삭제
-            </button>
-          </div>
-        </div>
+        {commentsList?.map((comment) => {
+          return (
+            <>
+              <div className="w-full h-[100px] flex flex-col justify-between bg-YellowPale my-2 py-2 pl-3 rounded-md">
+                <div>
+                  <p className="text-sm">닉네임 : {comment.user_nickname}</p>
+                  <p className="text-sm">{comment.comment}</p>
+                </div>
+                <div className="flex justify-end gap-2 mr-4">
+                  <button className="bg-rose-100 w-10 h-6 rounded-md text-sm">
+                    수정
+                  </button>
+                  <button className="bg-gray-100 w-10 h-6 rounded-md text-sm">
+                    삭제
+                  </button>
+                </div>
+              </div>
+            </>
+          );
+        })}
       </div>
     </>
   );
