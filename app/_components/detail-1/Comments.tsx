@@ -125,7 +125,7 @@ const Comments = ({ id }: { id: number }) => {
                 <p className="text-sm">{comment.comment}</p>
               </div>
               <div className="flex justify-end gap-2 mr-4">
-                {comment.user_email === email && (
+                {comment.user_email === email && isLoggedIn && (
                   <>
                     <button className="bg-rose-100 w-10 h-6 rounded-md text-sm">
                       수정
