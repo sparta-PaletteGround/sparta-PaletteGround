@@ -1,5 +1,6 @@
 import { supabase } from '@/app/_utils/supabase/supabase';
 import { PostgrestSingleResponse } from '@supabase/supabase-js';
+import { data } from 'autoprefixer';
 
 export const getUser = async (payload: any) => {
   const { email } = await payload;
@@ -36,17 +37,17 @@ export const updateUser = async (payload: any) => {
   return;
 };
 
-export const updateStorage = async (img, storagePath, newPath) => {
-  const imgUpdate = await supabase.storage
+export const uploadImage = async (img: any, filePath: any) => {
+  const { data, error } = await supabase.storage
     .from('profileImage')
-    .upload(newPath, img, {
+    .upload(filePath, img, {
       cacheControl: '3600',
       upsert: true,
     });
-  if (imgUpdate.error) {
-    console.log('이미지 수정 실패', imgUpdate.error);
+  if (error) {
+    console.log('이미지 수정 실패', error);
   } else {
-    console.log('이미지 수정 완료', imgUpdate);
-    return imgUpdate.data.path;
+    console.log('이미지 수정 완료', data);
+    return data;
   }
 };
