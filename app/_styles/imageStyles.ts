@@ -6,7 +6,6 @@ export const SquareImageStyle = {
 };
 
 export const ThemeImageStyle = {
-  width: "100%",
   height: "100px",
   borderRadius: "12px",
   backgroundImage: "url('/image/exampleBg.jpg')",
