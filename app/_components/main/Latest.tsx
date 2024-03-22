@@ -42,6 +42,9 @@ const Latest = () => {
       <div className="w-[1000px] mt-10 flex flex-col gap-2">
         <h1 className="text-large font-bold">✨최신 드로잉</h1>
         <div className="flex flex-wrap justify-center gap-5">
+          {latestPosts.length === 0 && (
+            <div>등록된 드로잉이 아직 없습니다.</div>
+          )}
           {latestPosts.map((item) => (
             <div key={item.drawing_url} onClick={handleOnClickImg}>
               <Link href={`/detail/${item.drawing_id}`}>

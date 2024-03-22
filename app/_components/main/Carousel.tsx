@@ -5,6 +5,14 @@ import { SquareImageStyle } from "@/app/_styles/imageStyles";
 import { Posts } from "@/app/_types/detail1/posts";
 
 const Carousel = ({ data }: { data: Posts[] }) => {
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
+
   return (
     <section className="flex flex-col justify-center items-center bg-gray-100 h-[400px]">
       <div className="flex flex-col gap-2 w-[1000px]">
