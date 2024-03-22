@@ -36,7 +36,7 @@ export const useLoggedIn = () => {
     };
 
     checkLoginStatus();
-  }, []);
+  }, [isLoggedIn]);
 
   return isLoggedIn;
 };

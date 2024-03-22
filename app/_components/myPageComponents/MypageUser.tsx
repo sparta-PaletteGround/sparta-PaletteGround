@@ -1,33 +1,33 @@
-'use client';
-import React, { useEffect, useRef, useState } from 'react';
+"use client";
+import React, { useEffect, useRef, useState } from "react";
 
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { getUser, updateUser } from './myPageSupabase';
-import Modal from './modals/Modal';
-import { supabase } from '@/app/_utils/supabase/supabase';
-import MypageNonAuth from './MypageNonAuth';
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { getUser, updateUser } from "./myPageSupabase";
+import Modal from "./modals/Modal";
+import { supabase } from "@/app/_utils/supabase/supabase";
+import MypageNonAuth from "./MypageNonAuth";
 
 const MypageUser = () => {
   const [isOpenMidal, setIsOpenModal] = useState(false);
 
   const [isLogin, setIsLogin] = useState(false);
-  const [loginUserEmail, setLoginUserEmail] = useState('dkdk@naver.com');
+  const [loginUserEmail, setLoginUserEmail] = useState("dkdk@naver.com");
 
   const fileInputRef: React.MutableRefObject<any> = useRef(null);
 
-  const [updateNickName, setUpdateNickName] = useState<any>('');
-  const [updateImage, setUpdateImage] = useState<any>('');
+  const [updateNickName, setUpdateNickName] = useState<any>("");
+  const [updateImage, setUpdateImage] = useState<any>("");
 
   const { data, isLoading }: { data: any | null | undefined; isLoading: any } =
     useQuery({
-      queryKey: ['user'],
+      queryKey: ["user"],
       queryFn: () => getUser({ email: loginUserEmail }),
     });
   useEffect(() => {
     const loginUser = async () => {
       const { userInfo }: any = await supabase.auth.getUser();
       if (userInfo) {
-        console.log('로그인한 유저의 정보', data.user);
+        console.log("로그인한 유저의 정보", data.user);
         //로그인한 유저email state에 전달
         // setLoginUserEmail()
         //전달 한 email queryFn에 매개변수로 전달
@@ -45,7 +45,7 @@ const MypageUser = () => {
   const updateMutate = useMutation({
     mutationFn: updateUser,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['user'] });
+      queryClient.invalidateQueries({ queryKey: ["user"] });
     },
   });
 
@@ -75,10 +75,10 @@ const MypageUser = () => {
 
   const handleUpdateSubmit = () => {
     if (!updateNickName && !updateImage) {
-      return alert('변경 사항이 없습니다'), setIsOpenModal(false);
+      return alert("변경 사항이 없습니다"), setIsOpenModal(false);
     }
     if (!updateImage) {
-      console.log('닉네임만 바뀜');
+      console.log("닉네임만 바뀜");
       const updateData = {
         nickname: updateNickName,
         email,
@@ -86,7 +86,7 @@ const MypageUser = () => {
       updateMutate.mutate(updateData);
     }
     if (!updateNickName) {
-      console.log('이미지만 바뀜');
+      console.log("이미지만 바뀜");
       const updateData = {
         profile_img: updateImage,
         email,
@@ -94,7 +94,7 @@ const MypageUser = () => {
       updateMutate.mutate(updateData);
     }
     if (updateNickName && updateImage) {
-      console.log('둘다 바뀜!');
+      console.log("둘다 바뀜!");
       const updateData = {
         nickname: updateNickName,
         profile_img: updateImage,
@@ -159,7 +159,7 @@ const MypageUser = () => {
                   type="file"
                   accept="image/*"
                   ref={fileInputRef}
-                  style={{ display: 'none' }}
+                  style={{ display: "none" }}
                   onChange={handleFileChange}
                 />
                 <div>
