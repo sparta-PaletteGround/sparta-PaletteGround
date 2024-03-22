@@ -2,10 +2,10 @@ import Image from "next/image";
 import React from "react";
 import { BestPainterCard } from "@/app/_styles/bestPainterStyles";
 import { Posts } from "@/app/_types/detail1/posts";
-import { getUsers } from "@/app/_api/getUsers";
 import { User } from "@/app/_types/myPageType";
 
 const BestPainter = async ({ data }: { data: Posts[] }) => {
+  /** users 테이블에서 모든 데이터 가져오기 */
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/users`,
     {
@@ -31,6 +31,7 @@ const BestPainter = async ({ data }: { data: Posts[] }) => {
     .sort((a, b) => b.postCount - a.postCount)
     .slice(0, 3);
 
+  /** Top 3 유저의 이메일 그리고 그 이메일에 해당하는 유저 정보 */
   const bestUserEmails = sortedUsers.map((user) => user.email);
   const bestUsersInfo = usersData.filter((user) =>
     bestUserEmails.includes(user.email)

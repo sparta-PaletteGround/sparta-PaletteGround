@@ -4,34 +4,43 @@ import Image from "next/image";
 import React from "react";
 import { SquareImageStyle } from "@/app/_styles/imageStyles";
 import { Posts } from "@/app/_types/detail1/posts";
-import ExampleImage from "@/public/image/example.jpg";
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const Carousel = ({ data }: { data: Posts[] }) => {
-  // /** lkies로부터 가장 많이 작성한 유저 3명 뽑아내기 */
-  // const userCounts: { [email: string]: number } = {};
-  // data?.forEach((post) => {
-  //   if (!post.painter_email) return;
-  //   if (post.painter_email in userCounts) {
-  //     userCounts[post.painter_email]++;
-  //   } else {
-  //     userCounts[post.painter_email] = 1;
-  //   }
-  // });
+import type { Likes } from "@/app/_types/likes";
 
-  // const sortedUsers = Object.entries(userCounts)
-  //   .map(([email, postCount]) => ({ email, postCount }))
-  //   .sort((a, b) => b.postCount - a.postCount)
-  //   .slice(0, 3);
+const Carousel = ({
+  postsData,
+  likesData,
+}: {
+  postsData: Posts[];
+  likesData: Likes[];
+}) => {
+  /** likes로부터 가장 많이 언급된 게시글 뽑아내기 */
+  const userCounts: { [drawingId: string]: number } = {};
+  likesData?.forEach((post) => {
+    if (!post.drawing_id) return;
+    if (post.drawing_id in userCounts) {
+      userCounts[post.drawing_id]++;
+    } else {
+      userCounts[post.drawing_id] = 1;
+    }
+  });
 
-  // const bestUserEmails = sortedUsers.map((user) => user.email);
-  // const bestUsersInfo = usersData.filter((user) =>
-  //   bestUserEmails.includes(user.email)
-  // );
+  const sortedPosts = Object.entries(userCounts)
+    .map(([drawing_id, postCount]) => ({ drawing_id, postCount }))
+    .sort((a, b) => b.postCount - a.postCount)
+    .slice(0, 5);
 
+  /** like를 가장 많이 받은 bestPosts 그리고 각 post의 상세 정보 */
+  const bestPosts = sortedPosts.map((post) => Number(post.drawing_id));
+  const filteredData = postsData.filter((post) =>
+    bestPosts.includes(Number(post.drawing_id))
+  );
+
+  /** 캐러셀 설정 */
   const settings = {
     dots: true,
     infinite: true,
@@ -45,25 +54,17 @@ const Carousel = ({ data }: { data: Posts[] }) => {
       <div className="flex flex-col gap-2 w-[1000px]">
         <h1 className="text-large font-bold">👑베스트 드로잉</h1>
         <Slider {...settings}>
-          <div>
-            <Image
-              src={ExampleImage}
-              alt="유저의 그림"
-              style={SquareImageStyle}
-            />
-          </div>
-          <div>
-            <h3>2</h3>
-          </div>
-          <div>
-            <h3>3</h3>
-          </div>
-          <div>
-            <h3>4</h3>
-          </div>
-          <div>
-            <h3>5</h3>
-          </div>
+          {filteredData.map((item) => (
+            <div key={item.drawing_id}>
+              <Image
+                src={`https://pmduqgivaolwydqssren.supabase.co/storage/v1/object/public/drawings/${item.drawing_url}`}
+                alt="유저의 그림"
+                style={SquareImageStyle}
+                width={300}
+                height={300}
+              />
+            </div>
+          ))}
         </Slider>
       </div>
     </section>
