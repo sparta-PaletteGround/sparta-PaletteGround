@@ -1,7 +1,7 @@
 import { supabase } from "@/app/_utils/supabase/supabase";
 
 // 그림 그린 painter 정보 가져오기
-export const getPainterInfo = async (email: string) => {
+export const getPainterInfo = async (email: string | null) => {
   const { data, error } = await supabase
     .from("users")
     .select()

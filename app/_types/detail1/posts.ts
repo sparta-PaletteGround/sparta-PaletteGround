@@ -1,5 +1,5 @@
 export interface Posts {
-  painter_email: string;
+  painter_email: string | null;
   drawing_url: string;
   title: string;
   description: string;
@@ -19,9 +19,9 @@ export interface PostProps {
 export interface PainterInfo {
   bookmarks_array: string[];
   drawing_array: number[];
-  email: string;
+  email: string | null;
   id: number;
-  nickname: string;
+  nickname: string | null;
   point: number;
-  profile_img: string;
+  profile_img: string | null;
 }
