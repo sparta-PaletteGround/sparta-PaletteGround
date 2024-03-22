@@ -3,8 +3,13 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { getCommentsList } from "../detail-api/comments-api";
+import { useAuthStore, useUserInfoStore } from "@/app/_store/authStore";
 
 const Comments = () => {
+  // 현재 로그인한 유저의 닉네임, email
+  const { nickname, email } = useUserInfoStore();
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
+
   const {
     data: commentsList,
     isLoading,
@@ -21,8 +26,6 @@ const Comments = () => {
     return <div>Error</div>;
   }
 
-  console.log("commentsList", commentsList);
-
   return (
     <>
       {/* 좌측 하단 댓글창 */}
@@ -32,7 +35,7 @@ const Comments = () => {
       </p>
       <div className="w-full h-[100px] bg-YellowPale my-2 pt-2 pl-3 rounded-md">
         <div className="flex">
-          <p className="text-sm">닉네임 : </p>
+          <p className="text-sm">닉네임 : {isLoggedIn ? nickname : "guest"} </p>
         </div>
         <textarea
           className="text-sm w-[98%] h-[60%] p-2 resize-none"

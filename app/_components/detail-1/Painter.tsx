@@ -37,7 +37,6 @@ const Painter = ({ post, id }: PostProps) => {
   }
 
   const painterInfo = painterInfoArray[0];
-  console.log("painterInfo", painterInfo);
 
   // 날짜 형식 변환
   const inputDate = post.created_at;
