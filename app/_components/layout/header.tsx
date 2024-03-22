@@ -47,6 +47,7 @@ const HeaderNav = () => {
         googleProfileImg: null,
       });
     }
+    window.location.reload();
   };
 
   return (
