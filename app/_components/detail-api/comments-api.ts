@@ -1,4 +1,7 @@
-import { InsertingComment } from "@/app/_types/detail1/comments";
+import type {
+  InsertingComment,
+  UpdateCommentType,
+} from "@/app/_types/detail1/comments";
 import { supabase } from "@/app/_utils/supabase/supabase";
 
 // 댓글 리스트 가져오기
@@ -46,6 +49,24 @@ export const deleteComment = async (email: string | null, id: number) => {
     .eq("id", id)
     .select();
 
+  if (error) {
+    throw error;
+  }
+  return data;
+};
+
+// 댓글 수정하기 - comments 테이블에서 email, drawing_id 일치하는 열 찾아서 comment 업데이트하기
+export const updateComment = async ({
+  nextComment,
+  email,
+  id,
+}: UpdateCommentType) => {
+  console.log(nextComment, email, id);
+  const { data, error } = await supabase
+    .from("comments")
+    .update({ comment: nextComment })
+    .eq("user_email", email)
+    .eq("id", id);
   if (error) {
     throw error;
   }
