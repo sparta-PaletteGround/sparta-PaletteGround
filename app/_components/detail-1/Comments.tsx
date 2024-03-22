@@ -59,7 +59,7 @@ const Comments = () => {
 
   return (
     <>
-      {/* 좌측 하단 댓글창 */}
+      {/* 댓글 입력창 */}
       <p className="text-sm">
         댓글
         <span className="text-rose-600 ml-2">3</span>
@@ -85,7 +85,7 @@ const Comments = () => {
       </div>
       {/* 댓글 리스트 Wrapper */}
       <div>
-        {/* 댓글 map 돌기 */}
+        {/* 댓글 리스트 map 돌기 */}
         {commentsList?.map((comment) => {
           return (
             <>
@@ -95,12 +95,16 @@ const Comments = () => {
                   <p className="text-sm">{comment.comment}</p>
                 </div>
                 <div className="flex justify-end gap-2 mr-4">
-                  <button className="bg-rose-100 w-10 h-6 rounded-md text-sm">
-                    수정
-                  </button>
-                  <button className="bg-gray-100 w-10 h-6 rounded-md text-sm">
-                    삭제
-                  </button>
+                  {comment.user_email === email && (
+                    <>
+                      <button className="bg-rose-100 w-10 h-6 rounded-md text-sm">
+                        수정
+                      </button>
+                      <button className="bg-gray-100 w-10 h-6 rounded-md text-sm">
+                        삭제
+                      </button>
+                    </>
+                  )}
                 </div>
               </div>
             </>
