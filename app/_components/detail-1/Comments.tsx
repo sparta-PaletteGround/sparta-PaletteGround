@@ -1,14 +1,19 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
-import React from "react";
-import { getCommentsList } from "../detail-api/comments-api";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import React, { useState } from "react";
+import { getCommentsList, insertComment } from "../detail-api/comments-api";
 import { useAuthStore, useUserInfoStore } from "@/app/_store/authStore";
+import { InsertingComment } from "@/app/_types/detail1/comments";
 
 const Comments = () => {
   // 현재 로그인한 유저의 닉네임, email
   const { nickname, email } = useUserInfoStore();
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
+  const setIsLoginOpen = useAuthStore((state) => state.setIsLoginOpen);
+  const queryClient = useQueryClient();
+
+  const [comment, setComment] = useState("");
 
   const {
     data: commentsList,
@@ -19,12 +24,38 @@ const Comments = () => {
     queryFn: getCommentsList,
   });
 
+  const { mutate: insertCommentMutation } = useMutation({
+    mutationFn: async (data: InsertingComment) => {
+      const { email, nickname, comment } = data;
+      await insertComment({ email, nickname, comment });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["commentsList"],
+      });
+    },
+  });
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
   if (isError) {
     return <div>Error</div>;
   }
+
+  const handleInputComment = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setComment(e.target.value);
+  };
+
+  const handleInsertComment = (comment: string) => {
+    if (isLoggedIn) {
+      insertCommentMutation({ email, nickname, comment });
+      setComment("");
+      alert("댓글이 등록되었습니다.");
+    } else if (!isLoggedIn) {
+      setIsLoginOpen(true);
+    }
+  };
 
   return (
     <>
@@ -40,10 +71,15 @@ const Comments = () => {
         <textarea
           className="text-sm w-[98%] h-[60%] p-2 resize-none"
           placeholder="댓글을 입력해주세요."
+          value={comment}
+          onChange={handleInputComment}
         />
       </div>
       <div className="flex justify-end">
-        <button className="bg-amber-500 w-14 h-6 text-sm rounded-md">
+        <button
+          onClick={() => handleInsertComment(comment)}
+          className="bg-amber-500 w-14 h-6 text-sm rounded-md"
+        >
           등록하기
         </button>
       </div>
