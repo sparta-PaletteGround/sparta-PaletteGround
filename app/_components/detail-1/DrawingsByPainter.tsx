@@ -19,13 +19,14 @@ const DrawingsByPainter = ({ post }: OwnProp) => {
 
   // posts테이블에서 post.painter_email과 일치하는 그림 url들을 가져와서 배열로 저장, 아래에서 뿌려주기
   const email = post.painter_email;
+  const drawingId = post.drawing_id;
   const {
     data: drawingUrls,
     isLoading,
     isError,
   } = useQuery({
     queryKey: ["drawingUrls"],
-    queryFn: () => getDrawingUrls(email),
+    queryFn: () => getDrawingUrls(email, drawingId),
   });
 
   if (isLoading || painterInfoIsLoading) {
