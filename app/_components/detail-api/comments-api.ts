@@ -16,12 +16,24 @@ export const getCommentsList = async (id: number) => {
   return comments;
 };
 
+// 댓글 개수 가져오기
+export const getCommentsCount = async (drawingId: number) => {
+  const { data, error } = await supabase
+    .from("comments")
+    .select()
+    .eq("drawing_id", drawingId);
+  if (error) {
+    throw error;
+  }
+  return data.length;
+};
+
 // 댓글 등록하기
 export const insertComment = async ({
   nickname,
   email,
   comment,
-  id,
+  drawingId,
 }: InsertingComment) => {
   const { data, error } = await supabase
     .from("comments")
@@ -30,7 +42,7 @@ export const insertComment = async ({
         comment,
         user_nickname: nickname,
         user_email: email,
-        drawing_id: id,
+        drawing_id: drawingId,
       },
     ])
     .select("*");
@@ -55,7 +67,7 @@ export const deleteComment = async (email: string | null, id: number) => {
   return data;
 };
 
-// 댓글 수정하기 - comments 테이블에서 email, drawing_id 일치하는 열 찾아서 comment 업데이트하기
+// 댓글 수정하기 - comments 테이블에서 email, id 일치하는 열 찾아서 comment 업데이트하기
 export const updateComment = async ({
   nextComment,
   email,
