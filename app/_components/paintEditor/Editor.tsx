@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import theme from "@/app/_constant/theme";
 
 import { Excalidraw, exportToBlob } from "@excalidraw/excalidraw";
@@ -18,6 +18,7 @@ import {
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/app/_utils/supabase/supabase";
 import { useUserInfoStore } from "@/app/_store/authStore";
+import { useRouter } from "next/navigation";
 
 const Editor = () => {
   const [title, setTitle] = useState("");
@@ -26,12 +27,20 @@ const Editor = () => {
 
   const [excalidrawAPI, setExcalidrawAPI] =
     useState<ExcalidrawImperativeAPI | null>(null);
-  const [blobUrl, setBlobUrl] = useState("");
 
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   const currentUserInfo = useUserInfoStore();
   const currentUserEmail = currentUserInfo.email;
+
+  /** 로그인 안된 유저가 페이지에 접근 시 */
+  useEffect(() => {
+    if (currentUserInfo.email === null) {
+      alert("로그인 후 이용할 수 있는 서비스입니다.");
+      router.replace("/");
+    }
+  }, [currentUserInfo]);
 
   /** 게시글 등록 mutation */
   const insertMutation = useMutation({
@@ -47,6 +56,7 @@ const Editor = () => {
           throw error;
         }
         console.log(`게시글 등록 성공`, data);
+        return data;
       } catch (error) {
         alert(`게시글 등록에 실패했습니다. 다시 시도하세요.`);
         throw error;
@@ -54,7 +64,7 @@ const Editor = () => {
     },
   });
 
-  /** 등록 버튼 클릭 핸들러 */
+  /** 게시글 등록 버튼 클릭 핸들러 */
   const handleOnClick = async () => {
     if (!title || !description) {
       alert(`제목과 내용을 입력해주세요.`);
@@ -75,7 +85,6 @@ const Editor = () => {
         },
         files: excalidrawAPI.getFiles(),
       });
-      setBlobUrl(window.URL.createObjectURL(blob));
       const file = new File([blob], "name");
       const imgUrl: string | unknown = await uploadImageToStorage(
         file,
@@ -99,6 +108,7 @@ const Editor = () => {
       insertMutation.mutate(newPost, {
         onSuccess: () => {
           queryClient.invalidateQueries({ queryKey: ["posts"] });
+          // router.push(`/detail/${id}`);
         },
       });
     } catch (error) {
