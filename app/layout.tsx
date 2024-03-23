@@ -25,8 +25,10 @@ export default function RootLayout({
     <html lang="en" className={GeistSans.className}>
       <body className="">
         <div></div>
-        <HeaderNav />
-        <QueryProvider>{children}</QueryProvider>
+        <QueryProvider>
+          <HeaderNav />
+          {children}
+        </QueryProvider>
       </body>
     </html>
   );
