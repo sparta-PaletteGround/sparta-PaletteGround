@@ -77,5 +77,5 @@ export const countLikesNumber = async (id: number) => {
   if (error) {
     throw error;
   }
-  return data.length;
+  return data;
 };
