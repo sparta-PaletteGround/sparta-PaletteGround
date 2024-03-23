@@ -2,7 +2,7 @@
 
 import { useAuthStore, useUserInfoStore } from "@/app/_store/authStore";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   getCommentsCount,
@@ -28,8 +28,6 @@ const Comments = ({ drawingId }: { drawingId: number }) => {
     isLoading: listIsLoading,
     isError: listIsError,
   } = useQuery({
-    // queryKey: ["commentsList"],
-    // queryKey: ["comments", { page: 1 }],
     queryKey: ["comments", { type: "list" }],
 
     queryFn: () => getCommentsList(drawingId),
@@ -41,8 +39,6 @@ const Comments = ({ drawingId }: { drawingId: number }) => {
     isLoading: countingIsLoading,
     isError: countingIsError,
   } = useQuery({
-    // queryKey: ["commentsCounting"],
-    // queryKey: ["comments", { page: 2 }],
     queryKey: ["comments", { type: "count" }],
 
     queryFn: () => getCommentsCount(drawingId),
@@ -56,11 +52,23 @@ const Comments = ({ drawingId }: { drawingId: number }) => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
-        // queryKey: ["commentsList"],
         queryKey: ["comments"],
       });
     },
   });
+
+  // 쿼리가 완료된 후에 commentsList를 날짜순으로 정렬, 리스트 업데이트(setQueryData)
+  useEffect(() => {
+    if (commentsList && commentsList.length > 0) {
+      const sortedList = commentsList.sort((a, b) => {
+        const dateA = new Date(a.created_at);
+        const dateB = new Date(b.created_at);
+        return dateB.getTime() - dateA.getTime(); // 최신순으로 정렬
+      });
+      // 정렬된 리스트를 업데이트
+      queryClient.setQueryData(["comments", { type: "list" }], sortedList);
+    }
+  }, [commentsList, queryClient]);
 
   if (listIsLoading || countingIsLoading) {
     return <div>Loading...</div>;
@@ -69,6 +77,7 @@ const Comments = ({ drawingId }: { drawingId: number }) => {
     return <div>Error</div>;
   }
 
+  // 댓글 입력창 onChange
   const handleInputComment = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setComment(e.target.value);
   };
@@ -92,7 +101,9 @@ const Comments = ({ drawingId }: { drawingId: number }) => {
       </p>
       <div className="w-full h-[100px] bg-YellowPale my-2 pt-2 pl-3 rounded-md">
         <div className="flex">
-          <p className="text-sm">닉네임 : {isLoggedIn ? nickname : "guest"} </p>
+          <p className="text-sm mb-1">
+            닉네임 : {isLoggedIn ? nickname : "guest"}
+          </p>
         </div>
         <textarea
           readOnly={!isLoggedIn}
