@@ -17,7 +17,7 @@ const MyPageMyWrite = ({ currentUserEmail }: any) => {
   const handleNavigate = (id: any) => {
     router.push(`/detail/${id}`);
   };
-  console.log(data);
+
   return (
     <>
       {data?.length === 0 ? (
