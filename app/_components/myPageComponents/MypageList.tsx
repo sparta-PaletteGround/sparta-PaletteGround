@@ -18,6 +18,8 @@ const MypageList = () => {
     enabled: !!currentUserEmail,
   });
 
+  console.log("끼잉2222", data);
+
   return (
     <>
       <section className="border-2 bg-PurpleLight rounded-lg w-[900px] ml-20 mt-36">
