@@ -1,10 +1,21 @@
-import { supabase } from "@/app/_utils/supabase/supabase";
-import React from "react";
-import { getLoginUserInfo } from "./authInfo-api";
-import { useAuthStore, useUserInfoStore } from "@/app/_store/authStore";
+import { useAuthStore } from "@/app/_store/authStore";
 import { socialAuthClickBtn } from "@/app/_styles/authModalStyle";
-import Image from "next/image";
+import { supabase } from "@/app/_utils/supabase/supabase";
 import googleLogo from "@/public/image/google.png";
+import Image from "next/image";
+import { getLoginUserInfo } from "./authInfo-api";
+
+// export interface urlProps {
+//   (
+//     option: string | URL | RequestOptions,
+//     callback?: ((res: IncomingMessage) => void) | undefined
+//   ): ClientRequest;
+//   (
+//     url: string | URL,
+//     option: RequestOptions,
+//     callback?: ((res: IncomingMessage) => void) | undefined
+//   ): ClientRequest;
+// }
 
 const GoogleLogin = () => {
   const { setIsLoggedIn, setIsLoginOpen } = useAuthStore();
@@ -27,12 +38,22 @@ const GoogleLogin = () => {
         console.error(error);
       } else {
         // 구글 로그인 성공 시에만 로그인 상태를 변경하고 모달을 닫음
+
         setIsLoggedIn(true); // 로그인 상태 업데이트
         setIsLoginOpen(false); // 로그인 모달창 닫기
 
-        const url = new URL(window.location.href);
-        const accessToken = url.searchParams.get("access_token");
-        console.log("Access Token:", accessToken);
+        // 현재 url 확인...?
+        // const url = new URL(window.location.href);
+        // const accessToken = url.searchParams.get("access_token");
+        // console.log("Access Token:", accessToken);
+
+        // sessionStorage에 저장?
+        // sessionStorage.setItem("email", data.);
+        // sessionStorage.setItem("nickname", data.user?.user_metadata.googleName);
+        // sessionStorage.setItem(
+        //   "profileImage",
+        //   data.user?.user_metadata.googleProfileImg
+        // );
 
         // alert("로그인 되었습니다.");
         getLoginUserInfo();
