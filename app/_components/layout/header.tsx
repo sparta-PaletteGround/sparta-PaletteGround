@@ -51,6 +51,7 @@ const HeaderNav = () => {
         googleProfileImg: null,
       });
     }
+    window.location.reload();
   };
 
   /** 로그인 안된 유저가 그림그리기 메뉴 클릭 시 */
