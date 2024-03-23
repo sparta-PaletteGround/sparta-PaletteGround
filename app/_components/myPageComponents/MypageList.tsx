@@ -3,12 +3,20 @@ import React, { useState } from 'react';
 import MyPageMyWrite from './MyPageMyWrite';
 import MyPageLikeList from './MyPageLikeList';
 import { useUserInfoStore } from '@/app/_store/authStore';
+import { useQuery } from '@tanstack/react-query';
+import { getLikes } from './myPageSupabase';
 
 const MypageList = () => {
   const [toggle, setToggle] = useState(true);
 
   const currentUserInfo = useUserInfoStore();
   const currentUserEmail = currentUserInfo.email;
+
+  const { data, isPending } = useQuery({
+    queryKey: ['countLikesNumber'],
+    queryFn: () => getLikes({ email: currentUserEmail }),
+    enabled: !!currentUserEmail,
+  });
 
   return (
     <>
@@ -32,7 +40,8 @@ const MypageList = () => {
           {toggle ? (
             <MyPageMyWrite currentUserEmail={currentUserEmail} />
           ) : (
-            <MyPageLikeList currentUserEmail={currentUserEmail} />
+            // <MyPageLikeList currentUserEmail={currentUserEmail} />
+            <MyPageLikeList data={data} isPending={isPending} />
           )}
         </div>
       </section>

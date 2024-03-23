@@ -30,7 +30,7 @@ const MyPageMyWrite = ({ currentUserEmail }: any) => {
             <div
               key={item.drawing_id}
               onClick={() => handleNavigate(item.drawing_id)}
-              className="w-84  flex flex-col bg-white items-center border-2 rounded-xl border-black cursor-pointer hover:scale-105 transition-transform ease-in-out"
+              className="w-84  flex flex-col bg-white items-center border-2 rounded-xl border-white cursor-pointer hover:scale-105 transition-transform ease-in-out"
             >
               {/* 이미지 */}
               <div className="w-4/5 h-52 table text-center ">
