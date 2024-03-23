@@ -45,3 +45,20 @@ export const uploadImage = async (img: any, filePath: any) => {
     return data;
   }
 };
+
+export const getPosts = async (payload: any) => {
+  const { email } = await payload;
+  const { data }: PostgrestSingleResponse<any[]> = await supabase
+    .from('posts')
+    .select('*')
+    .eq('painter_email', email);
+  return data;
+};
+export const getLikes = async (payload: any) => {
+  const { email } = await payload;
+  const { data }: PostgrestSingleResponse<any[]> = await supabase
+    .from('likes')
+    .select('*')
+    .eq('user_email', email);
+  return data;
+};
