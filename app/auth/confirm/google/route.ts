@@ -1,3 +1,7 @@
+import { useUserInfoStore } from "@/app/_store/authStore";
+import { parse } from "path";
+import { ParsedUrlQuery } from "querystring";
+
 export async function GET(req: Request) {
   /* 해결 안 되고 있는 로직... */
 
@@ -13,8 +17,26 @@ export async function GET(req: Request) {
 
   // 3. email을 확인하여 위 로직 실행한다...
 
-  console.log("GET /api/test"); // 터미널에서 확인 가능
-  console.log(req.url);
+  // console.log("GET /api/test"); // 터미널 콘솔 확인용...
+  // console.log(req.url);
+
+  // 현재 url 확인하기
+  // 요청 URL을 파싱하여 URL 객체로 변환
+  const parsedUrl = new URL(req.url || "");
+  console.log("parsedUrl", parsedUrl);
+
+  // 쿼리 문자열을 가져옴
+  const queryParams = parsedUrl.searchParams;
+  console.log("queryParams", queryParams);
+
+  // access_token 파라미터의 존재 여부 확인
+  const accessToken = queryParams.get("access_token");
+  const paramCheck = !!accessToken;
+  console.log(paramCheck); // access_token이 존재하면 true, 아니면 false
+
+  // access_token 파라미터의 존재 여부 확인
+  // const accessToken = queryParams.access_token;
+  // console.log(accessToken);
 
   // 현재 url을 확인하고 params를 가져오는 로직?
   // const urlParams = new URLSearchParams(req.url); // 요청의 URL에서 파라미터를 추출합니다.
@@ -34,7 +56,7 @@ export async function GET(req: Request) {
 // supabase에서 등록된 user 정보가 있는지 확인하고, 없다면 최초 로그인 시 user 정보 등록하기
 // => 등록만 완료되면 일반 로그인처럼 users Table의 회원정보 불러다 쓸 수 있음.
 
-// 이미 supabase에 등록한 로그인 정보 확인
+// // 이미 supabase에 등록한 로그인 정보 확인
 // const { data: existingUser, error: userError } = await supabase
 //   .from("users")
 //   .select("email")

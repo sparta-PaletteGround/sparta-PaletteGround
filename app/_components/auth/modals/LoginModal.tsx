@@ -1,17 +1,11 @@
 "use client";
 
 import { useAuthStore } from "@/app/_store/authStore";
+import { authClickBtn, authModalInput } from "@/app/_styles/authModalStyle";
 import { supabase } from "@/app/_utils/supabase/supabase";
 import { useState } from "react";
 import { getLoginUserInfo } from "../authInfo-api";
 import ModalComponent from "./ModalComponent";
-import GoogleLogin from "../GoogleLogin";
-import {
-  authClickBtn,
-  authModalInput,
-  socialAuthClickBtn,
-} from "@/app/_styles/authModalStyle";
-import KakaoLogin from "../KakaoLogin";
 
 const LoginModal = () => {
   const {
@@ -81,8 +75,8 @@ const LoginModal = () => {
           로그인하기
         </button>
       </form>
-      <GoogleLogin />
-      <KakaoLogin />
+      {/* <GoogleLogin />
+      <KakaoLogin /> */}
       <br />
       <div className="flex gap-2 absolute  bottom-4">
         <span className="text-zinc-400">아직 회원이 아니신가요?</span>

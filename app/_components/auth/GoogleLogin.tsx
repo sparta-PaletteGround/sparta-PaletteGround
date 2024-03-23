@@ -1,24 +1,13 @@
-import { useAuthStore } from "@/app/_store/authStore";
+import { useAuthStore, useUserInfoStore } from "@/app/_store/authStore";
 import { socialAuthClickBtn } from "@/app/_styles/authModalStyle";
 import { supabase } from "@/app/_utils/supabase/supabase";
 import googleLogo from "@/public/image/google.png";
 import Image from "next/image";
 import { getLoginUserInfo } from "./authInfo-api";
 
-// export interface urlProps {
-//   (
-//     option: string | URL | RequestOptions,
-//     callback?: ((res: IncomingMessage) => void) | undefined
-//   ): ClientRequest;
-//   (
-//     url: string | URL,
-//     option: RequestOptions,
-//     callback?: ((res: IncomingMessage) => void) | undefined
-//   ): ClientRequest;
-// }
-
 const GoogleLogin = () => {
   const { setIsLoggedIn, setIsLoginOpen } = useAuthStore();
+  const { email, googleName, googleProfileImg } = useUserInfoStore();
 
   //Google 로그인
   const handleGoogleLogin = async () => {
@@ -30,7 +19,7 @@ const GoogleLogin = () => {
             access_type: "offline",
             prompt: "consent",
           },
-          redirectTo: `http://localhost:3000/auth/confirm/google`,
+          // redirectTo: `http://localhost:3000/auth/confirm/google`,
         },
       });
 
@@ -41,6 +30,38 @@ const GoogleLogin = () => {
 
         setIsLoggedIn(true); // 로그인 상태 업데이트
         setIsLoginOpen(false); // 로그인 모달창 닫기
+
+        // // 이미 supabase에 등록한 로그인 정보 확인
+        // const { data: existingUser, error: userError } = await supabase
+        //   .from("users")
+        //   .select("email")
+        //   .eq("email", email)
+        //   .single();
+        // console.log("existingUser", existingUser);
+
+        // if (userError) {
+        //   console.error("구글 로그인 사용자 정보 조회 중 에러", userError);
+        //   alert("로그인 중 오류가 발생했습니다.");
+        //   return;
+        // }
+
+        // // 등록된 유저가 아닌 경우, 새로운 정보 저장
+        // if (!existingUser) {
+        // 구글 로그인한 유저 정보가 supabase에 없으면, 유저 정보 추가
+        const { error: insertError } = await supabase.from("users").insert([
+          {
+            email: email,
+            nickname: googleName,
+            profile_img: googleProfileImg,
+          },
+          // { onConflict: "email", ignoreDuplicates: true },
+        ]);
+        if (insertError) {
+          console.error("구글 로그인 정보 저장에 실패했습니다.", insertError);
+          alert("구글 로그인에 실패했습니다.");
+          return;
+        }
+        // }
 
         // 현재 url 확인...?
         // const url = new URL(window.location.href);
