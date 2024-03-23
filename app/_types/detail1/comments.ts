@@ -21,3 +21,5 @@ export interface UpdateCommentType {
 }
 
 export type DeleteCommentType = Omit<UpdateCommentType, "nextComment">;
+
+export type CommentOfPainter = Pick<Comment, "comment">;

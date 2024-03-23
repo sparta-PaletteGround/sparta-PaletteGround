@@ -3,6 +3,7 @@ import React from "react";
 import { BestPainterCard } from "@/app/_styles/bestPainterStyles";
 import { Posts } from "@/app/_types/detail1/posts";
 import { User } from "@/app/_types/myPageType";
+import Link from "next/link";
 
 const BestPainter = async ({ data }: { data: Posts[] }) => {
   /** users 테이블에서 모든 데이터 가져오기 */
@@ -47,10 +48,11 @@ const BestPainter = async ({ data }: { data: Posts[] }) => {
         </p>
         <div className="bg-PurplePale flex gap-2 rounded-xl p-1 justify-center">
           {bestUsersInfo.map((item) => (
-            <div
+            <Link
+              href={`/gallery/${item.id}`}
               style={BestPainterCard}
               key={item.email}
-              className="flex-col gap-2"
+              className="flex flex-col gap-2 items-center"
             >
               <img
                 src={item.profile_img}
@@ -60,7 +62,7 @@ const BestPainter = async ({ data }: { data: Posts[] }) => {
                 className="rounded-full"
               />
               <p>{item.nickname}</p>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
