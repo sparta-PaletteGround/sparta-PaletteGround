@@ -4,12 +4,12 @@ import React, { useRef, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getUser, updateUser, uploadImage } from './myPageSupabase';
 import Modal from './modals/Modal';
-import MypageNonAuth from './MypageNonAuth';
 import { useAuthStore, useUserInfoStore } from '@/app/_store/authStore';
 import { supabase } from '@/app/_utils/supabase/supabase';
+import MypageNonAuth from '@/app/_components/myPageComponents/MyPageNonAuth';
 
 const MypageUser = () => {
-  const [isOpenMidal, setIsOpenModal] = useState(false);
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
   const fileInputRef: React.MutableRefObject<any> = useRef(null);
 
@@ -153,7 +153,7 @@ const MypageUser = () => {
             </div>
           </section>
           {/* //모달섹션 */}
-          <Modal isVisible={isOpenMidal} onClose={() => setIsOpenModal(false)}>
+          <Modal isVisible={isOpenModal} onClose={() => setIsOpenModal(false)}>
             <div>
               <div className=" m-8 flex justify-center">
                 <img

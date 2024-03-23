@@ -1,6 +1,6 @@
 import React from 'react';
 import MypageUser from '../_components/myPageComponents/MypageUser';
-import MypageList from '../_components/myPageComponents/MypageList';
+import MypageList from '../_components/myPageComponents/MyPageList';
 
 const MyPage = () => {
   return (
