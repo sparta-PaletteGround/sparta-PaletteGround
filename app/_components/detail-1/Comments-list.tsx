@@ -3,7 +3,7 @@ import type { Comment } from "@/app/_types/detail1/comments";
 import CommentItem from "./Comments-Item";
 
 interface OwnProps {
-  commentsList: Comment[] | undefined;
+  commentsList: Comment[];
 }
 
 const CommentsList = ({ commentsList }: OwnProps) => {

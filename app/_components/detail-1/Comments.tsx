@@ -11,7 +11,7 @@ import {
 } from "../detail-api/comments-api";
 import CommentsList from "./Comments-list";
 
-import type { InsertingComment } from "@/app/_types/detail1/comments";
+import type { Comment, InsertingComment } from "@/app/_types/detail1/comments";
 
 const Comments = ({ drawingId }: { drawingId: number }) => {
   // 현재 로그인한 유저의 닉네임, email
@@ -20,6 +20,8 @@ const Comments = ({ drawingId }: { drawingId: number }) => {
   const setIsLoginOpen = useAuthStore((state) => state.setIsLoginOpen);
   const queryClient = useQueryClient();
 
+  // 정렬된 댓글 리스트 상태
+  const [sortedCommentsList, setSortedCommentsList] = useState<Comment[]>([]);
   const [comment, setComment] = useState("");
 
   // 댓글 리스트 가져오기
@@ -57,18 +59,17 @@ const Comments = ({ drawingId }: { drawingId: number }) => {
     },
   });
 
-  // 쿼리가 완료된 후에 commentsList를 날짜순으로 정렬, 리스트 업데이트(setQueryData)
+  // 쿼리로 가져온 commentsList를 날짜순으로 최신순 정렬
   useEffect(() => {
     if (commentsList && commentsList.length > 0) {
       const sortedList = commentsList.sort((a, b) => {
         const dateA = new Date(a.created_at);
         const dateB = new Date(b.created_at);
-        return dateB.getTime() - dateA.getTime(); // 최신순으로 정렬
+        return dateB.getTime() - dateA.getTime();
       });
-      // 정렬된 리스트를 업데이트
-      queryClient.setQueryData(["comments", { type: "list" }], sortedList);
+      setSortedCommentsList(sortedList);
     }
-  }, [commentsList, queryClient]);
+  }, [commentsList]);
 
   if (listIsLoading || countingIsLoading) {
     return <div>Loading...</div>;
@@ -123,7 +124,7 @@ const Comments = ({ drawingId }: { drawingId: number }) => {
           등록하기
         </button>
       </div>
-      <CommentsList commentsList={commentsList} />
+      <CommentsList commentsList={sortedCommentsList} />
     </>
   );
 };
