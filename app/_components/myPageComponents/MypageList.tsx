@@ -1,10 +1,10 @@
-'use client';
-import React, { useState } from 'react';
-import MyPageMyWrite from './MyPageMyWrite';
-import MyPageLikeList from './MyPageLikeList';
-import { useUserInfoStore } from '@/app/_store/authStore';
-import { useQuery } from '@tanstack/react-query';
-import { getLikes } from './myPageSupabase';
+"use client";
+import React, { useState } from "react";
+import MyPageMyWrite from "./MyPageMyWrite";
+import MyPageLikeList from "./MyPageLikeList";
+import { useUserInfoStore } from "@/app/_store/authStore";
+import { useQuery } from "@tanstack/react-query";
+import { getLikes } from "./myPageSupabase";
 
 const MypageList = () => {
   const [toggle, setToggle] = useState(true);
@@ -13,7 +13,7 @@ const MypageList = () => {
   const currentUserEmail: any = currentUserInfo.email;
 
   const { data, isPending } = useQuery({
-    queryKey: ['countLikesNumber'],
+    queryKey: ["countLikesNumber"],
     queryFn: () => getLikes({ email: currentUserEmail }),
     enabled: !!currentUserEmail,
   });
