@@ -43,7 +43,7 @@ const DrawingsByPainter = ({ post }: OwnProp) => {
       {/* 유저가 그린 그림 3 */}
       <div className="flex flex-col gap-2 min-h-[100px]">
         <p className="text-sm font-semibold">
-          🏆 {painterNickname}의 다른 그림
+          🏆 {painterNickname} 님의 다른 그림
         </p>
         <div className="w-60 min-h-16 flex gap-2 items-center">
           <div className="w-full h-full flex flex-wrap gap-2 ">

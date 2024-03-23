@@ -12,3 +12,15 @@ export const getUsers = async (): Promise<User[]> => {
 
   return data || [];
 };
+
+// 로그인한 유저의 profile 이미지 가져오기
+export const getProfileImg = async (email: string | null) => {
+  const { data: profileImg, error } = await supabase
+    .from("users")
+    .select("profile_img")
+    .eq("email", email);
+  if (error) {
+    throw error;
+  }
+  return profileImg;
+};
