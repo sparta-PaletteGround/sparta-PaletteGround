@@ -26,7 +26,6 @@ const LoggedIn = () => {
     return <div>Error</div>;
   }
   const profileImg = profileImgArray[0].profile_img;
-  console.log("profileImg", profileImg);
 
   /** 로그인한 유저가 로그아웃 클릭 시 */
   const handleOnClickLogout = async () => {
