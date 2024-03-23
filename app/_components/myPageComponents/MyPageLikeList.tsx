@@ -1,6 +1,6 @@
 import React from 'react';
 
-const MyPageLikeList = () => {
+const MyPageLikeList = ({ currentUserEmail }: any) => {
   return (
     <>
       <div className="w-84  flex flex-col bg-white items-center border-2 rounded-xl border-black cursor-pointer hover:scale-105 transition-transform ease-in-out">

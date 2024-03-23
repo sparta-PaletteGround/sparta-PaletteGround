@@ -2,9 +2,13 @@
 import React, { useState } from 'react';
 import MyPageMyWrite from './MyPageMyWrite';
 import MyPageLikeList from './MyPageLikeList';
+import { useUserInfoStore } from '@/app/_store/authStore';
 
 const MypageList = () => {
   const [toggle, setToggle] = useState(true);
+
+  const currentUserInfo = useUserInfoStore();
+  const currentUserEmail = currentUserInfo.email;
 
   return (
     <>
@@ -25,7 +29,11 @@ const MypageList = () => {
         </div>
         <div className="grid grid-cols-2 gap-10 ml-5 mr-5 mb-10 ">
           {/* 카드 */}
-          {toggle ? <MyPageMyWrite /> : <MyPageLikeList />}
+          {toggle ? (
+            <MyPageMyWrite currentUserEmail={currentUserEmail} />
+          ) : (
+            <MyPageLikeList currentUserEmail={currentUserEmail} />
+          )}
         </div>
       </section>
     </>
