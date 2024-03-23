@@ -10,7 +10,7 @@ const MypageList = () => {
   const [toggle, setToggle] = useState(true);
 
   const currentUserInfo = useUserInfoStore();
-  const currentUserEmail = currentUserInfo.email;
+  const currentUserEmail: any = currentUserInfo.email;
 
   const { data, isPending } = useQuery({
     queryKey: ['countLikesNumber'],
@@ -40,7 +40,6 @@ const MypageList = () => {
           {toggle ? (
             <MyPageMyWrite currentUserEmail={currentUserEmail} />
           ) : (
-            // <MyPageLikeList currentUserEmail={currentUserEmail} />
             <MyPageLikeList data={data} isPending={isPending} />
           )}
         </div>

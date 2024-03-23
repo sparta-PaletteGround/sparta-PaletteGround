@@ -4,13 +4,13 @@ import { useRouter } from 'next/navigation';
 const MyPageLikeList = ({ data, isPending }: any) => {
   const router = useRouter();
 
-  const handleNavigate = (id: number) => {
-    router.push(`detail/${id}`);
-  };
-
   if (isPending) {
     return <div>불러오는 중 ....</div>;
   }
+  const handleNavigate = (id: any) => {
+    router.push(`/detail/${id}`);
+  };
+  console.log(data);
 
   return (
     <>

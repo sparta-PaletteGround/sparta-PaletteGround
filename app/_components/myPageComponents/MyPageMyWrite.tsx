@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 
 const MyPageMyWrite = ({ currentUserEmail }: any) => {
   const router = useRouter();
-  const { data, isPending } = useQuery({
+  const { data, isPending }: any = useQuery({
     queryKey: ['posts'],
     queryFn: () => getPosts({ email: currentUserEmail }),
     enabled: !!currentUserEmail,
@@ -14,10 +14,10 @@ const MyPageMyWrite = ({ currentUserEmail }: any) => {
   if (isPending) {
     return <div>불러오는 중 ....</div>;
   }
-  const handleNavigate = (id: number) => {
-    router.push(`detail/${id}`);
+  const handleNavigate = (id: any) => {
+    router.push(`/detail/${id}`);
   };
-
+  console.log(data);
   return (
     <>
       {data?.length === 0 ? (
@@ -25,10 +25,10 @@ const MyPageMyWrite = ({ currentUserEmail }: any) => {
           <h1 className="font-bold text-2xl">아직 그린 그림이 없어요 . .</h1>
         </div>
       ) : (
-        data?.map((item) => {
+        data?.map((item: any, idx: any) => {
           return (
             <div
-              key={item.drawing_id}
+              key={idx}
               onClick={() => handleNavigate(item.drawing_id)}
               className="w-84  flex flex-col bg-white items-center border-2 rounded-xl border-white cursor-pointer hover:scale-105 transition-transform ease-in-out"
             >
