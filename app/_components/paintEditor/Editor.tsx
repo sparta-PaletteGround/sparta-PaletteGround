@@ -2,11 +2,15 @@
 
 import React, { useEffect, useState } from "react";
 import theme from "@/app/_constant/theme";
+import initialData from "./initialData";
 
 import { Excalidraw, exportToBlob } from "@excalidraw/excalidraw";
-import initialData from "./initialData";
 import { uploadImageToStorage } from "@/app/_api/uploadToStorage";
 import { ThemeImageStyle } from "@/app/_styles/imageStyles";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { supabase } from "@/app/_utils/supabase/supabase";
+import { useUserInfoStore } from "@/app/_store/authStore";
+import { useRouter } from "next/navigation";
 
 import type { ExcalidrawImperativeAPI } from "@excalidraw/excalidraw/types/types";
 import type { Posts } from "@/app/_types/detail1/posts";
@@ -15,10 +19,6 @@ import {
   SubmitBtn,
   TextAreaStyle,
 } from "@/app/_styles/editorPageStyles";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { supabase } from "@/app/_utils/supabase/supabase";
-import { useUserInfoStore } from "@/app/_store/authStore";
-import { useRouter } from "next/navigation";
 
 const Editor = () => {
   const [title, setTitle] = useState("");
@@ -55,8 +55,8 @@ const Editor = () => {
           alert(`서버 오류 발생! 잠시 후 다시 시도하세요.`);
           throw error;
         }
-        console.log(`게시글 등록 성공`, data);
-        return data;
+        const updatedPost = data[0] as Posts;
+        return updatedPost;
       } catch (error) {
         alert(`게시글 등록에 실패했습니다. 다시 시도하세요.`);
         throw error;
@@ -106,9 +106,9 @@ const Editor = () => {
         chooseTheme,
       };
       insertMutation.mutate(newPost, {
-        onSuccess: () => {
+        onSuccess: (updatedPost) => {
           queryClient.invalidateQueries({ queryKey: ["posts"] });
-          // router.push(`/detail/${id}`);
+          router.push(`/detail/${updatedPost.drawing_id}`);
         },
       });
     } catch (error) {
