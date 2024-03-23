@@ -33,7 +33,6 @@ const Latest = () => {
       new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
   );
   const latestPosts = sortedPosts.slice(0, 4);
-  // console.log("끼엥", latestPosts);
 
   const handleOnClickImg = () => {};
 
@@ -46,17 +45,18 @@ const Latest = () => {
             <div>등록된 드로잉이 아직 없습니다.</div>
           )}
           {latestPosts.map((item) => (
-            <div key={item.drawing_url} onClick={handleOnClickImg}>
-              <Link href={`/detail/${item.drawing_id}`}>
+            <Link key={item.drawing_url} href={`/detail/${item.drawing_id}`}>
+              <div onClick={handleOnClickImg}>
                 <Image
                   src={`https://pmduqgivaolwydqssren.supabase.co/storage/v1/object/public/drawings/${item.drawing_url}`}
                   alt="유저의 그림"
                   width={230}
                   height={230}
                   style={SmallSquareImageStyle}
+                  className="w-full h-full p-4 object-contain"
                 />
-              </Link>
-            </div>
+              </div>
+            </Link>
           ))}
         </div>
       </div>

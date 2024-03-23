@@ -17,7 +17,6 @@ const BestPainter = async ({ data }: { data: Posts[] }) => {
   const usersData: User[] = await response.json();
 
   /** posts로부터 가장 많이 작성한 유저 3명 뽑아내기 */
-
   const userCounts: { [email: string]: number } = {};
   data?.forEach((post) => {
     if (!post.painter_email) return;
@@ -41,7 +40,7 @@ const BestPainter = async ({ data }: { data: Posts[] }) => {
 
   return (
     <section className="flex flex-col items-center">
-      <div className="w-[1000px] mt-10 flex flex-col gap-2 mb-10">
+      <div className="w-[1000px] mt-20 flex flex-col gap-2 mb-10">
         <h1 className="text-large font-bold">👍🏼명예의 전당</h1>
         <p className="pl-6">
           Palette Ground에 가장 많은 그림을 남겨주신 우수회원을 소개합니다👏🏼👏🏼👏🏼
@@ -52,16 +51,17 @@ const BestPainter = async ({ data }: { data: Posts[] }) => {
               href={`/gallery/${item.id}`}
               style={BestPainterCard}
               key={item.email}
-              className="flex flex-col gap-2 items-center"
             >
-              <img
-                src={item.profile_img}
-                alt="사용자 이미지"
-                width="70"
-                height="70"
-                className="rounded-full"
-              />
-              <p>{item.nickname}</p>
+              <div className="flex flex-col gap-2 items-center">
+                <div className="w-[70px] h-[70px] bg-white rounded-full">
+                  <img
+                    src={item.profile_img}
+                    alt="사용자 이미지"
+                    className="w-full h-full rounded-full object-contain"
+                  />
+                </div>
+                <p>{item.nickname}</p>
+              </div>
             </Link>
           ))}
         </div>
