@@ -19,21 +19,22 @@ const DrawingPosts = ({ post }: PostsProps) => {
   });
 
   return (
-    <li className="bg-white relative w-[calc(33.33% - 16px)] h-[500px] p-4 m-4 rounded-2xl flex flex-col items-center">
-      <div className="flex flex-col justify-center">
-        <Link href={`/detail/${post.drawing_id}`}>
+    <li className="bg-white relative w-[calc(33.33% - 16px)] h-[430px] p-4 m-4 rounded-2xl flex flex-col items-center">
+      <Link href={`/detail/${post.drawing_id}`}>
+        <div className="flex flex-col justify-center w-[300px] h-[300px]">
           <Image
             src={`https://pmduqgivaolwydqssren.supabase.co/storage/v1/object/public/drawings/${post.drawing_url}`}
             alt="post image"
             width={300}
             height={300}
-            className="w-[300px]  p-4"
+            className="w-full h-full p-4"
+            style={{ objectFit: "contain" }}
           />
-        </Link>
-      </div>
-      <div className="flex flex-col items-center absolute fixed bottom-1 ">
-        <p className="text-xLarge p-4 font-medium ">{post.title}</p>
-        <time className="text-medium p-4  font-light">{formattedDate}</time>
+        </div>
+      </Link>
+      <div className="flex flex-col items-center absolute fixed bottom-1">
+        <p className="text-xLarge p-2 font-medium ">{post.title}</p>
+        <time className="text-medium p-2  font-light">{formattedDate}</time>
       </div>
     </li>
   );

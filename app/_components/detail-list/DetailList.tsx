@@ -5,6 +5,8 @@ import DrawingPosts from "./DrawingPosts";
 import { getAllPost } from "./posts-all-api";
 import { useQuery } from "@tanstack/react-query";
 import { Posts } from "@/app/_types/detail1/posts";
+import { ThemeImageStyle } from "@/app/_styles/imageStyles";
+import theme from "@/app/_constant/theme";
 
 const DetailList = () => {
   const [isTopicSelected, setIsTopicSelected] = useState(false);
@@ -80,6 +82,14 @@ const DetailList = () => {
           그림 모아보기
         </span>
       </div>
+      {isTopicSelected ? (
+        <div style={ThemeImageStyle} className="flex-col w-[1280px]">
+          <h1 className="text-xLarge font-bold">{theme.theme}</h1>
+          <p>{theme.description}</p>
+        </div>
+      ) : (
+        ""
+      )}
 
       <ul className="w-[1280px] rounded-xl m-4 flex flex-wrap justify-center ">
         {isTopicSelected
