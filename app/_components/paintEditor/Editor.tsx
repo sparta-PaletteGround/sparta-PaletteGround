@@ -108,7 +108,7 @@ const Editor = () => {
       insertMutation.mutate(newPost, {
         onSuccess: (updatedPost) => {
           queryClient.invalidateQueries({ queryKey: ["posts"] });
-          router.push(`/detail/${updatedPost.drawing_id}`);
+          router.replace(`/detail/${updatedPost.drawing_id}`);
         },
       });
     } catch (error) {
