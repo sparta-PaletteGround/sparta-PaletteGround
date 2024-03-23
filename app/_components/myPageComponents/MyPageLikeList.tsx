@@ -1,5 +1,5 @@
-import React from 'react';
-import { useRouter } from 'next/navigation';
+import React from "react";
+import { useRouter } from "next/navigation";
 
 const MyPageLikeList = ({ data, isPending }: any) => {
   const router = useRouter();
@@ -10,7 +10,6 @@ const MyPageLikeList = ({ data, isPending }: any) => {
   const handleNavigate = (id: any) => {
     router.push(`/detail/${id}`);
   };
-  console.log(data);
 
   return (
     <>
