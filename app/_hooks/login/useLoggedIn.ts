@@ -28,17 +28,11 @@ export const useLoggedIn = () => {
         });
 
         // data가 존재 시, 로그인 상태로 설정
-        console.log(
-          "사용자 정보가 있습니다. 사용자는 로그인했습니다.",
-          userInfo
-        );
+        console.log("사용자 정보가 있습니다. 사용자는 로그인했습니다.");
         setIsLoggedIn(true);
       } else {
         // data가 존재하지 않으면, 로그아웃 상태로 설정
-        console.log(
-          "사용자 정보가 없습니다. 사용자는 로그아웃했습니다.",
-          userInfo
-        );
+        console.log("사용자 정보가 없습니다. 사용자는 로그아웃했습니다.");
         setIsLoggedIn(false);
       }
     };
