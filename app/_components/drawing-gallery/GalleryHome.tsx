@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import DrawingsList from "./DrawingsList";
 import PainterInfo from "./PainterInfo";
 import { useParams } from "next/navigation";
@@ -14,7 +14,7 @@ const GalleryHome = () => {
 
   /** 선택한 유저의 user 데이터 불러오기 */
   const { data: userData, isLoading: loadingUser } = useQuery({
-    queryKey: ["user"],
+    queryKey: ["user", painterId],
     queryFn: async () => {
       const data = await getPainter(painterId);
       return data;
@@ -22,8 +22,12 @@ const GalleryHome = () => {
   });
 
   /** 해당 유저의 drawing 데이터 불러오기 */
-  const { data: drawingData, isLoading: loadingDrawings } = useQuery({
-    queryKey: ["drawings"],
+  const {
+    data: drawingData,
+    isLoading: loadingDrawings,
+    refetch,
+  } = useQuery({
+    queryKey: ["drawings", painterId],
     queryFn: async () => {
       if (!userData) return [];
       const data = await getDrawings(userData?.email);
@@ -31,6 +35,12 @@ const GalleryHome = () => {
     },
     enabled: !!userData,
   });
+
+  useEffect(() => {
+    if (!loadingUser && !loadingDrawings) {
+      refetch();
+    }
+  }, [painterId, loadingUser, loadingDrawings, refetch]);
 
   if (loadingUser || loadingDrawings) return <div>데이터 로드 중</div>;
   if (!userData || !drawingData)
