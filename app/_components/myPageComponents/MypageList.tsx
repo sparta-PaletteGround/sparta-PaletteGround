@@ -1,10 +1,10 @@
-'use client';
-import React, { useState } from 'react';
-import MyPageMyWrite from './MyPageMyWrite';
-import MyPageLikeList from './MyPageLikeList';
-import { useUserInfoStore } from '@/app/_store/authStore';
-import { useQuery } from '@tanstack/react-query';
-import { getLikes } from './myPageSupabase';
+"use client";
+import React, { useState } from "react";
+import MyPageMyWrite from "@/app/_components/myPageComponents/MyPageMyWrite";
+import MyPageLikeList from "./MyPageLikeList";
+import { useUserInfoStore } from "@/app/_store/authStore";
+import { useQuery } from "@tanstack/react-query";
+import { getLikes } from "./myPageSupabase";
 
 const MypageList = () => {
   const [toggle, setToggle] = useState(true);
@@ -13,7 +13,7 @@ const MypageList = () => {
   const currentUserEmail: any = currentUserInfo.email;
 
   const { data, isPending } = useQuery({
-    queryKey: ['countLikesNumber'],
+    queryKey: ["countLikesNumber"],
     queryFn: () => getLikes({ email: currentUserEmail }),
     enabled: !!currentUserEmail,
   });
@@ -23,13 +23,13 @@ const MypageList = () => {
       <section className="border-2 bg-PurpleLight rounded-lg w-[900px] ml-20 mt-36">
         <div className="flex gap-8 p-8 font-bold text-ml">
           <span
-            className="cursor-pointer bg-YellowDark border border-transparent rounded-lg p-1 hover:text-PurpleDark hover:scale-105 transition-transform ease-in-out"
+            className="cursor-pointer bg-YellowPale border border-transparent rounded-lg p-1 hover:text-yellow-600 hover:scale-105 transition-transform ease-in-out"
             onClick={() => setToggle(true)}
           >
             🖌️ 내 그림 목록
           </span>
           <span
-            className="cursor-pointer bg-YellowDark border border-transparent rounded-lg p-1 hover:text-PurpleDark hover:scale-105 transition-transform ease-in-out"
+            className="cursor-pointer bg-YellowPale border border-transparent rounded-lg p-1 hover:text-yellow-600 hover:scale-105 transition-transform ease-in-out"
             onClick={() => setToggle(false)}
           >
             🧡 좋아요한 그림 목록

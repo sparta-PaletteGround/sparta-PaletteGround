@@ -119,7 +119,7 @@ const Comments = ({ drawingId }: { drawingId: number }) => {
       <div className="flex justify-end">
         <button
           onClick={() => handleInsertComment(comment)}
-          className="bg-amber-500 w-14 h-6 text-sm rounded-md"
+          className="bg-orange-400 w-20 h-6 text-sm rounded-md"
         >
           등록하기
         </button>

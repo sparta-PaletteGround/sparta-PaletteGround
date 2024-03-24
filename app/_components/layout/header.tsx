@@ -38,7 +38,7 @@ const HeaderNav = () => {
   };
 
   return (
-    <section className="bg-PurpleDark min-h-40 flex justify-end items-center">
+    <section className="bg-PurpleDark min-h-40 flex justify-end items-center border-b">
       <div className="flex flex-col justify-center items-center p-5 gap-4 absolute left-1/2 transform -translate-x-1/2">
         <Link href="/">
           <Image src={Logo} alt="로고 이미지" width="200" />
@@ -58,16 +58,10 @@ const HeaderNav = () => {
         {!isLoggedIn ? (
           /* 로그인 하기 전 */
           <div className="flex items-center mr-10 gap-4">
-            <p
-              className="text-white cursor-pointer"
-              onClick={handleOnClickToLogin}
-            >
+            <p className="cursor-pointer" onClick={handleOnClickToLogin}>
               로그인
             </p>
-            <p
-              className="text-white cursor-pointer"
-              onClick={handleOnClickToSignUp}
-            >
+            <p className="cursor-pointer" onClick={handleOnClickToSignUp}>
               회원가입
             </p>
           </div>

@@ -49,7 +49,7 @@ const LoggedIn = () => {
   return (
     <>
       <div className="flex items-center mr-10 gap-4">
-        <p className="text-white cursor-pointer" onClick={handleOnClickLogout}>
+        <p className="cursor-pointer" onClick={handleOnClickLogout}>
           로그아웃
         </p>
         <Link href="/mypage">
