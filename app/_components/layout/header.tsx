@@ -38,7 +38,7 @@ const HeaderNav = () => {
   };
 
   return (
-    <section className="bg-PurpleDark min-h-40 flex justify-end items-center">
+    <section className="bg-PurpleDark min-h-40 flex justify-end items-center border-b">
       <div className="flex flex-col justify-center items-center p-5 gap-4 absolute left-1/2 transform -translate-x-1/2">
         <Link href="/">
           <Image src={Logo} alt="로고 이미지" width="200" />
