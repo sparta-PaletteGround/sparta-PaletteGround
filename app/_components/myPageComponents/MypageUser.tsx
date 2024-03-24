@@ -130,7 +130,7 @@ const MypageUser = () => {
           </div>
           <div className="flex flex-col gap-5 items-center">
             <div className="text-xl font-bold text-PurpleMedium">
-              {nickname} 페인터
+              {nickname} <span style={{ color: "#353535" }}>페인터님</span>
             </div>
             <div>
               <button
