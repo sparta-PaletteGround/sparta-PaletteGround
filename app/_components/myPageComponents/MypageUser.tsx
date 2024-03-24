@@ -134,7 +134,7 @@ const MypageUser = () => {
             </div>
             <div>
               <button
-                className="w-40 h-10 border-2 rounded-xl bg-PurpleDark text-PurplePale font-bold"
+                className="w-40 h-10 border-2 rounded-xl bg-PurpleMedium text-PurplePale font-bold"
                 onClick={() => setIsOpenModal(true)}
               >
                 정보 수정하기
@@ -170,7 +170,7 @@ const MypageUser = () => {
             />
             <div>
               <button
-                className="w-40 h-10 border-2 rounded-xl bg-PurpleDark text-PurplePale font-bold"
+                className="w-40 h-10 border-2 rounded-xl bg-PurpleMedium text-PurplePale font-bold"
                 onClick={handleUpdateSubmit}
               >
                 수정
