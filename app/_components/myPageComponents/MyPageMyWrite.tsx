@@ -2,9 +2,19 @@ import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { getPosts } from './myPageSupabase';
 import { useRouter } from 'next/navigation';
+import { useAuthStore } from '@/app/_store/authStore';
 
-const MyPageMyWrite = ({ currentUserEmail }: any) => {
+const MyPageMyWrite = ({ currentUserEmail }: { currentUserEmail: any }) => {
   const router = useRouter();
+
+  /** 로그인 상태인지 확인 */
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
+
+  if (!isLoggedIn) {
+    router.replace('/');
+    alert('로그인이 필요한 서비스 입니다.');
+  }
+
   const { data, isPending }: any = useQuery({
     queryKey: ['posts'],
     queryFn: () => getPosts({ email: currentUserEmail }),
