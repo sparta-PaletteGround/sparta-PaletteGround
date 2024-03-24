@@ -138,13 +138,13 @@ const CommentItem = ({ comment }: { comment: Comment }) => {
             <>
               <button
                 onClick={() => handleEditHandler(comment.id)}
-                className="bg-rose-100 w-10 h-6 rounded-md text-sm"
+                className="bg-orange-300 w-10 h-6 rounded-md text-sm"
               >
                 수정
               </button>
               <button
                 onClick={() => handleDeleteCancelHandler(comment.id)}
-                className="bg-gray-100 w-10 h-6 rounded-md text-sm"
+                className="bg-orange-400 w-10 h-6 rounded-md text-sm"
               >
                 삭제
               </button>
@@ -155,13 +155,13 @@ const CommentItem = ({ comment }: { comment: Comment }) => {
             <>
               <button
                 onClick={() => handleEditHandler(comment.id)}
-                className="bg-rose-100 w-16 h-6 rounded-md text-sm"
+                className="bg-orange-300 w-16 h-6 rounded-md text-sm"
               >
                 수정완료
               </button>
               <button
                 onClick={() => handleDeleteCancelHandler(comment.id)}
-                className="bg-gray-100 w-10 h-6 rounded-md text-sm"
+                className="bg-orange-400 w-10 h-6 rounded-md text-sm"
               >
                 취소
               </button>

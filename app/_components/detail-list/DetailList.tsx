@@ -64,7 +64,7 @@ const DetailList = () => {
 
   return (
     <div className="flex flex-col justify-center items-center">
-      <div className="bg-white p-1 m-4 h-10 rounded-full gap-4 flex items-center">
+      <div className="bg-PurpleMedium p-1 m-4 h-10 rounded-full gap-4 flex items-center">
         <span
           onClick={handleWeeklyTopicClick}
           className={
@@ -92,7 +92,7 @@ const DetailList = () => {
         ""
       )}
 
-      <ul className="w-[1280px] rounded-xl m-4 flex flex-wrap justify-center ">
+      <ul className="w-[1200px] rounded-xl mt-4 flex flex-wrap justify-center">
         {isTopicSelected
           ? postData?.map((post) => (
               <DrawingPosts key={post.drawing_id} post={post} />
