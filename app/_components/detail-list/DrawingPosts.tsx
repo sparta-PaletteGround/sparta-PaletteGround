@@ -19,7 +19,7 @@ const DrawingPosts = ({ post }: PostsProps) => {
   });
 
   return (
-    <li className="bg-white relative w-[calc(33.33% - 16px)] h-[430px] p-4 m-4 rounded-2xl flex flex-col items-center">
+    <li className="bg-white relative w-[calc(33.33% - 16px)] h-[430px] m-4 rounded-2xl flex flex-col items-center">
       <Link href={`/detail/${post.drawing_id}`}>
         <div className="flex flex-col justify-center w-[300px] h-[300px]">
           <Image

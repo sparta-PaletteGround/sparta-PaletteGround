@@ -27,10 +27,11 @@ const MyPageLikeList = ({ data, isPending }: any) => {
             >
               {/* 이미지 */}
               <div className="w-4/5 h-52 table text-center ">
-                <div className="table-cell align-middle ">
+                <div className="table-cell align-middle max-w-[320px] max-h-[320px]">
                   <img
-                    className="max-w-[320px] max-h-[320px] "
                     src={`https://pmduqgivaolwydqssren.supabase.co/storage/v1/object/public/drawings/${item.drawing_url}`}
+                    className="w-full h-full p-4"
+                    style={{ objectFit: "contain" }}
                   />
                 </div>
               </div>

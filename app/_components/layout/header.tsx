@@ -58,16 +58,10 @@ const HeaderNav = () => {
         {!isLoggedIn ? (
           /* 로그인 하기 전 */
           <div className="flex items-center mr-10 gap-4">
-            <p
-              className="text-white cursor-pointer"
-              onClick={handleOnClickToLogin}
-            >
+            <p className="cursor-pointer" onClick={handleOnClickToLogin}>
               로그인
             </p>
-            <p
-              className="text-white cursor-pointer"
-              onClick={handleOnClickToSignUp}
-            >
+            <p className="cursor-pointer" onClick={handleOnClickToSignUp}>
               회원가입
             </p>
           </div>
