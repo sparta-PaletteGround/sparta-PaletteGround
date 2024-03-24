@@ -82,10 +82,11 @@ const DetailList = () => {
           그림 모아보기
         </span>
       </div>
+
       {isTopicSelected ? (
-        <div style={ThemeImageStyle} className="flex-col w-[1280px]">
-          <h1 className="text-xLarge font-bold">{theme.theme}</h1>
-          <p>{theme.description}</p>
+        <div style={ThemeImageStyle} className="flex-col w-[1060px]">
+          <h1 className="text-xLarge font-bold text-white">{theme.theme}</h1>
+          <p className="text-white">{theme.description}</p>
         </div>
       ) : (
         ""
