@@ -7,6 +7,7 @@ import type { PostProps } from "@/app/_types/detail1/posts";
 
 import { countLikesNumber } from "../detail-api/likes-api";
 import Likes from "./Likes";
+import Link from "next/link";
 
 const Painter = ({ post, id }: PostProps) => {
   // 그림 작성자 nickname, profile_img, 그린 그림들 가져오기
@@ -55,14 +56,17 @@ const Painter = ({ post, id }: PostProps) => {
         <div className="w-[260px] min-h-[370px] flex flex-col justify-between bg-PurplePale p-4 rounded-md">
           {/* 프로필 이미지, 닉네임, 별 */}
           <div className=" flex items-center justify-between">
-            <div className="flex gap-2 items-center">
+            <Link
+              href={`/gallery/${painterInfo?.id}`}
+              className="flex gap-2 items-center"
+            >
               <img
                 className="w-10 object-cover rounded-full"
                 src={painterInfo?.profile_img}
                 alt=""
               />
               <p className="text-md font-semibold">{painterInfo?.nickname}</p>
-            </div>
+            </Link>
           </div>
           {/* 날짜, 제목, 설명, 댓글, 좋아요 수*/}
           <div className="flex flex-col my-4 gap-2">
