@@ -1,25 +1,25 @@
-'use client';
-import React, { useRef, useState } from 'react';
+"use client";
+import React, { useRef, useState } from "react";
 
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { getUser, updateUser, uploadImage } from './myPageSupabase';
-import Modal from './modals/Modal';
-import { useUserInfoStore } from '@/app/_store/authStore';
-import { supabase } from '@/app/_utils/supabase/supabase';
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { getUser, updateUser, uploadImage } from "./myPageSupabase";
+import Modal from "./modals/Modal";
+import { useUserInfoStore } from "@/app/_store/authStore";
+import { supabase } from "@/app/_utils/supabase/supabase";
 
 const MypageUser = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const fileInputRef: React.MutableRefObject<any> = useRef(null);
 
-  const [updateNickName, setUpdateNickName] = useState<any>('');
-  const [updateImage, setUpdateImage] = useState<any>('');
+  const [updateNickName, setUpdateNickName] = useState<any>("");
+  const [updateImage, setUpdateImage] = useState<any>("");
 
   const currentUserInfo = useUserInfoStore();
   const currentUserEmail = currentUserInfo.email;
 
   const { data, isPending } = useQuery({
-    queryKey: ['user'],
+    queryKey: ["user"],
     queryFn: () => getUser({ email: currentUserEmail }),
     enabled: !!currentUserEmail,
   });
@@ -29,7 +29,7 @@ const MypageUser = () => {
   const updateMutate = useMutation({
     mutationFn: updateUser,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['user'] });
+      queryClient.invalidateQueries({ queryKey: ["user"] });
     },
   });
 
@@ -62,14 +62,14 @@ const MypageUser = () => {
   const filePath = email + randomUUID;
   const handleUpdateSubmit = async () => {
     if (!updateNickName && !updateImage) {
-      return alert('변경 사항이 없습니다'), setIsOpenModal(false);
+      return alert("변경 사항이 없습니다"), setIsOpenModal(false);
     }
     //둘다 변경했을때
     if (updateNickName && updateImage) {
       const img = fileInputRef.current.files[0];
       const data: any = await uploadImage(img, filePath);
       const { data: createPublicUrl } = supabase.storage
-        .from('profileImage')
+        .from("profileImage")
         .getPublicUrl(data.path);
       const imageUrl = createPublicUrl.publicUrl;
       const updateData = {
@@ -78,22 +78,22 @@ const MypageUser = () => {
         email,
       };
       updateMutate.mutate(updateData);
-      alert('프로필 수정 완료!');
-      setUpdateImage('');
-      setUpdateNickName('');
+      alert("프로필 수정 완료!");
+      setUpdateImage("");
+      setUpdateNickName("");
       setIsOpenModal(false);
     }
     //닉네임만 변경했을때
     if (!updateImage) {
-      console.log('닉네임만 바뀜');
+      console.log("닉네임만 바뀜");
       const updateData = {
         nickname: updateNickName,
         email,
       };
       updateMutate.mutate(updateData);
-      alert('프로필 수정 완료!');
-      setUpdateImage('');
-      setUpdateNickName('');
+      alert("프로필 수정 완료!");
+      setUpdateImage("");
+      setUpdateNickName("");
       setIsOpenModal(false);
     }
     //이미지만 변경했을때
@@ -101,7 +101,7 @@ const MypageUser = () => {
       const img = fileInputRef.current.files[0];
       const data: any = await uploadImage(img, filePath);
       const { data: createPublicUrl } = supabase.storage
-        .from('profileImage')
+        .from("profileImage")
         .getPublicUrl(data.path);
       const imageUrl = createPublicUrl.publicUrl;
       const updateData = {
@@ -109,15 +109,15 @@ const MypageUser = () => {
         profile_img: imageUrl,
       };
       updateMutate.mutate(updateData);
-      alert('프로필 수정 완료!');
-      setUpdateImage('');
-      setUpdateNickName('');
+      alert("프로필 수정 완료!");
+      setUpdateImage("");
+      setUpdateNickName("");
       setIsOpenModal(false);
     }
   };
 
   return (
-    <>
+    <div>
       <h1 className="mt-24 ml-20 text-2xl font-bold">💘 마이페이지</h1>
       <section className="border-2 bg-PurpleLight rounded-lg w-96 h-96 ml-20 mt-4">
         <div>
@@ -165,7 +165,7 @@ const MypageUser = () => {
               type="file"
               accept="image/*"
               ref={fileInputRef}
-              style={{ display: 'none' }}
+              style={{ display: "none" }}
               onChange={handleFileChange}
             />
             <div>
@@ -179,7 +179,7 @@ const MypageUser = () => {
           </div>
         </div>
       </Modal>
-    </>
+    </div>
   );
 };
 
