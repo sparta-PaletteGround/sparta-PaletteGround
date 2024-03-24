@@ -31,7 +31,7 @@
 
 - **Environment :** vscode, github
 - **Development :** Next.js, Typescript
-- **Database :** Supabase Firestore, Supabase Storage
+- **Database :** Supabase Database, Supabase Storage
 - **Library :** react-icons, <span style="color:red">각자 사용한 라이브러리 추가</span>
 - **Design :** Figma
 - **Login :** Supabase Authentication
