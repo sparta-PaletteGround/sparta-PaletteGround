@@ -20,6 +20,6 @@ export interface UpdateCommentType {
   nextComment: string;
 }
 
-export type DeleteCommentType = Omit<UpdateCommentType, "nextComment">;
+export type DeleteCommentType = Omit<UpdateCommentType, 'nextComment'>;
 
-export type CommentOfPainter = Pick<Comment, "comment">;
+export type CommentOfPainter = Pick<Comment, 'comment'>;

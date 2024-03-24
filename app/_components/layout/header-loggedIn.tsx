@@ -1,8 +1,8 @@
-import { getProfileImg } from "@/app/_api/getUsers";
-import { useAuthStore, useUserInfoStore } from "@/app/_store/authStore";
-import { supabase } from "@/app/_utils/supabase/supabase";
-import { useQuery } from "@tanstack/react-query";
-import Link from "next/link";
+import { getProfileImg } from '@/app/_api/getUsers';
+import { useAuthStore, useUserInfoStore } from '@/app/_store/authStore';
+import { supabase } from '@/app/_utils/supabase/supabase';
+import { useQuery } from '@tanstack/react-query';
+import Link from 'next/link';
 
 const LoggedIn = () => {
   const { setIsLoggedIn } = useAuthStore();
@@ -14,7 +14,7 @@ const LoggedIn = () => {
     isPending,
     isError,
   } = useQuery({
-    queryKey: ["user", { type: "profileImg" }],
+    queryKey: ['user', { type: 'profileImg' }],
     queryFn: () => getProfileImg(email),
     enabled: !!email,
   });
@@ -32,8 +32,8 @@ const LoggedIn = () => {
     const { error } = await supabase.auth.signOut();
 
     if (!error) {
-      alert("로그아웃 되었습니다.");
-      sessionStorage.removeItem("isLoggedIn");
+      alert('로그아웃 되었습니다.');
+      sessionStorage.removeItem('isLoggedIn');
       setIsLoggedIn(false);
       setUser({
         email: null,

@@ -1,8 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { getPosts } from './myPageSupabase';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/app/_store/authStore';
+import Link from 'next/link';
 
 const MyPageMyWrite = ({ currentUserEmail }: { currentUserEmail: any }) => {
   const router = useRouter();
@@ -10,10 +11,13 @@ const MyPageMyWrite = ({ currentUserEmail }: { currentUserEmail: any }) => {
   /** 로그인 상태인지 확인 */
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
 
-  if (!isLoggedIn) {
-    router.replace('/');
-    alert('로그인이 필요한 서비스 입니다.');
-  }
+  useEffect(() => {
+    if (!isLoggedIn) {
+      router.replace('/');
+      alert('로그인이 필요한 서비스 입니다.');
+      return;
+    }
+  }, []);
 
   const { data, isPending }: any = useQuery({
     queryKey: ['posts'],
@@ -24,9 +28,9 @@ const MyPageMyWrite = ({ currentUserEmail }: { currentUserEmail: any }) => {
   if (isPending) {
     return <div>불러오는 중 ....</div>;
   }
-  const handleNavigate = (id: any) => {
-    router.push(`/detail/${id}`);
-  };
+  // const handleNavigate = (id: any) => {
+  //   router.push(`/detail/${id}`);
+  // };
 
   return (
     <>
@@ -37,9 +41,9 @@ const MyPageMyWrite = ({ currentUserEmail }: { currentUserEmail: any }) => {
       ) : (
         data?.map((item: any, idx: any) => {
           return (
-            <div
+            <Link
+              href={`/detail/${item.drawing_id}`}
               key={idx}
-              onClick={() => handleNavigate(item.drawing_id)}
               className="w-84  flex flex-col bg-white items-center border-2 rounded-xl border-white cursor-pointer hover:scale-105 transition-transform ease-in-out"
             >
               {/* 이미지 */}
@@ -59,7 +63,7 @@ const MyPageMyWrite = ({ currentUserEmail }: { currentUserEmail: any }) => {
                   {item.description}
                 </span>
               </div>
-            </div>
+            </Link>
           );
         })
       )}
