@@ -1,29 +1,29 @@
-"use client";
+'use client';
 
-import React, { useEffect, useState } from "react";
-import theme from "@/app/_constant/theme";
-import initialData from "./initialData";
+import React, { useEffect, useState } from 'react';
+import theme from '@/app/_constant/theme';
+import initialData from './initialData';
 
-import { Excalidraw, exportToBlob } from "@excalidraw/excalidraw";
-import { uploadImageToStorage } from "@/app/_api/uploadToStorage";
-import { ThemeImageStyle } from "@/app/_styles/imageStyles";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { supabase } from "@/app/_utils/supabase/supabase";
-import { useUserInfoStore } from "@/app/_store/authStore";
-import { useRouter } from "next/navigation";
+import { Excalidraw, exportToBlob } from '@excalidraw/excalidraw';
+import { uploadImageToStorage } from '@/app/_api/uploadToStorage';
+import { ThemeImageStyle } from '@/app/_styles/imageStyles';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { supabase } from '@/app/_utils/supabase/supabase';
+import { useUserInfoStore } from '@/app/_store/authStore';
+import { useRouter } from 'next/navigation';
 
-import type { ExcalidrawImperativeAPI } from "@excalidraw/excalidraw/types/types";
-import type { Posts } from "@/app/_types/detail1/posts";
+import type { ExcalidrawImperativeAPI } from '@excalidraw/excalidraw/types/types';
+import type { Posts } from '@/app/_types/detail1/posts';
 import {
   InputStyle,
   SubmitBtn,
   TextAreaStyle,
-} from "@/app/_styles/editorPageStyles";
+} from '@/app/_styles/editorPageStyles';
 
 const Editor = () => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [chooseTheme, setChooseTheme] = useState("weeklyTheme");
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [chooseTheme, setChooseTheme] = useState('weeklyTheme');
 
   const [excalidrawAPI, setExcalidrawAPI] =
     useState<ExcalidrawImperativeAPI | null>(null);
@@ -37,8 +37,8 @@ const Editor = () => {
   /** 로그인 안된 유저가 페이지에 접근 시 */
   useEffect(() => {
     if (currentUserInfo.email === null) {
-      alert("로그인 후 이용할 수 있는 서비스입니다.");
-      router.replace("/");
+      alert('로그인 후 이용할 수 있는 서비스입니다.');
+      router.replace('/');
     }
   }, [currentUserInfo]);
 
@@ -47,7 +47,7 @@ const Editor = () => {
     mutationFn: async (newPost: Posts) => {
       try {
         const { data, error } = await supabase
-          .from("posts")
+          .from('posts')
           .insert([newPost])
           .select();
 
@@ -78,20 +78,20 @@ const Editor = () => {
       const fileName = `image_${timestamp}.png`;
 
       const blob = await exportToBlob({
-        elements: excalidrawAPI?.getSceneElements(),
-        mimeType: "image/png",
+        elements: excalidrawAPI.getSceneElements(),
+        mimeType: 'image/png',
         appState: {
           ...initialData.appState,
         },
         files: excalidrawAPI.getFiles(),
       });
-      const file = new File([blob], "name");
+      const file = new File([blob], 'name');
       const imgUrl: string | unknown = await uploadImageToStorage(
         file,
         fileName
       );
 
-      if (typeof imgUrl !== "string") {
+      if (typeof imgUrl !== 'string') {
         console.error(`이미지 URL이 유효하지 않습니다.`);
         return;
       }
@@ -107,7 +107,7 @@ const Editor = () => {
       };
       insertMutation.mutate(newPost, {
         onSuccess: (updatedPost) => {
-          queryClient.invalidateQueries({ queryKey: ["posts"] });
+          queryClient.invalidateQueries({ queryKey: ['posts'] });
           router.replace(`/detail/${updatedPost.drawing_id}`);
         },
       });
@@ -152,20 +152,20 @@ const Editor = () => {
               <input
                 type="radio"
                 name="theme"
-                checked={chooseTheme === "weeklyTheme"}
+                checked={chooseTheme === 'weeklyTheme'}
                 onChange={(e) => setChooseTheme(e.target.value)}
                 value="weeklyTheme"
-              />{" "}
+              />{' '}
               이번주 주제
             </label>
             <label>
               <input
                 type="radio"
                 name="theme"
-                checked={chooseTheme === "freeTheme"}
+                checked={chooseTheme === 'freeTheme'}
                 onChange={(e) => setChooseTheme(e.target.value)}
                 value="freeTheme"
-              />{" "}
+              />{' '}
               자유 주제
             </label>
           </div>

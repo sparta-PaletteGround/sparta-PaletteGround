@@ -6,6 +6,7 @@ import { supabase } from "@/app/_utils/supabase/supabase";
 import { useState } from "react";
 import { getLoginUserInfo } from "../authInfo-api";
 import ModalComponent from "./ModalComponent";
+import GoogleLogin from "../GoogleLogin";
 
 const LoginModal = () => {
   const {
@@ -34,6 +35,7 @@ const LoginModal = () => {
         console.error(error.message);
         alert("로그인에 실패하였습니다. 이메일과 비밀번호를 확인해주세요.");
       } else {
+        sessionStorage.setItem("isLoggedIn", "true"); // 로그인 정보 저장
         setIsLoggedIn(true); // 로그인 상태 업데이트
         setIsLoginOpen(false); // 로그인 모달창 닫기
 
@@ -75,8 +77,8 @@ const LoginModal = () => {
           로그인하기
         </button>
       </form>
-      {/* <GoogleLogin />
-      <KakaoLogin /> */}
+      {/* <GoogleLogin /> */}
+      {/* <KakaoLogin />  */}
       <br />
       <div className="flex gap-2 absolute  bottom-4">
         <span className="text-zinc-400">아직 회원이 아니신가요?</span>

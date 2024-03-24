@@ -22,7 +22,7 @@ const Painter = ({ post, id }: PostProps) => {
 
   // 좋아요수 가져오기
   const {
-    data: likesNumber,
+    data: likesNumberArray,
     isLoading: countLikesLoading,
     isError: countLikesError,
   } = useQuery({
@@ -38,6 +38,7 @@ const Painter = ({ post, id }: PostProps) => {
   }
 
   const painterInfo = painterInfoArray[0];
+  const likesNumber = likesNumberArray?.length;
 
   // 날짜 형식 변환
   const inputDate = post.created_at;
