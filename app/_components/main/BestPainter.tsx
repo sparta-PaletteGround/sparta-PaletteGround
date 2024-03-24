@@ -1,20 +1,35 @@
-import Image from "next/image";
-import React from "react";
-import { BestPainterCard } from "@/app/_styles/bestPainterStyles";
-import { Posts } from "@/app/_types/detail1/posts";
-import { User } from "@/app/_types/myPageType";
-import Link from "next/link";
+"use client";
 
-const BestPainter = async ({ data }: { data: Posts[] }) => {
+import React from "react";
+import Link from "next/link";
+import { BestPainterCard } from "@/app/_styles/bestPainterStyles";
+import { useQuery } from "@tanstack/react-query";
+import { getUsers } from "@/app/_api/getUsers";
+
+import type { Posts } from "@/app/_types/detail1/posts";
+import type { User } from "@/app/_types/myPageType";
+
+const BestPainter = ({ data }: { data: Posts[] }) => {
   /** users 테이블에서 모든 데이터 가져오기 */
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/users`,
-    {
-      next: { revalidate: 10 },
-      headers: { apikey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY! },
-    }
-  );
-  const usersData: User[] = await response.json();
+  const {
+    data: usersData,
+    isLoading,
+    isError,
+  } = useQuery<User[], Error>({
+    queryKey: ["users"],
+    queryFn: async () => {
+      try {
+        const postData = await getUsers();
+        return postData;
+      } catch (error) {
+        return [];
+      }
+    },
+  });
+
+  if (isLoading) return <div>데이터 로드 중...</div>;
+  if (isError) return <div>데이터 로드 실패</div>;
+  if (!usersData) return;
 
   /** posts로부터 가장 많이 작성한 유저 3명 뽑아내기 */
   const userCounts: { [email: string]: number } = {};
