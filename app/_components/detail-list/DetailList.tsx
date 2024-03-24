@@ -84,7 +84,7 @@ const DetailList = () => {
       </div>
 
       {isTopicSelected ? (
-        <div style={ThemeImageStyle} className="flex-col w-[1060px]">
+        <div style={ThemeImageStyle} className="flex-col w-[965px]">
           <h1 className="text-xLarge font-bold text-white">{theme.theme}</h1>
           <p className="text-white">{theme.description}</p>
         </div>

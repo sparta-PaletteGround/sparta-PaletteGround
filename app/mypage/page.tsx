@@ -1,10 +1,10 @@
-import React from 'react';
-import MypageUser from '@/app/_components/myPageComponents/MypageUser';
-import MypageList from '@/app/_components/myPageComponents/MypageList';
+import React from "react";
+import MypageUser from "@/app/_components/myPageComponents/MypageUser";
+import MypageList from "@/app/_components/myPageComponents/MypageList";
 
 const MyPage = () => {
   return (
-    <div className="flex">
+    <div className="flex justify-center">
       <div>
         <MypageUser />
       </div>
