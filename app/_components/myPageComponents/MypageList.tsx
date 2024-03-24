@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import MyPageMyWrite from './MyPageMyWrite';
+import MyPageMyWrite from '@/app/_components/myPageComponents/MyPageMyWrite';
 import MyPageLikeList from './MyPageLikeList';
 import { useUserInfoStore } from '@/app/_store/authStore';
 import { useQuery } from '@tanstack/react-query';
