@@ -8,7 +8,7 @@ export const SquareImageStyle = {
 export const ThemeImageStyle = {
   height: "100px",
   borderRadius: "12px",
-  backgroundImage: "url('/image/exampleBg.jpg')",
+  backgroundImage: "url('/image/space-bg.png')",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
