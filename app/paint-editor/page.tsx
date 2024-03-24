@@ -1,5 +1,4 @@
-import React from "react";
-import Editor from "../_components/paintEditor/Editor";
+import Editor from '../_components/paintEditor/Editor';
 
 const PaintEditorPage = () => {
   return (
@@ -8,5 +7,5 @@ const PaintEditorPage = () => {
     </section>
   );
 };
-
+export const dynamic = 'force-dynamic';
 export default PaintEditorPage;

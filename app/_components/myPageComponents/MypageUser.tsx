@@ -140,10 +140,6 @@ const MypageUser = () => {
                 정보 수정하기
               </button>
             </div>
-            <div className="flex gap-28 text-lg">
-              <span>PT. 3600</span>
-              <span>LV. 3</span>
-            </div>
           </div>
         </div>
       </section>
