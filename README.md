@@ -14,6 +14,8 @@
 
 **배포 주소** : [https://sparta-palette-ground.vercel.app/](https://sparta-palette-ground.vercel.app/)
 
+**시연 영상** : [https://www.youtube.com/watch?v=TIUmCLkQHmE](https://www.youtube.com/watch?v=TIUmCLkQHmE)
+
 <br>
 
 ### 🔽 **팀원 소개**
