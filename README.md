@@ -12,7 +12,7 @@
 
 **프로젝트 소개** : 매주 새롭게 달라지는 주제로 그림을 그리고 공유하며 소통을 하는 커뮤니티 웹사이트입니다.
 
-**배포 주소** : <span style="color : red">"배포 주소 넣기"</span>
+**배포 주소** : <span style="color : red">https://sparta-palette-ground.vercel.app/</span>
 
 <br>
 
