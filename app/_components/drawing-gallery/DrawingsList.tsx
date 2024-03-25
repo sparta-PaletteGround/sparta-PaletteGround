@@ -10,7 +10,7 @@ const DrawingsList = ({ drawingData }: { drawingData: Posts[] }) => {
         {drawingData.map((item) => (
           <div className="flex flex-col gap-5" key={item.drawing_id}>
             <Link href={`/detail/${item.drawing_id}`}>
-              <div className="w-[300px] h-[300px] bg-white rounded-xl flex flex-col">
+              <div className="w-[300px] h-[300px] bg-white shadow-lg rounded-xl flex flex-col">
                 <Image
                   src={`https://pmduqgivaolwydqssren.supabase.co/storage/v1/object/public/drawings/${item.drawing_url}`}
                   width={300}

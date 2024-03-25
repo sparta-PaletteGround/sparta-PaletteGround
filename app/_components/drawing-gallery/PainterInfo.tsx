@@ -28,13 +28,14 @@ const PainterInfo = ({
 
   return (
     <section className="w-[700px] h-[100px] flex p-5 gap-5 justify-center">
-      <div>
+      <div className="w-[70px] h-[70px] bg-white rounded-full">
         <img
           src={userData?.profile_img}
           alt="프로필 이미지"
           width={60}
           height={60}
           style={{ borderRadius: "50%" }}
+          className="w-full h-full rounded-full object-contain"
         />
       </div>
       <div className="flex items-center font-bold text-xLarge">
