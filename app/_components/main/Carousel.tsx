@@ -69,6 +69,7 @@ const Carousel = ({
                 style={SquareImageStyle}
                 width={250}
                 height={250}
+                className="object-contain p-4 bg-white"
               />
               <div className="flex pt-5 pb-5 font-bold text-large">
                 🎨{item.title}
