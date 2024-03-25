@@ -26,7 +26,7 @@ const MyPageLikeList = ({ data, isPending }: any) => {
               className="w-84  flex flex-col bg-white items-center border-2 rounded-xl border-white cursor-pointer hover:scale-105 transition-transform ease-in-out"
             >
               {/* 이미지 */}
-              <div className="w-4/5 h-52 table text-center ">
+              <div className="w-4/5  table text-center ">
                 <div className="table-cell align-middle max-w-[320px] max-h-[320px]">
                   <img
                     src={`https://pmduqgivaolwydqssren.supabase.co/storage/v1/object/public/drawings/${item.drawing_url}`}
@@ -34,6 +34,14 @@ const MyPageLikeList = ({ data, isPending }: any) => {
                     style={{ objectFit: "contain" }}
                   />
                 </div>
+              </div>
+              <div className="flex flex-col text-center p-2 gap-1">
+                <span className="font-bold text-xl text-PurpleMedium ">
+                  {item.title}
+                </span>
+                <span className="text-ml text-PurpleLight">
+                  {item.description}
+                </span>
               </div>
             </div>
           );

@@ -35,7 +35,7 @@ const LoginModal = () => {
         console.error(error.message);
         alert("로그인에 실패하였습니다. 이메일과 비밀번호를 확인해주세요.");
       } else {
-        sessionStorage.setItem("isLoggedIn", "true"); // 로그인 정보 저장
+        // sessionStorage.setItem("isLoggedIn", "true"); // 로그인 정보 저장
         setIsLoggedIn(true); // 로그인 상태 업데이트
         setIsLoginOpen(false); // 로그인 모달창 닫기
 

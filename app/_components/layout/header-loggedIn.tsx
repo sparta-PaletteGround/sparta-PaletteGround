@@ -33,7 +33,7 @@ const LoggedIn = () => {
 
     if (!error) {
       alert("로그아웃 되었습니다.");
-      sessionStorage.removeItem("isLoggedIn");
+      // sessionStorage.removeItem("isLoggedIn");
       setIsLoggedIn(false);
       setUser({
         email: null,
