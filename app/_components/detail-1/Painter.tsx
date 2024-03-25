@@ -56,23 +56,24 @@ const Painter = ({ post, id }: PostProps) => {
       <div>
         <div className="w-[260px] min-h-[370px] flex flex-col justify-between bg-PurplePale p-4 rounded-md">
           {/* 프로필 이미지, 닉네임, 별 */}
-          <div className=" flex items-center justify-between">
-            <Link
-              href={`/gallery/${painterInfo?.id}`}
-              className="flex gap-2 items-center"
-            >
+          <Link
+            href={`/gallery/${painterInfo?.id}`}
+            className="flex items-center gap-2"
+          >
+            <div className="w-[50px] h-[50px] bg-white rounded-full">
               <img
-                className="w-10 object-cover rounded-full"
+                className="w-full h-full rounded-full object-contain"
                 src={painterInfo?.profile_img}
                 alt=""
               />
-              <p className="text-md font-semibold">{painterInfo?.nickname}</p>
-            </Link>
-          </div>
+            </div>
+            <p className="text-md font-semibold">{painterInfo?.nickname}</p>
+          </Link>
           {/* 날짜, 제목, 설명, 댓글, 좋아요 수*/}
           <div className="flex flex-col my-4 gap-2">
-            <p className="mb-3 text-sm">날짜 : {formattedDate}</p>
-            <p className="text-md font-semibold">제목 : {post.title}</p>
+            <p className="text-sm">날짜 : {formattedDate}</p>
+            <div className="h-[1px] bg-gray-300" />
+            <p className="text-md font-semibold mt-2">제목 : {post.title}</p>
             <p className="text-sm">설명 : {post.description}</p>
             <div className="flex gap-2 items-center mt-7 ">
               <Likes id={id} post={post} />
@@ -84,6 +85,7 @@ const Painter = ({ post, id }: PostProps) => {
               </p>
             </div>
           </div>
+          <div className="h-[1px] bg-gray-300" />
           {/* 유저가 그린 그림 Best 3 */}
           <DrawingsByPainter post={post} />
         </div>
