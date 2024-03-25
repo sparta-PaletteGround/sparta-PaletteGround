@@ -129,8 +129,8 @@ const Editor = () => {
           className="flex flex-col items-center justify-center"
           style={ThemeImageStyle}
         >
-          <span>이번주 주제</span>
-          <span className="text-large font-bold">{theme.theme}</span>
+          <span className="text-white">이번주 주제</span>
+          <span className="text-large font-bold text-white">{theme.theme}</span>
         </div>
         <form className="flex flex-col gap-3">
           <input
