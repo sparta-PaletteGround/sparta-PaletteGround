@@ -224,7 +224,7 @@ yarn start
 
 | <div style="text-align:center">**마이 페이지**</div> |
 | ---------------------------------------------------- |
-| ![image](/public/image/pages/mypage.png)             |
+| ![image](/public/image/pages/mypage.jpg)             |
 
 ### 6-1. 유저 프로필 변경
 
