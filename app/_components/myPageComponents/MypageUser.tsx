@@ -117,7 +117,7 @@ const MypageUser = () => {
   };
 
   return (
-    <>
+    <div>
       <h1 className="mt-24 ml-20 text-2xl font-bold">💘 마이페이지</h1>
       <section className="border-2 bg-PurpleLight rounded-lg w-96 h-96 ml-20 mt-4">
         <div>
@@ -130,7 +130,7 @@ const MypageUser = () => {
           </div>
           <div className="flex flex-col gap-5 items-center">
             <div className="text-xl font-bold text-PurpleMedium">
-              {nickname} 페인터
+              {nickname} <span style={{ color: "#353535" }}>페인터님</span>
             </div>
             <div>
               <button
@@ -179,7 +179,7 @@ const MypageUser = () => {
           </div>
         </div>
       </Modal>
-    </>
+    </div>
   );
 };
 

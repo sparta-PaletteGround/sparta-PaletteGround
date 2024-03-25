@@ -1,9 +1,9 @@
-import { useQuery } from '@tanstack/react-query';
-import React, { useEffect } from 'react';
-import { getPosts } from './myPageSupabase';
-import { useRouter } from 'next/navigation';
-import { useAuthStore } from '@/app/_store/authStore';
-import Link from 'next/link';
+import { useQuery } from "@tanstack/react-query";
+import React, { useEffect } from "react";
+import { getPosts } from "./myPageSupabase";
+import { useRouter } from "next/navigation";
+import { useAuthStore } from "@/app/_store/authStore";
+import Link from "next/link";
 
 const MyPageMyWrite = ({ currentUserEmail }: { currentUserEmail: any }) => {
   const router = useRouter();
@@ -13,14 +13,14 @@ const MyPageMyWrite = ({ currentUserEmail }: { currentUserEmail: any }) => {
 
   useEffect(() => {
     if (!isLoggedIn) {
-      router.replace('/');
-      alert('로그인이 필요한 서비스 입니다.');
+      router.replace("/");
+      alert("로그인이 필요한 서비스 입니다.");
       return;
     }
   }, []);
 
   const { data, isPending }: any = useQuery({
-    queryKey: ['posts'],
+    queryKey: ["posts"],
     queryFn: () => getPosts({ email: currentUserEmail }),
     enabled: !!currentUserEmail,
   });
@@ -47,10 +47,11 @@ const MyPageMyWrite = ({ currentUserEmail }: { currentUserEmail: any }) => {
               className="w-84  flex flex-col bg-white items-center border-2 rounded-xl border-white cursor-pointer hover:scale-105 transition-transform ease-in-out"
             >
               {/* 이미지 */}
-              <div className="w-4/5 h-52 table text-center ">
-                <div className="table-cell align-middle ">
+              <div className="w-4/5  table text-center ">
+                <div className="table-cell align-middle max-w-[320px] max-h-[320px] ">
                   <img
-                    className="max-w-[320px] max-h-[320px] "
+                    className="w-full h-full p-4"
+                    style={{ objectFit: "contain" }}
                     src={`https://pmduqgivaolwydqssren.supabase.co/storage/v1/object/public/drawings/${item.drawing_url}`}
                   />
                 </div>
