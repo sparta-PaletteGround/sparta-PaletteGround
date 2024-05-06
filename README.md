@@ -33,7 +33,7 @@
 
 - **Environment :** vscode, github
 - **Development :** Next.js, Typescript
-- **Database :** Supabase Firestore, Supabase Storage
+- **Database :** Supabase DB, Supabase Storage
 - **Library :** react-icons, zustand, excalidraw, react-slick, @tanstack/react-query
 - **Design :** Figma
 - **Login :** Supabase Authentication
